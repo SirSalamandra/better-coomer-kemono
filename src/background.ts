@@ -8,6 +8,12 @@ import { Post } from "./types/Post";
 
 const db = IndexedDbManager.getInstance();
 
+db.init().then(() => {
+  console.log("Database initialized in background script.");
+}).catch((error) => {
+  console.error("Failed to initialize database in background script:", error);
+});
+
 if (typeof browser === "undefined") {
   //@ts-ignore
   globalThis.browser = chrome;
@@ -15,11 +21,6 @@ if (typeof browser === "undefined") {
 
 browser.runtime.onInstalled.addListener(() => {
   console.log("Extension installed");
-});
-
-browser.runtime.onStartup.addListener(() => {
-  console.log("Extension started");
-  db.init();
 });
 
 browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
@@ -34,6 +35,8 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   const urlData = ExtractDataFromUrl(url);
 
   if (urlData.page_type === Pages.ArtistPage) {
+    console.log("Artist page detected");
+
     const artist = await db.getArtist(urlData.artist_id);
 
     if (artist === undefined) {
@@ -52,10 +55,17 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
       data: {}
     });
 
+    browser.tabs.sendMessage(tabId, {
+      type: EventTypes.ExtractArtistInfo,
+      data: {}
+    });
+
     return;
   }
 
   else if (urlData.page_type === Pages.PostPage) {
+    console.log("Post page detected");
+
     const post = await db.getPost(urlData.post_id);
 
     if (post === undefined) {
@@ -72,6 +82,11 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 
     browser.tabs.sendMessage(tabId, {
       type: EventTypes.AddPlayerElement,
+      data: {}
+    });
+
+    browser.tabs.sendMessage(tabId, {
+      type: EventTypes.ExtractPostInfo,
       data: {}
     });
 
