@@ -44,7 +44,7 @@ export class IndexedDbManager {
         // Create posts object store with artistId foreign key
         if (!db.objectStoreNames.contains("posts")) {
           const postStore = db.createObjectStore("posts", { keyPath: "id" });
-          postStore.createIndex("artistId", "artistId", { unique: false });
+          postStore.createIndex("artist_id", "artist_id", { unique: false });
           postStore.createIndex("viewed_at", "viewed_at", { unique: false });
         }
       };
@@ -118,7 +118,7 @@ export class IndexedDbManager {
       artistStore.delete(id);
 
       // Delete all posts for this artist
-      const index = postStore.index("artistId");
+      const index = postStore.index("artist_id");
       const request = index.openCursor(IDBKeyRange.only(id));
 
       request.onsuccess = (event) => {
@@ -164,7 +164,7 @@ export class IndexedDbManager {
     return new Promise((resolve, reject) => {
       const transaction = db.transaction(["posts"], "readonly");
       const store = transaction.objectStore("posts");
-      const index = store.index("artistId");
+      const index = store.index("artist_id");
       const request = index.getAll(artistId);
 
       request.onsuccess = () => resolve(request.result);
