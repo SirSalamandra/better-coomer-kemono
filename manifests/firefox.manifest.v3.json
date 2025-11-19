@@ -4,14 +4,14 @@
   "version": "1.0",
   "description": "Tracks URLs accessed within a website and marks them visually.",
   "permissions": ["scripting", "tabs", "storage"],
-  "host_permissions": ["https://kemono.su/*", "https://coomer.su/*"],
+  "host_permissions": ["https://kemono.cr/*", "https://coomer.cr/*"],
   "background": {
     "service_worker": "background.js",
     "type": "module"
   },
   "content_scripts": [
     {
-      "matches": ["https://kemono.su/*", "https://coomer.su/*"],
+      "matches": ["https://kemono.cr/*", "https://coomer.cr/*"],
       "js": ["content.js"],
       "css": ["styles.css"]
     }

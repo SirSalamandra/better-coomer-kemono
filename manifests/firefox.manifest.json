@@ -3,14 +3,14 @@
   "name": "Better Su",
   "version": "1.0",
   "description": "Tracks URLs accessed within a website and marks them visually.",
-  "permissions": ["tabs", "storage", "*://kemono.su/*", "*://coomer.su/*"],
+  "permissions": ["tabs", "storage", "https://kemono.cr/*", "https://coomer.cr/*"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
   },
   "content_scripts": [
     {
-      "matches": ["*://kemono.su/*", "*://coomer.su/*"],
+      "matches": ["https://kemono.cr/*", "https://coomer.cr/*"],
       "js": ["content.js"],
       "css": ["styles.css"],
       "run_at": "document_idle"
