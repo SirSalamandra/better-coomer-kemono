@@ -1,4 +1,5 @@
 import { Pages } from "../enums/pages";
+import { Post } from "../types/Post";
 import { URLDataType } from "../types/URLDataType";
 
 export const ExtractDataFromUrl = (url: URL): URLDataType => {
@@ -74,7 +75,7 @@ export const AddAudioElementsForAudioLinks = (document: Document) => {
 
       const sourceElement = document.createElement("source");
       sourceElement.src = audioLink.href;
-      
+
       // Set the correct MIME type based on file extension
       if (audioLink.href.toLowerCase().includes('.wav')) {
         sourceElement.type = "audio/wav";
@@ -92,7 +93,7 @@ export const AddAudioElementsForAudioLinks = (document: Document) => {
   // Try processing immediately and retry if needed
   const tryProcess = () => {
     const success = processAudioLinks();
-    
+
     if (!success) {
       setTimeout(() => {
         processAudioLinks();
@@ -104,5 +105,63 @@ export const AddAudioElementsForAudioLinks = (document: Document) => {
     document.addEventListener('DOMContentLoaded', tryProcess);
   } else {
     tryProcess();
+  }
+}
+
+export const AddViewedTagsOnAllPosts = async (document: Document, posts: Post[]) => {
+  const processViewedTags = () => {
+    // Get all viewed posts for this specific artist from the database
+    const viewedPostIds = new Set(posts.map(post => post.id));
+
+    // Find all post cards on the page
+    const postCards = document.querySelectorAll<HTMLElement>('[data-id]');
+
+    if (postCards.length === 0) return false;
+
+    postCards.forEach((postCardElement) => {
+      const postId = postCardElement.getAttribute('data-id');
+
+      if (!postId || !viewedPostIds.has(postId)) {
+        return;
+      }
+
+      // Check if the viewed label already exists
+      const cardFooterContent = postCardElement.querySelector('footer > div > div');
+      if (!cardFooterContent) return;
+
+      // Check if label already exists
+      if (cardFooterContent.querySelector('label.viewed-tag')) return;
+
+      // Create and add the viewed label
+      const viewedLabel = document.createElement("label");
+      viewedLabel.className = "viewed-tag";
+      viewedLabel.innerHTML = "viewed";
+      viewedLabel.style.color = "#b4ffb4";
+
+      cardFooterContent.append(viewedLabel);
+    });
+
+    return true;
+  };
+
+  try {
+    // Try processing immediately and retry if needed
+    const tryProcess = () => {
+      const success = processViewedTags();
+
+      if (!success) {
+        setTimeout(() => {
+          processViewedTags();
+        }, 500);
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', tryProcess);
+    } else {
+      tryProcess();
+    }
+  } catch (error) {
+    console.error("Error adding viewed tags:", error);
   }
 }

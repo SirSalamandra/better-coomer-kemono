@@ -35,24 +35,25 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   const urlData = ExtractDataFromUrl(url);
 
   if (urlData.page_type === Pages.ArtistPage) {
-    console.log("Artist page detected");
+    const artist = await db.getArtistWithPosts(urlData.artist_id);
 
-    const artist = await db.getArtist(urlData.artist_id);
-
-    if (artist === undefined) {
+    if (!artist) {
       const newArtist: Artist = {
         id: urlData.artist_id,
         content_origin: urlData.content_origin
       }
 
       await db.addArtist(newArtist);
-
-      console.log("Artist not found in the database, saving...");
     }
+
+    const posts = artist ? artist.posts : [];
 
     browser.tabs.sendMessage(tabId, {
       type: EventTypes.AddViewTag,
-      data: {}
+      data: {
+        artist_id: urlData.artist_id,
+        posts: posts
+      }
     });
 
     browser.tabs.sendMessage(tabId, {
@@ -64,8 +65,6 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   }
 
   else if (urlData.page_type === Pages.PostPage) {
-    console.log("Post page detected");
-
     const post = await db.getPost(urlData.post_id);
 
     if (post === undefined) {
@@ -76,8 +75,6 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
       }
 
       await db.addPost(newPost);
-
-      console.log("Post not found in the database, saving...");
     }
 
     browser.tabs.sendMessage(tabId, {

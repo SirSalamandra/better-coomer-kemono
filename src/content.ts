@@ -1,5 +1,5 @@
 import { EventTypes } from "./enums/eventTypes";
-import { AddAudioElementsForAudioLinks } from "./helpers/helpers";
+import { AddAudioElementsForAudioLinks, AddViewedTagsOnAllPosts } from "./helpers/helpers";
 import { ContentMessage } from "./types/ContentMessage";
 
 if (typeof browser === "undefined") {
@@ -10,12 +10,11 @@ if (typeof browser === "undefined") {
 browser.runtime.onMessage.addListener((message: ContentMessage, sender) => {
   switch (message.type) {
     case EventTypes.AddViewTag:
-      // Handle AddViewTag event if needed
-      console.log("AddViewTag event received");
+      const posts = message.data.posts;
+      AddViewedTagsOnAllPosts(document, posts);
       break;
 
     case EventTypes.AddPlayerElement:
-      console.log("AddPlayerElement event received");
       AddAudioElementsForAudioLinks(document);
       break;
 
