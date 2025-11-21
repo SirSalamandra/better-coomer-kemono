@@ -1,70 +1,108 @@
-import { Messages } from "./utils/enums";
-import { ExtractDataFromUrl, GetDate, HOSTS_ALLOWED } from "./utils/common";
-import { Database } from "./utils/database";
+import { Configurations } from "./configurations";
+import { IndexedDbManager } from "./database/indexedDbManager";
+import { EventTypes } from "./enums/eventTypes";
+import { Pages } from "./enums/pages";
+import { ExtractDataFromUrl, GetDate } from "./helpers/helpers";
+import { Artist } from "./types/Artist";
+import { Post } from "./types/Post";
+import { ContentMessage } from "./types/ContentMessage";
 
-const browser_api = (typeof browser !== "undefined" && browser) || chrome
+const db = IndexedDbManager.getInstance();
 
-browser_api.runtime.onInstalled.addListener(() => {
-  console.log("better .su installed with success")
-})
+db.init().then(() => {
+  console.log("Database initialized in background script.");
+}).catch((error) => {
+  console.error("Failed to initialize database in background script:", error);
+});
 
-browser_api.tabs.onUpdated.addListener(async (tabId: number, changeInfo, tab) => {
-  const url = new URL(tab.url);
-  const host = url.host;
+if (typeof browser === "undefined") {
+  //@ts-ignore
+  globalThis.browser = chrome;
+}
 
-  if (HOSTS_ALLOWED.includes(host) === false) {
-    return;
-  }
+browser.runtime.onInstalled.addListener(() => {
+  console.log("Extension installed");
+});
 
-  if (changeInfo.status != "complete") {
-    return;
-  }
-
-  const data = ExtractDataFromUrl(url);
-
-  const storage = await Database.instance.get()
-
-  if (data.creator_id != null) {
-    const artistIndex = storage.findIndex(x => x.creator_id === data.creator_id);
-
-    if (artistIndex === -1) {
-      const content: Content = {
-        creator_id: data.creator_id,
-        content_origin: data.content_origin,
-        posts: [],
-        site: host
-      }
-
-      storage.push(content);
-      Database.instance.update(storage);
-    }
-
-    if (data.post_id != null) {
-      if (!storage[artistIndex].posts.some(x => x.post_id === data.post_id)) {
-        const post: Post = {
-          post_id: data.post_id,
-          visualized_at: GetDate()
-        }
-
-        storage[artistIndex].posts.push(post);
-        Database.instance.update(storage);
+browser.runtime.onMessage.addListener(async (message: ContentMessage, sender) => {
+  if (message.type === EventTypes.RemoveViewTag) {
+    const { postId } = message.data;
+    if (postId) {
+      await db.deletePost(postId);
+      if (sender.tab && sender.tab.id) {
+        browser.tabs.sendMessage(sender.tab.id, {
+          type: EventTypes.RemoveViewTagFromUI,
+          data: { postId }
+        });
       }
     }
-  }
-
-  if (data.post_id == null) {
-    sendMessage(tabId, Messages.ViewedTag, data.creator_id)
-  }
-  else {
-    sendMessage(tabId, Messages.AudioElement);
   }
 });
 
-const sendMessage = (tabId: number, messageType: Messages, payload: any = {}): void => {
-  setTimeout(() => {
-    browser_api.tabs.sendMessage(tabId, {
-      type: messageType,
-      payload: payload
+browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+  const url = new URL(tab.url);
+
+  if (
+    !Configurations.hostsAllowed.includes(url.host) ||
+    changeInfo.status !== 'complete') {
+    return;
+  }
+
+  const urlData = ExtractDataFromUrl(url);
+
+  if (urlData.page_type === Pages.ArtistPage) {
+    const artist = await db.getArtistWithPosts(urlData.artist_id);
+
+    if (!artist) {
+      const newArtist: Artist = {
+        id: urlData.artist_id,
+        content_origin: urlData.content_origin
+      }
+
+      await db.addArtist(newArtist);
+    }
+
+    const posts = artist ? artist.posts : [];
+
+    browser.tabs.sendMessage(tabId, {
+      type: EventTypes.AddViewTag,
+      data: {
+        artist_id: urlData.artist_id,
+        posts: posts
+      }
     });
-  }, 500);
-}
+
+    browser.tabs.sendMessage(tabId, {
+      type: EventTypes.ExtractArtistInfo,
+      data: {}
+    });
+
+    return;
+  }
+
+  else if (urlData.page_type === Pages.PostPage) {
+    const post = await db.getPost(urlData.post_id);
+
+    if (post === undefined) {
+      const newPost: Post = {
+        id: urlData.post_id,
+        artist_id: urlData.artist_id,
+        viewed_at: GetDate()
+      }
+
+      await db.addPost(newPost);
+    }
+
+    browser.tabs.sendMessage(tabId, {
+      type: EventTypes.AddPlayerElement,
+      data: {}
+    });
+
+    browser.tabs.sendMessage(tabId, {
+      type: EventTypes.ExtractPostInfo,
+      data: {}
+    });
+
+    return;
+  }
+});
