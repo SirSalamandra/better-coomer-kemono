@@ -63,7 +63,7 @@ This will generate the output in the /public directory.
 ### 📋 TODO
 
 - [x] Add "Viewed" tag to previously accessed posts
-- [ ] Button to mark post as "unviewed"
+- [x] Button to mark post as "unviewed"
 - [x] Add audio controller to posts with audio attachments
 - [ ] Management interface for stored data
 
