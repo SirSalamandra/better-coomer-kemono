@@ -5,6 +5,7 @@ import { Pages } from "./enums/pages";
 import { ExtractDataFromUrl, GetDate } from "./helpers/helpers";
 import { Artist } from "./types/Artist";
 import { Post } from "./types/Post";
+import { ContentMessage } from "./types/ContentMessage";
 
 const db = IndexedDbManager.getInstance();
 
@@ -21,6 +22,21 @@ if (typeof browser === "undefined") {
 
 browser.runtime.onInstalled.addListener(() => {
   console.log("Extension installed");
+});
+
+browser.runtime.onMessage.addListener(async (message: ContentMessage, sender) => {
+  if (message.type === EventTypes.RemoveViewTag) {
+    const { postId } = message.data;
+    if (postId) {
+      await db.deletePost(postId);
+      if (sender.tab && sender.tab.id) {
+        browser.tabs.sendMessage(sender.tab.id, {
+          type: EventTypes.RemoveViewTagFromUI,
+          data: { postId }
+        });
+      }
+    }
+  }
 });
 
 browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {

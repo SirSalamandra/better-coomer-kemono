@@ -2,5 +2,7 @@ export enum EventTypes {
   AddViewTag,
   AddPlayerElement,
   ExtractArtistInfo,
-  ExtractPostInfo
+  ExtractPostInfo,
+  RemoveViewTag,
+  RemoveViewTagFromUI
 }

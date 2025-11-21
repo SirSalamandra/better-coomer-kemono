@@ -132,13 +132,40 @@ export const AddViewedTagsOnAllPosts = async (document: Document, posts: Post[])
       // Check if label already exists
       if (cardFooterContent.querySelector('label.viewed-tag')) return;
 
+      // Create a container for the viewed label and unread button
+      const viewedTagContainer = document.createElement("span");
+      viewedTagContainer.className = "viewed-tag-container";
+      viewedTagContainer.style.display = "inline-flex";
+      viewedTagContainer.style.alignItems = "center";
+      viewedTagContainer.style.gap = "5px";
+
       // Create and add the viewed label
       const viewedLabel = document.createElement("label");
       viewedLabel.className = "viewed-tag";
       viewedLabel.innerHTML = "viewed";
       viewedLabel.style.color = "#b4ffb4";
 
-      cardFooterContent.append(viewedLabel);
+      // Create and add the "Mark as Unread" button
+      const markAsUnreadButton = document.createElement("button");
+      markAsUnreadButton.className = "mark-as-unread-button";
+      markAsUnreadButton.innerHTML = "x"; // A simple 'x' or 'Unread'
+      markAsUnreadButton.style.cssText = `
+        background: none;
+        border: 1px solid #b4ffb4;
+        color: #b4ffb4;
+        font-size: 0.7em;
+        line-height: 1;
+        cursor: pointer;
+        border-radius: 3px;
+        padding: 2px 5px;
+        margin-left: 5px;
+      `;
+      markAsUnreadButton.title = "Mark as Unread";
+      markAsUnreadButton.setAttribute('data-post-id', postId);
+
+      viewedTagContainer.append(viewedLabel);
+      viewedTagContainer.append(markAsUnreadButton);
+      cardFooterContent.append(viewedTagContainer);
     });
 
     return true;
