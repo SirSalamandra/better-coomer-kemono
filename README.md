@@ -11,7 +11,7 @@ A browser extension that enhances the user experience on specific sites with dom
 - **TypeScript**
 - **Webpack**
 - **Browser APIs** (Chrome & Firefox)
-- **Local Storage** abstraction for persistent data
+- **Indexed Db** abstraction for persistent data
 
 ---
 
