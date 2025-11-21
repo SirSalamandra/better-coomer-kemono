@@ -1,8 +1,6 @@
-# Better Su
+# Better Kemono / Coomer
 
-<!-- A browser extension that enhances the user experience on [kemono.su](https://kemono.su) and [coomer.su](https://coomer.su). -->
-
-A browser extension that enhances the user experience on specific sites with domain `.su`.
+A browser extension that enhances the user experience on the Kemono and Coomer websites.
 
 ---
 
@@ -36,8 +34,8 @@ A browser extension that enhances the user experience on specific sites with dom
 #### 1. Clone the repository
 
 ```bash
-git clone https://github.com/SirSalamandra/better-su.git
-cd better-su
+git clone https://github.com/SirSalamandra/better-kemono-coomer.git
+cd better-kemono-coomer
 ```
 
 #### 2. Install dependencies
