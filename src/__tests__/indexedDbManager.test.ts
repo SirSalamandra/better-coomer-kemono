@@ -192,3 +192,124 @@ describe('Error handling', () => {
     );
   });
 });
+
+// ---------------------------------------------------------------------------
+// Version helpers
+// ---------------------------------------------------------------------------
+
+describe('getTargetVersion', () => {
+  test('returns the latest migration version (2)', () => {
+    expect(db.getTargetVersion()).toBe(2);
+  });
+});
+
+describe('getStoredVersion', () => {
+  test('returns the version of an already-opened database', async () => {
+    // db was opened (and migrated) in beforeEach; stored version should equal target
+    const version = await db.getStoredVersion();
+    expect(version).toBe(db.getTargetVersion());
+  });
+
+  test('returns 0 when the database does not exist', async () => {
+    // Use a fresh IDBFactory so the DB has never been created
+    (global as any).indexedDB = new IDBFactory();
+    (IndexedDbManager as any).instance = undefined;
+    const fresh = IndexedDbManager.getInstance();
+    // Do NOT call init()
+    const version = await fresh.getStoredVersion();
+    expect(version).toBe(0);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// exportAllData / importData
+// ---------------------------------------------------------------------------
+
+describe('exportAllData', () => {
+  test('returns empty arrays when the DB is empty', async () => {
+    const result = await db.exportAllData();
+    expect(result.artists).toEqual([]);
+    expect(result.posts).toEqual([]);
+  });
+
+  test('exports all artists and posts', async () => {
+    await db.addArtist({ id: 'a1', content_origin: 'patreon', name: 'Artist One' });
+    await db.addPost({ id: 'p1', artist_id: 'a1', viewed_at: '2024-01-01' });
+    await db.addPost({ id: 'p2', artist_id: 'a1', viewed_at: '2024-01-02' });
+
+    const { artists, posts } = await db.exportAllData();
+
+    expect(artists).toHaveLength(1);
+    expect(artists[0].id).toBe('a1');
+    expect(posts).toHaveLength(2);
+    expect(posts.map(p => p.id)).toEqual(expect.arrayContaining(['p1', 'p2']));
+  });
+});
+
+describe('importData', () => {
+  test('inserts new artists and posts into an empty DB', async () => {
+    const backup = {
+      artists: [{ id: 'a1', content_origin: 'fanbox', name: 'Imported Artist' }],
+      posts:   [{ id: 'p1', artist_id: 'a1', viewed_at: '2024-03-01' }],
+    };
+
+    await db.importData(backup);
+
+    expect(await db.getArtist('a1')).toMatchObject({ id: 'a1', name: 'Imported Artist' });
+    expect(await db.getPost('p1')).toMatchObject({ id: 'p1', artist_id: 'a1' });
+  });
+
+  test('upserts (overwrites) existing records without duplicates', async () => {
+    await db.addArtist({ id: 'a1', content_origin: 'patreon' });
+
+    await db.importData({
+      artists: [{ id: 'a1', content_origin: 'patreon', name: 'Updated Name' }],
+      posts: [],
+    });
+
+    const all = await db.getAllArtists();
+    expect(all).toHaveLength(1);           // no duplicate
+    expect(all[0].name).toBe('Updated Name');
+  });
+
+  test('imports multiple artists and posts in one call', async () => {
+    const backup = {
+      artists: [
+        { id: 'a1', content_origin: 'patreon' },
+        { id: 'a2', content_origin: 'fanbox' },
+      ],
+      posts: [
+        { id: 'p1', artist_id: 'a1', viewed_at: '2024-01-01' },
+        { id: 'p2', artist_id: 'a2', viewed_at: '2024-02-01' },
+        { id: 'p3', artist_id: 'a1', viewed_at: '2024-03-01' },
+      ],
+    };
+
+    await db.importData(backup);
+
+    expect(await db.getAllArtists()).toHaveLength(2);
+    expect(await db.getAllPosts()).toHaveLength(3);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// reset
+// ---------------------------------------------------------------------------
+
+describe('reset', () => {
+  test('wipes all data and reinitialises the database', async () => {
+    await db.addArtist({ id: 'a1', content_origin: 'patreon' });
+    await db.addPost({ id: 'p1', artist_id: 'a1', viewed_at: '2024-01-01' });
+
+    await db.reset();
+
+    expect(await db.getAllArtists()).toEqual([]);
+    expect(await db.getAllPosts()).toEqual([]);
+  });
+
+  test('DB is fully functional after reset (can add and retrieve records)', async () => {
+    await db.reset();
+    await db.addArtist({ id: 'a2', content_origin: 'fanbox' });
+    expect(await db.getArtist('a2')).toMatchObject({ id: 'a2' });
+  });
+});

@@ -49,14 +49,14 @@ function buildAvatar(artist: Artist, size: number): HTMLElement {
 
 // ── Date formatting ───────────────────────────────────────────────────────────
 
-function formatDate(iso: string | undefined): string {
+export function formatDate(iso: string | undefined): string {
   if (!iso) return '—';
   const d = new Date(iso);
   if (isNaN(d.getTime())) return '—';
   return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
-function lastViewedFromPosts(posts: Post[]): string {
+export function lastViewedFromPosts(posts: Post[]): string {
   if (!posts.length) return '—';
   const latest = posts.reduce((a, b) => (a.viewed_at > b.viewed_at ? a : b));
   return formatDate(latest.viewed_at);
@@ -139,7 +139,7 @@ async function enrichPostsForArtists(visiblePosts: Post[]): Promise<void> {
 
 const COOMER_SERVICES = new Set(['onlyfans', 'fansly', 'candfans', 'ppv.land', 'manyvids']);
 
-function hostForArtist(artist: Artist): string {
+export function hostForArtist(artist: Artist): string {
   if (artist.hostname) {
     if (artist.hostname.includes('coomer')) return 'coomer.st';
     if (artist.hostname.includes('kemono')) return 'kemono.cr';
