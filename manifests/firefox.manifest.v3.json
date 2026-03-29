@@ -1,17 +1,17 @@
 {
   "manifest_version": 3,
   "name": "Better Kemono/Coomer",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "description": "Tracks URLs accessed within a website and marks them visually.",
   "permissions": ["scripting", "tabs", "storage"],
-  "host_permissions": ["https://kemono.cr/*", "https://coomer.cr/*"],
+  "host_permissions": ["https://kemono.cr/*", "https://coomer.st/*"],
   "background": {
     "service_worker": "background.js",
     "type": "module"
   },
   "content_scripts": [
     {
-      "matches": ["https://kemono.cr/*", "https://coomer.cr/*"],
+      "matches": ["https://kemono.cr/*", "https://coomer.st/*"],
       "js": ["content.js"],
       "css": ["styles.css"]
     }
