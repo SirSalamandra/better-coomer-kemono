@@ -42,8 +42,10 @@ browser.runtime.onMessage.addListener(async (message: ContentMessage, sender) =>
 browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   const url = new URL(tab.url);
 
+  // only proceed for hosts we care about – the helper handles
+  // wildcard/TLD‑changes so we don't need to keep the list up to date.
   if (
-    !Configurations.hostsAllowed.includes(url.host) ||
+    !Configurations.isHostAllowed(url.host) ||
     changeInfo.status !== 'complete') {
     return;
   }
@@ -51,18 +53,27 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   const urlData = ExtractDataFromUrl(url);
 
   if (urlData.page_type === Pages.ArtistPage) {
-    const artist = await db.getArtistWithPosts(urlData.artist_id);
+    const artistWithPosts = await db.getArtistWithPosts(urlData.artist_id);
 
-    if (!artist) {
+    if (!artistWithPosts) {
       const newArtist: Artist = {
         id: urlData.artist_id,
-        content_origin: urlData.content_origin
+        content_origin: urlData.content_origin,
+        hostname: url.hostname,
       }
 
       await db.addArtist(newArtist);
     }
 
-    const posts = artist ? artist.posts : [];
+    const posts = artistWithPosts ? artistWithPosts.posts : [];
+    const currentArtist = artistWithPosts
+      ? artistWithPosts.artist
+      : { id: urlData.artist_id, content_origin: urlData.content_origin, hostname: url.hostname };
+
+    // Fire-and-forget API enrichment
+    fetchArtistProfile(url.hostname, urlData.content_origin!, urlData.artist_id!)
+      .then(data => db.updateArtist({ ...currentArtist, ...data }))
+      .catch(() => {});
 
     browser.tabs.sendMessage(tabId, {
       type: EventTypes.AddViewTag,
@@ -91,6 +102,11 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
       }
 
       await db.addPost(newPost);
+
+      // Fire-and-forget API enrichment for new posts
+      fetchPostData(url.hostname, urlData.content_origin!, urlData.artist_id!, urlData.post_id!)
+        .then(data => db.updatePost({ ...newPost, ...data }))
+        .catch(() => {});
     }
 
     browser.tabs.sendMessage(tabId, {
@@ -106,3 +122,32 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     return;
   }
 });
+
+async function fetchArtistProfile(hostname: string, service: string, artistId: string): Promise<Partial<Artist>> {
+  const res = await fetch(
+    `https://${hostname}/api/v1/${service}/user/${artistId}/profile`,
+    { credentials: 'include' }
+  );
+  if (!res.ok) throw new Error(`API error ${res.status}`);
+  const json = await res.json();
+  return {
+    name: json.name,
+    thumbnail_url: json.avatar ? `https://${hostname}${json.avatar}` : undefined,
+    updated_at: new Date().toISOString(),
+    hostname,
+  };
+}
+
+async function fetchPostData(hostname: string, service: string, artistId: string, postId: string): Promise<Partial<Post>> {
+  const res = await fetch(
+    `https://${hostname}/api/v1/${service}/user/${artistId}/post/${postId}`,
+    { credentials: 'include' }
+  );
+  if (!res.ok) throw new Error(`API error ${res.status}`);
+  const json = await res.json();
+  return {
+    name: json.title,
+    posted_at: json.published,
+    attachment_count: Array.isArray(json.attachments) ? json.attachments.length : 0,
+  };
+}
