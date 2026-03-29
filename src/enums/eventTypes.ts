@@ -4,5 +4,6 @@ export enum EventTypes {
   ExtractArtistInfo,
   ExtractPostInfo,
   RemoveViewTag,
-  RemoveViewTagFromUI
+  RemoveViewTagFromUI,
+  UpdateData
 }

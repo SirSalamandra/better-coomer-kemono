@@ -27,5 +27,11 @@
       "16": "icons/logo.svg",
       "32": "icons/logo.svg"
     }
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["inject.js"],
+      "matches": ["https://kemono.cr/*", "https://coomer.st/*"]
+    }
+  ]
 }

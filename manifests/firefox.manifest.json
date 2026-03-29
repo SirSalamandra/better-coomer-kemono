@@ -27,5 +27,6 @@
       "16": "icons/logo.svg",
       "32": "icons/logo.svg"
     }
-  }
+  },
+  "web_accessible_resources": ["inject.js"]
 }

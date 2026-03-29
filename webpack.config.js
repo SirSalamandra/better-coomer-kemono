@@ -8,6 +8,7 @@ module.exports = () => {
       content: `./src/content.ts`,
       popup: `./src/popup.ts`,
       management: `./src/management.ts`,
+      inject: `./src/inject.ts`,
     },
     output: {
       path: path.resolve(__dirname, `dist/`),
