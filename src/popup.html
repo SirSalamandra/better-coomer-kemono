@@ -3,9 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Better SU</title>
+  <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  Hello World
+  <header>
+    <span class="logo-icon">⚡</span>
+    <h1>Better SU</h1>
+  </header>
+  <div class="stats">
+    <div class="stat-item">
+      <span class="stat-value" id="artist-count">—</span>
+      <span class="stat-label">Artists tracked</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value" id="post-count">—</span>
+      <span class="stat-label">Posts viewed</span>
+    </div>
+  </div>
+  <button id="open-management">Manage Data →</button>
+  <script src="popup.js"></script>
 </body>
 </html>

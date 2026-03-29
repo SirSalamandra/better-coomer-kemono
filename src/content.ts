@@ -7,6 +7,31 @@ if (typeof browser === "undefined") {
   globalThis.browser = chrome;
 }
 
+// Inject the interception script into the page context
+try {
+  const script = document.createElement('script');
+  script.src = browser.runtime.getURL('inject.js');
+  (document.head || document.documentElement).appendChild(script);
+  script.onload = () => script.remove();
+} catch (e) {
+  console.error('Failed to inject Better SU interception script:', e);
+}
+
+// Listen for data from the injected script
+window.addEventListener("message", (event) => {
+  if (event.source !== window) return;
+
+  if (event.data && event.data.type === "BETTER_SU_API_RESPONSE") {
+    browser.runtime.sendMessage({
+      type: EventTypes.UpdateData,
+      data: {
+        url: event.data.url,
+        payload: event.data.payload
+      }
+    });
+  }
+});
+
 // Use a delegated event listener with capturing to ensure it fires before the website's own handlers
 document.addEventListener('click', (e) => {
   const target = e.target as HTMLElement;

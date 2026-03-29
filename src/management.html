@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Better SU — Data Management</title>
+  <link rel="stylesheet" href="management.css">
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-icon">⚡</span>
+        <h2>Better SU</h2>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#home" class="nav-link" data-page="home"><span class="nav-icon">🏠</span>Home</a></li>
+          <li><a href="#artists" class="nav-link" data-page="artists"><span class="nav-icon">👤</span>Artists</a></li>
+          <li><a href="#posts" class="nav-link" data-page="posts"><span class="nav-icon">📄</span>Posts</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <main id="content">
+      <div class="empty-state">
+        <div class="empty-icon">⏳</div>
+        <p>Loading…</p>
+      </div>
+    </main>
+  </div>
+  <script src="management.js"></script>
+</body>
+</html>

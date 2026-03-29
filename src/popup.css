@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 240px;
+  background: #0f0f17;
+  color: #e0e0e0;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  padding: 16px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.logo-icon {
+  font-size: 18px;
+}
+
+h1 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.stats {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.stat-item {
+  flex: 1;
+  background: #1c1c2e;
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #7c6af7;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #888;
+}
+
+#open-management {
+  width: 100%;
+  padding: 10px;
+  background: #7c6af7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+#open-management:hover {
+  background: #6b5ce7;
+}
