@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Better Kemono/Coomer",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "Tracks URLs accessed within a website and marks them visually.",
   "permissions": ["scripting", "tabs", "storage"],
   "host_permissions": ["https://kemono.cr/*", "https://coomer.st/*"],
