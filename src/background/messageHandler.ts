@@ -2,6 +2,8 @@ import { IndexedDbManager } from "../core/database/indexedDbManager";
 import { EventTypes } from "../shared/constants/eventTypes";
 import { ContentMessage } from "../shared/types/ContentMessage";
 import { GetDate } from "../shared/utils/date";
+import { transformArtistProfile, transformPostProfile } from "../core/utils/enrichment";
+import { PostResponseDTO } from "../shared/types/PostDTO";
 
 export function setupMessageHandler(db: IndexedDbManager): void {
   browser.runtime.onMessage.addListener(async (message: ContentMessage, sender) => {
@@ -15,7 +17,7 @@ export function setupMessageHandler(db: IndexedDbManager): void {
           browser.tabs.sendMessage(sender.tab.id, {
             type: EventTypes.RemoveViewTagFromUI,
             data: { postId }
-          });
+          }).catch(() => {});
         }
       }
     }
@@ -34,35 +36,22 @@ export function setupMessageHandler(db: IndexedDbManager): void {
 
         const storedArtist = await db.getArtist(artistId);
         if (storedArtist) {
-          await db.updateArtist({
-            ...storedArtist,
-            name: data.name || storedArtist.name,
-            hostname: urlObj.host,
-            thumbnail_url: (data.service && data.id) ? `https://img.${urlObj.host}/icons/${data.service}/${data.id}` : storedArtist.thumbnail_url,
-            banner_url: (data.service && data.id) ? `https://img.${urlObj.host}/banners/${data.service}/${data.id}` : storedArtist.banner_url,
-            post_count: data.post_count ?? storedArtist.post_count,
-            updated_at: data.updated || storedArtist.updated_at,
-            last_enriched_at: GetDate(),
-          });
+          const enrichedArtist = transformArtistProfile(storedArtist, data, urlObj.host);
+          await db.updateArtist(enrichedArtist);
           console.log(`Updated artist ${artistId} from intercepted request`);
         }
       }
 
       // Post response
       else if (url.includes('/post/')) {
-        const data = payload;
+        const data = payload as PostResponseDTO;
         const p = data.post;
         if (!p || !p.id) return;
 
         const storedPost = await db.getPost(p.id);
         if (storedPost) {
-          await db.updatePost({
-            ...storedPost,
-            name: p.title || storedPost.name,
-            posted_at: p.published || storedPost.posted_at,
-            attachment_count: (data.attachments as any[])?.length ?? storedPost.attachment_count ?? 0,
-            last_enriched_at: GetDate(),
-          });
+          const enrichedPost = transformPostProfile(storedPost, p, data.attachments);
+          await db.updatePost(enrichedPost);
           console.log(`Updated post ${p.id} from intercepted request`);
         }
       }

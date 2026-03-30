@@ -7,6 +7,8 @@ import { GetDate } from "../shared/utils/date";
 import { Artist } from "../shared/types/Artist";
 import { Post } from "../shared/types/Post";
 import { setupMessageHandler } from "./messageHandler";
+import { transformArtistProfile, transformPostProfile } from "../core/utils/enrichment";
+import { PostResponseDTO } from "../shared/types/PostDTO";
 
 const db = IndexedDbManager.getInstance();
 
@@ -125,18 +127,8 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
         const res = await fetch(apiUrl, { headers: { 'Accept': 'text/css' } });
         if (res.ok) {
           const data = await res.json();
-          if (data && data.id) {
-            await db.updateArtist({
-              ...storedArtist,
-              name: data.name || storedArtist.name,
-              hostname: url.host,
-              thumbnail_url: (data.service && data.id) ? `https://img.${url.host}/icons/${data.service}/${data.id}` : storedArtist.thumbnail_url,
-              banner_url: (data.service && data.id) ? `https://img.${url.host}/banners/${data.service}/${data.id}` : storedArtist.banner_url,
-              post_count: data.post_count ?? storedArtist.post_count,
-              updated_at: data.updated || storedArtist.updated_at,
-              last_enriched_at: GetDate(),
-            });
-          }
+          const enrichedArtist = transformArtistProfile(storedArtist, data, url.host);
+          await db.updateArtist(enrichedArtist);
         }
       } catch (err) {
         console.warn('Failed to enrich artist details:', err);
@@ -151,12 +143,12 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
         artist_id: urlData.artist_id,
         posts: posts
       }
-    });
+    }).catch(() => {});
 
     browser.tabs.sendMessage(tabId, {
       type: EventTypes.ExtractArtistInfo,
       data: {}
-    });
+    }).catch(() => {});
 
     return;
   }
@@ -174,27 +166,17 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
       post = newPost;
     }
 
-    // Refresh post details if more than 24h passed or data is missing
-    const now = new Date();
-    const lastEnriched = post.last_enriched_at ? new Date(post.last_enriched_at) : null;
-    const shouldEnrich = !lastEnriched || (now.getTime() - lastEnriched.getTime() > 24 * 60 * 60 * 1000) || !post.name;
+    // Enrich post details once and store forever
+    const shouldEnrich = !post.last_enriched_at;
 
     if (shouldEnrich) {
       try {
         const apiUrl = `https://${url.host}/api/v1/${urlData.content_origin}/user/${urlData.artist_id}/post/${urlData.post_id}`;
         const res = await fetch(apiUrl, { headers: { 'Accept': 'text/css' } });
         if (res.ok) {
-          const data = await res.json();
-          if (data && data.post) {
-            const p = data.post;
-            await db.updatePost({
-              ...post,
-              name: p.title || post.name,
-              posted_at: p.published || post.posted_at,
-              attachment_count: (data.attachments as any[])?.length ?? post.attachment_count ?? 0,
-              last_enriched_at: GetDate(),
-            });
-          }
+          const data: PostResponseDTO = await res.json();
+          const enrichedPost = transformPostProfile(post, data.post, data.attachments, url.host);
+          await db.updatePost(enrichedPost);
         }
       } catch (err) {
         console.warn('Failed to enrich post details:', err);
@@ -204,12 +186,12 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     browser.tabs.sendMessage(tabId, {
       type: EventTypes.AddPlayerElement,
       data: {}
-    });
+    }).catch(() => {});
 
     browser.tabs.sendMessage(tabId, {
       type: EventTypes.ExtractPostInfo,
       data: {}
-    });
+    }).catch(() => {});
 
     return;
   }

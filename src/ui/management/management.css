@@ -142,9 +142,11 @@ body {
 .stat-card {
   background: var(--surface);
   border-radius: var(--radius);
-  padding: 20px;
+  padding: 24px 20px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 6px;
 }
 

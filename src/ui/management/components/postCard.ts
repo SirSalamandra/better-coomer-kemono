@@ -2,7 +2,7 @@ import { Artist } from "../../../shared/types/Artist";
 import { Post } from "../../../shared/types/Post";
 import { buildAvatar, initialsAvatar } from "../utils/avatar";
 import { escapeHtml, formatDate } from "../utils/format";
-import { hostForArtist, postCache } from "../utils/enrich";
+import { hostForArtist } from "../utils/enrich";
 
 export function renderPostCard(
   post: Post,
@@ -10,7 +10,7 @@ export function renderPostCard(
   deletePost: (id: string, title: string) => void,
   showArtist = true,
 ): HTMLElement {
-  const thumbnailUrl = postCache.get(post.id) ?? undefined;
+  const thumbnailUrl = post.thumbnail_url;
   const { name, posted_at, attachment_count } = post;
 
   const card = document.createElement('div');

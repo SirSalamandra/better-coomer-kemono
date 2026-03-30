@@ -18,17 +18,34 @@ try {
   console.error('Failed to inject Better SU interception script:', e);
 }
 
+/**
+ * Checks if the extension context is still valid.
+ * Content scripts can be "invalidated" when the extension is reloaded or updated.
+ */
+function isContextValid(): boolean {
+  try {
+    return !!(browser && browser.runtime && browser.runtime.id);
+  } catch (e) {
+    return false;
+  }
+}
+
 // Listen for data from the injected script
 window.addEventListener("message", (event) => {
   if (event.source !== window) return;
 
   if (event.data && event.data.type === "BETTER_SU_API_RESPONSE") {
+    if (!isContextValid()) return;
+
     browser.runtime.sendMessage({
       type: EventTypes.UpdateData,
       data: {
         url: event.data.url,
         payload: event.data.payload
       }
+    }).catch(() => {
+      // Silently ignore "Could not establish connection" errors which are common
+      // when the background script is not ready or has been reloaded.
     });
   }
 });
@@ -46,10 +63,12 @@ document.addEventListener('click', (e) => {
     e.stopImmediatePropagation(); // Be extra sure no other listeners on this element fire
 
     const postId = unreadButton.getAttribute('data-post-id');
-    if (postId) {
+    if (postId && isContextValid()) {
       browser.runtime.sendMessage({
         type: EventTypes.RemoveViewTag,
         data: { postId }
+      }).catch(() => {
+        // Silently ignore connection errors
       });
     }
   }

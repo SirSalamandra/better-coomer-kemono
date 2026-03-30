@@ -1,11 +1,13 @@
 import { IMigration } from './migrations/IMigration';
 import { InitialCreate } from './migrations/1_InitialCreate';
 import { ForceEnrichmentRefresh } from './migrations/2_ForceEnrichmentRefresh';
+import { AddPostThumbnailUrl } from './migrations/3_AddPostThumbnailUrl';
 
 export class MigrationRunner {
   private readonly migrations: IMigration[] = [
     new InitialCreate(),
     new ForceEnrichmentRefresh(),
+    new AddPostThumbnailUrl(),
   ];
 
   /** The version number of the latest registered migration — used as IDB DB_VERSION. */

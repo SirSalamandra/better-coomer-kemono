@@ -2,12 +2,10 @@ import { IndexedDbManager } from "../../../core/database/indexedDbManager";
 import { Artist } from "../../../shared/types/Artist";
 import { Post } from "../../../shared/types/Post";
 import { ArtistProfileDTO } from "../../../shared/types/ArtistProfileDTO";
-import { GetDate } from "../../../shared/utils/date";
+import { transformArtistProfile, transformPostProfile } from "../../../core/utils/enrichment";
+import { PostResponseDTO } from "../../../shared/types/PostDTO";
 
 const db = IndexedDbManager.getInstance();
-
-/** Thumbnail URL cache only — name/posted_at/attachment_count go to IndexedDB */
-export const postCache = new Map<string, string | null>();
 
 const COOMER_SERVICES = new Set(['onlyfans', 'fansly', 'candfans', 'ppv.land', 'manyvids']);
 
@@ -28,7 +26,7 @@ export async function enrichPostsForArtists(
   const artistIds = new Set<string>();
   for (const post of visiblePosts) {
     if (!post.artist_id) continue;
-    if (!postCache.has(post.id) || !post.name) artistIds.add(post.artist_id);
+    if (!post.last_enriched_at) artistIds.add(post.artist_id);
   }
   if (!artistIds.size) return;
 
@@ -39,50 +37,20 @@ export async function enrichPostsForArtists(
     if (!artist) return;
 
     const host = hostForArtist(artist);
-    const remaining = new Map(
-      visiblePosts.filter(p => p.artist_id === artistId).map(p => [p.id, p])
-    );
+    const missingPosts = visiblePosts.filter(p => p.artist_id === artistId && !p.last_enriched_at);
 
-    let offset = 0;
-    while (remaining.size > 0) {
+    await Promise.allSettled(missingPosts.map(async (storedPost) => {
       const res = await fetch(
-        `https://${host}/api/v1/${artist.content_origin}/user/${artist.id}/posts?limit=50&o=${offset}`,
+        `https://${host}/api/v1/${artist.content_origin}/user/${artist.id}/post/${storedPost.id}`,
         { headers: { 'Accept': 'text/css' } }
       );
-      if (!res.ok) break;
+      if (!res.ok) return;
 
-      const page: any[] = await res.json();
-      if (!page.length) break;
-
-      for (const apiPost of page) {
-        const stored = remaining.get(apiPost.id);
-        if (!stored) continue;
-        remaining.delete(apiPost.id);
-
-        const filePath: string | undefined = apiPost.file?.path;
-        const isImage = filePath && /\.(jpe?g|png|gif|webp|avif|bmp|tiff?)$/i.test(filePath);
-        postCache.set(
-          apiPost.id,
-          isImage
-            ? `https://img.${host}/thumbnail/data${filePath}`
-            : null
-        );
-
-        if (!stored.name) {
-          await db.updatePost({
-            ...stored,
-            name: apiPost.title,
-            posted_at: apiPost.published,
-            attachment_count: (apiPost.attachments as any[])?.length ?? 0,
-            last_enriched_at: GetDate(),
-          });
-          dbUpdated = true;
-        }
-      }
-
-      if (page.length < 50 || remaining.size === 0) break;
-      offset += 50;
-    }
+      const data: PostResponseDTO = await res.json();
+      const enrichedPost = transformPostProfile(storedPost, data.post, data.attachments, host);
+      await db.updatePost(enrichedPost);
+      dbUpdated = true;
+    }));
   }));
 
   if (dbUpdated) await loadData();
@@ -105,17 +73,8 @@ export async function enrichArtists(
     if (!res.ok) return;
 
     const data: ArtistProfileDTO = await res.json();
-
-    await db.updateArtist({
-      ...artist,
-      name: data.name,
-      hostname: host,
-      thumbnail_url: `https://img.${host}/icons/${data.service}/${data.id}`,
-      banner_url: `https://img.${host}/banners/${data.service}/${data.id}`,
-      post_count: data.post_count,
-      updated_at: data.updated,
-      last_enriched_at: GetDate(),
-    });
+    const enrichedArtist = transformArtistProfile(artist, data, host);
+    await db.updateArtist(enrichedArtist);
   }));
 
   await loadData();

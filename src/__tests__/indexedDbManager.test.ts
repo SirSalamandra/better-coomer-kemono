@@ -198,8 +198,8 @@ describe('Error handling', () => {
 // ---------------------------------------------------------------------------
 
 describe('getTargetVersion', () => {
-  test('returns the latest migration version (2)', () => {
-    expect(db.getTargetVersion()).toBe(2);
+  test('returns the latest migration version (3)', () => {
+    expect(db.getTargetVersion()).toBe(3);
   });
 });
 

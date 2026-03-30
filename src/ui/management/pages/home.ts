@@ -20,10 +20,6 @@ export function renderHome(
   const statsGrid = document.createElement('div');
   statsGrid.className = 'stats-grid';
 
-  const latestPost = posts.length
-    ? posts.reduce((a, b) => (a.viewed_at > b.viewed_at ? a : b))
-    : null;
-
   const mostActiveArtist = artists.length
     ? artists.map(a => ({ artist: a, count: posts.filter(p => p.artist_id === a.id).length }))
         .reduce((a, b) => (a.count >= b.count ? a : b)).artist
@@ -36,11 +32,6 @@ export function renderHome(
       value: mostActiveArtist ? (mostActiveArtist.name || 'Unknown') : '—',
       label: 'Most Tracked Artist',
       sub: mostActiveArtist ? `${posts.filter(p => p.artist_id === mostActiveArtist.id).length} posts` : '',
-    },
-    {
-      value: latestPost ? (latestPost.name || 'Untitled') : '—',
-      label: 'Last Viewed Post',
-      sub: latestPost ? formatDate(latestPost.viewed_at) : '',
     },
   ];
 

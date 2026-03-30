@@ -134,7 +134,7 @@ function renderArtistCard(
   const stats: [string, string][] = [
     ['Posts', postsLabel],
     ['Last Viewed', lastViewedFromPosts(artistPosts)],
-    ['Updated', formatDate(artist.updated_at)],
+    ['Last Update', formatDate(artist.updated_at)],
   ];
 
   for (const [label, value] of stats) {

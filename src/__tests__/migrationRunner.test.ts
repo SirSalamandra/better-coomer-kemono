@@ -34,7 +34,7 @@ describe('MigrationRunner.latestVersion', () => {
   test('returns the highest registered migration version', () => {
     const runner = new MigrationRunner();
     // The real migrations are v1 and v2
-    expect(runner.latestVersion).toBe(2);
+    expect(runner.latestVersion).toBe(3);
   });
 
   test('works for a runner built from custom migrations', () => {
