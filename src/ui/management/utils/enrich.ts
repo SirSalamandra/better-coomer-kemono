@@ -59,10 +59,12 @@ export async function enrichPostsForArtists(
         if (!stored) continue;
         remaining.delete(apiPost.id);
 
+        const filePath: string | undefined = apiPost.file?.path;
+        const isImage = filePath && /\.(jpe?g|png|gif|webp|avif|bmp|tiff?)$/i.test(filePath);
         postCache.set(
           apiPost.id,
-          apiPost.file?.path
-            ? `https://img.${host}/thumbnail/data${apiPost.file.path}`
+          isImage
+            ? `https://img.${host}/thumbnail/data${filePath}`
             : null
         );
 
