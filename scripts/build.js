@@ -11,10 +11,10 @@ if (!['chrome', 'firefox'].includes(target)) {
 const dest = path.join(__dirname, `../dist/`);
 
 const manifest = path.join(__dirname, `../manifests/${target}.manifest.json`);
-const pop_ui = path.join(__dirname, `../src/popup.html`);
-const mgmt_ui = path.join(__dirname, `../src/management.html`);
-const mgmt_css = path.join(__dirname, `../src/management.css`);
-const pop_css = path.join(__dirname, `../src/popup.css`);
+const pop_ui = path.join(__dirname, `../src/ui/popup/popup.html`);
+const mgmt_ui = path.join(__dirname, `../src/ui/management/management.html`);
+const mgmt_css = path.join(__dirname, `../src/ui/management/management.css`);
+const pop_css = path.join(__dirname, `../src/ui/popup/popup.css`);
 
 fs.copyFileSync(manifest, dest + 'manifest.json');
 fs.copyFileSync(pop_ui, dest + 'popup.html');

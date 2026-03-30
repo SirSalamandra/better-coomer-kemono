@@ -5,10 +5,10 @@
  * to prevent real DB access and DOM-related side-effects.
  */
 
-import { Artist } from '../types/Artist';
-import { Post }   from '../types/Post';
+import { Artist } from '../shared/types/Artist';
+import { Post }   from '../shared/types/Post';
 
-jest.mock('../database/indexedDbManager', () => ({
+jest.mock('../core/database/indexedDbManager', () => ({
   IndexedDbManager: {
     getInstance: () => ({
       init:          jest.fn().mockResolvedValue(undefined),
@@ -25,7 +25,7 @@ beforeAll(() => {
 });
 
 // Import AFTER the mock is in place
-import { formatDate, lastViewedFromPosts, hostForArtist } from '../management';
+import { formatDate, lastViewedFromPosts, hostForArtist } from '../ui/management/management';
 
 // ---------------------------------------------------------------------------
 // formatDate

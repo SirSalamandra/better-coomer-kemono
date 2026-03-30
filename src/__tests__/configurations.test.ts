@@ -1,4 +1,4 @@
-import { Configurations } from '../configurations';
+import { Configurations } from '../core/config';
 
 describe('Configurations.isHostAllowed', () => {
   test.each([

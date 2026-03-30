@@ -3,8 +3,8 @@
  */
 
 import { IDBFactory } from 'fake-indexeddb';
-import { MigrationRunner } from '../database/MigrationRunner';
-import { IMigration } from '../database/migrations/IMigration';
+import { MigrationRunner } from '../core/database/MigrationRunner';
+import { IMigration } from '../core/database/migrations/IMigration';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -34,7 +34,7 @@ describe('MigrationRunner.latestVersion', () => {
   test('returns the highest registered migration version', () => {
     const runner = new MigrationRunner();
     // The real migrations are v1 and v2
-    expect(runner.latestVersion).toBe(2);
+    expect(runner.latestVersion).toBe(3);
   });
 
   test('works for a runner built from custom migrations', () => {

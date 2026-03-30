@@ -3,7 +3,7 @@
  */
 
 import { IDBFactory, IDBKeyRange } from 'fake-indexeddb';
-import { IndexedDbManager } from '../database/indexedDbManager';
+import { IndexedDbManager } from '../core/database/indexedDbManager';
 
 // Make IDBKeyRange available globally — it's stateless so one-time setup is fine.
 (global as any).IDBKeyRange = IDBKeyRange;
@@ -198,8 +198,8 @@ describe('Error handling', () => {
 // ---------------------------------------------------------------------------
 
 describe('getTargetVersion', () => {
-  test('returns the latest migration version (2)', () => {
-    expect(db.getTargetVersion()).toBe(2);
+  test('returns the latest migration version (3)', () => {
+    expect(db.getTargetVersion()).toBe(3);
   });
 });
 

@@ -1,6 +1,9 @@
-import { ExtractDataFromUrl, GetDate, AddAudioElementsForAudioLinks, AddViewedTagsOnAllPosts } from '../helpers/helpers';
-import { Pages } from '../enums/pages';
-import { Post } from '../types/Post';
+import { ExtractDataFromUrl } from '../features/urlParser/parser';
+import { GetDate } from '../shared/utils/date';
+import { AddAudioElementsForAudioLinks } from '../features/audioPlayer/dom';
+import { AddViewedTagsOnAllPosts } from '../features/viewTracking/dom';
+import { Pages } from '../shared/constants/pages';
+import { Post } from '../shared/types/Post';
 
 // ---------------------------------------------------------------------------
 // ExtractDataFromUrl
