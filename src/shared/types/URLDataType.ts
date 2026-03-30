@@ -1,4 +1,4 @@
-import { Pages } from "../enums/pages"
+import { Pages } from "../constants/pages"
 
 export type URLDataType = {
   artist_id: string | null,

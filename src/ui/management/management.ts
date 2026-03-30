@@ -1,8 +1,8 @@
-import { IndexedDbManager } from "./database/indexedDbManager";
-import { Artist } from "./types/Artist";
-import { Post } from "./types/Post";
-import { ArtistProfileDTO } from "./types/ArtistProfileDTO";
-import { GetDate } from "./helpers/helpers";
+import { IndexedDbManager } from "../../core/database/indexedDbManager";
+import { Artist } from "../../shared/types/Artist";
+import { Post } from "../../shared/types/Post";
+import { ArtistProfileDTO } from "../../shared/types/ArtistProfileDTO";
+import { GetDate } from "../../shared/utils/date";
 
 const db = IndexedDbManager.getInstance();
 
@@ -210,6 +210,8 @@ function render() {
   });
 
   const content = document.getElementById('content')!;
+
+  if (content == null || content.innerHTML == null) return;
 
   if (page === 'home')    content.innerHTML = '', content.appendChild(renderHome());
   if (page === 'artists') content.innerHTML = '', content.appendChild(renderArtists());

@@ -1,4 +1,4 @@
-import { IndexedDbManager } from "./database/indexedDbManager";
+import { IndexedDbManager } from "../../core/database/indexedDbManager";
 
 if (typeof browser === "undefined") {
   //@ts-ignore

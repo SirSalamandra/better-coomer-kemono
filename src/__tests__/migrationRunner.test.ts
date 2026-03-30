@@ -3,8 +3,8 @@
  */
 
 import { IDBFactory } from 'fake-indexeddb';
-import { MigrationRunner } from '../database/MigrationRunner';
-import { IMigration } from '../database/migrations/IMigration';
+import { MigrationRunner } from '../core/database/MigrationRunner';
+import { IMigration } from '../core/database/migrations/IMigration';
 
 // ---------------------------------------------------------------------------
 // Helpers

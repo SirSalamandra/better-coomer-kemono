@@ -3,7 +3,7 @@
  */
 
 import { IDBFactory, IDBKeyRange } from 'fake-indexeddb';
-import { IndexedDbManager } from '../database/indexedDbManager';
+import { IndexedDbManager } from '../core/database/indexedDbManager';
 
 // Make IDBKeyRange available globally — it's stateless so one-time setup is fine.
 (global as any).IDBKeyRange = IDBKeyRange;

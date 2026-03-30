@@ -4,11 +4,11 @@ const CopyPlugin = require('copy-webpack-plugin');
 module.exports = () => {
   return {
     entry: {
-      background: `./src/background.ts`,
-      content: `./src/content.ts`,
-      popup: `./src/popup.ts`,
-      management: `./src/management.ts`,
-      inject: `./src/inject.ts`,
+      background: `./src/background/index.ts`,
+      content: `./src/content/index.ts`,
+      popup: `./src/ui/popup/popup.ts`,
+      management: `./src/ui/management/management.ts`,
+      inject: `./src/content/inject.ts`,
     },
     output: {
       path: path.resolve(__dirname, `dist/`),

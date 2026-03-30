@@ -1,5 +1,5 @@
-import { Artist } from "../types/Artist";
-import { Post } from "../types/Post";
+import { Artist } from "../../shared/types/Artist";
+import { Post } from "../../shared/types/Post";
 import { MigrationRunner } from "./MigrationRunner";
 
 const DB_NAME = "BetterSU_DB";

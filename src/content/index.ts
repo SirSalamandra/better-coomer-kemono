@@ -1,6 +1,7 @@
-import { EventTypes } from "./enums/eventTypes";
-import { AddAudioElementsForAudioLinks, AddViewedTagsOnAllPosts } from "./helpers/helpers";
-import { ContentMessage } from "./types/ContentMessage";
+import { EventTypes } from "../shared/constants/eventTypes";
+import { AddAudioElementsForAudioLinks } from "../features/audioPlayer/dom";
+import { AddViewedTagsOnAllPosts } from "../features/viewTracking/dom";
+import { ContentMessage } from "../shared/types/ContentMessage";
 
 if (typeof browser === "undefined") {
   //@ts-ignore
