@@ -4,6 +4,7 @@ import { buildAvatar } from "../utils/avatar";
 import { emptyState, escapeHtml, formatDate, lastViewedFromPosts } from "../utils/format";
 import { hostForArtist, enrichPostsForArtists } from "../utils/enrich";
 import { renderPostCard } from "../components/postCard";
+import { createMasonry } from "../utils/masonry";
 
 export function renderArtistDetail(
   selectedArtistId: string | null,
@@ -133,12 +134,11 @@ export function renderArtistDetail(
     postsSection.appendChild(emptyState('📄', 'No posts tracked for this artist yet.'));
   } else {
     const sorted = [...artistPosts].sort((a, b) => (b.viewed_at > a.viewed_at ? 1 : -1));
-    const grid = document.createElement('div');
-    grid.className = 'card-grid';
+    const cards: HTMLElement[] = [];
     for (const post of sorted) {
-      grid.appendChild(renderPostCard(post, artist, deletePost, false));
+      cards.push(renderPostCard(post, artist, deletePost, false));
     }
-    postsSection.appendChild(grid);
+    postsSection.appendChild(createMasonry(cards));
     enrichPostsForArtists(sorted, artists, loadData, render).catch(console.error);
   }
 

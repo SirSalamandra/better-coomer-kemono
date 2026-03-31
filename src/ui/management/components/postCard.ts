@@ -9,20 +9,12 @@ export function renderPostCard(
   artist: Artist | undefined,
   deletePost: (id: string, title: string) => void,
   showArtist = true,
-  debugOrder?: number,
 ): HTMLElement {
   const thumbnailUrl = post.thumbnail_url;
   const { name, posted_at, attachment_count } = post;
 
   const card = document.createElement('div');
   card.className = 'post-card';
-
-  if (debugOrder !== undefined) {
-    const badge = document.createElement('div');
-    badge.className = 'debug-order-badge';
-    badge.textContent = `#${debugOrder}`;
-    card.appendChild(badge);
-  }
 
   const artistName = artist?.name || post.artist_id || 'Unknown';
 

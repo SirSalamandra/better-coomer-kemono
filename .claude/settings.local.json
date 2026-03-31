@@ -8,7 +8,8 @@
       "mcp__chrome-devtools__navigate_page",
       "Bash(cd:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(npx jest:*)"
     ]
   }
 }

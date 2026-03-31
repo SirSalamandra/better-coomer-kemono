@@ -58,10 +58,9 @@ export function renderPosts(
   const sorted = [...visiblePosts].sort((a, b) => (b.viewed_at > a.viewed_at ? 1 : -1));
 
   const cards: HTMLElement[] = [];
-  for (let i = 0; i < sorted.length; i++) {
-    const post = sorted[i];
+  for (const post of sorted) {
     const artist = artists.find(a => a.id === post.artist_id);
-    cards.push(renderPostCard(post, artist, deletePost, true, sorted.length - i));
+    cards.push(renderPostCard(post, artist, deletePost, true));
   }
 
   wrap.appendChild(createMasonry(cards));

@@ -53,8 +53,10 @@ export async function enrichPostsForArtists(
     }));
   }));
 
-  if (dbUpdated) await loadData();
-  render();
+  if (dbUpdated) {
+    await loadData();
+    render();
+  }
 }
 
 export async function enrichArtists(
