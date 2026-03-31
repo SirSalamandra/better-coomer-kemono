@@ -155,6 +155,8 @@ body {
   font-weight: 700;
   color: var(--accent);
   line-height: 1;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .stat-card .stat-label {
@@ -187,6 +189,20 @@ body {
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.masonry-wrapper {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.masonry-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
 }
 
@@ -360,7 +376,8 @@ body {
 /* ── Post card ── */
 
 .post-card-clickable {
-  display: block;
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
@@ -392,7 +409,22 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  position: relative;
   transition: transform 0.12s;
+}
+
+.debug-order-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  z-index: 10;
+  pointer-events: none;
 }
 
 .post-card:hover {

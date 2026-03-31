@@ -2,6 +2,7 @@ import { IndexedDbManager } from "../../core/database/indexedDbManager";
 import { Artist } from "../../shared/types/Artist";
 import { Post } from "../../shared/types/Post";
 import { renderHome } from "./pages/home";
+import { renderSettings } from "./pages/settings";
 import { renderArtists, resetArtistsPage } from "./pages/artists";
 import { renderPosts } from "./pages/posts";
 import { renderArtistDetail } from "./pages/artistDetail";
@@ -43,7 +44,7 @@ async function deletePost(id: string, title: string): Promise<void> {
 
 function currentPage(): string {
   const hash = window.location.hash.replace('#', '');
-  return ['home', 'artists', 'posts', 'artist'].includes(hash) ? hash : 'home';
+  return ['home', 'artists', 'posts', 'artist', 'settings'].includes(hash) ? hash : 'home';
 }
 
 function navigate(page: string, id?: string): void {
@@ -64,7 +65,8 @@ function render(): void {
   const content = document.getElementById('content')!;
   if (content == null || content.innerHTML == null) return;
 
-  if (page === 'home')    content.innerHTML = '', content.appendChild(renderHome(artists, posts, db, loadData, render));
+  if (page === 'home')     content.innerHTML = '', content.appendChild(renderHome(artists, posts));
+  if (page === 'settings') content.innerHTML = '', content.appendChild(renderSettings(db, loadData, render));
   if (page === 'artists') content.innerHTML = '', content.appendChild(renderArtists(artists, posts, navigate, render, loadData, deleteArtist));
   if (page === 'posts')   content.innerHTML = '', content.appendChild(renderPosts(artists, posts, filterArtistId, navigate, loadData, render, deletePost));
   if (page === 'artist')  content.innerHTML = '', content.appendChild(renderArtistDetail(selectedArtistId, artists, posts, navigate, loadData, render, deleteArtist, deletePost));
@@ -85,7 +87,7 @@ async function init(): Promise<void> {
 
   window.addEventListener('hashchange', render);
 
-  if (!window.location.hash || !['#home', '#artists', '#posts', '#artist'].includes(window.location.hash)) {
+  if (!window.location.hash || !['#home', '#artists', '#posts', '#artist', '#settings'].includes(window.location.hash)) {
     window.location.hash = '#home';
   }
 

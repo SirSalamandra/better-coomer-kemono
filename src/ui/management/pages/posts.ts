@@ -3,6 +3,7 @@ import { Post } from "../../../shared/types/Post";
 import { emptyState, escapeHtml } from "../utils/format";
 import { enrichPostsForArtists } from "../utils/enrich";
 import { renderPostCard } from "../components/postCard";
+import { createMasonry } from "../utils/masonry";
 
 export function renderPosts(
   artists: Artist[],
@@ -56,15 +57,14 @@ export function renderPosts(
 
   const sorted = [...visiblePosts].sort((a, b) => (b.viewed_at > a.viewed_at ? 1 : -1));
 
-  const grid = document.createElement('div');
-  grid.className = 'card-grid';
-
-  for (const post of sorted) {
+  const cards: HTMLElement[] = [];
+  for (let i = 0; i < sorted.length; i++) {
+    const post = sorted[i];
     const artist = artists.find(a => a.id === post.artist_id);
-    grid.appendChild(renderPostCard(post, artist, deletePost));
+    cards.push(renderPostCard(post, artist, deletePost, true, sorted.length - i));
   }
 
-  wrap.appendChild(grid);
+  wrap.appendChild(createMasonry(cards));
 
   enrichPostsForArtists(sorted, artists, loadData, render).catch(console.error);
 
