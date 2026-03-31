@@ -9,7 +9,7 @@
       const clone = response.clone();
       clone.json().then(data => {
         window.postMessage({
-          type: 'BETTER_SU_API_RESPONSE',
+          type: 'BETTER_CK_API_RESPONSE',
           url: url,
           payload: data
         }, '*');
@@ -27,7 +27,7 @@
         try {
           const data = JSON.parse(this.responseText);
           window.postMessage({
-            type: 'BETTER_SU_API_RESPONSE',
+            type: 'BETTER_CK_API_RESPONSE',
             url: urlStr,
             payload: data
           }, '*');

@@ -19,7 +19,30 @@ if (typeof browser === "undefined") {
 
 setupMessageHandler(db);
 
+/**
+ * If BetterSU_DB (the old database name) exists, migrates all data from it into
+ * BetterCK_DB and then deletes the old database.
+ * Safe to call on every onInstalled event — no-ops when the legacy DB is absent.
+ */
+async function migrateLegacyDbIfNeeded(): Promise<void> {
+  const legacyData = await db.exportFromLegacyDb();
+  if (!legacyData) return;
+
+  console.log(`Found legacy BetterSU_DB with ${legacyData.artists.length} artists and ${legacyData.posts.length} posts. Migrating to BetterCK_DB...`);
+
+  try {
+    await db.init();
+    await db.importData(legacyData);
+    await db.deleteLegacyDb();
+    console.log('Legacy DB migration complete. BetterSU_DB deleted.');
+  } catch (err) {
+    console.error('Legacy DB migration failed. BetterSU_DB preserved.', err);
+  }
+}
+
 browser.runtime.onInstalled.addListener(async (details) => {
+  await migrateLegacyDbIfNeeded();
+
   if (details.reason === 'install') {
     console.log("Extension installed. Initializing database...");
     await db.init();

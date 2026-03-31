@@ -2,7 +2,8 @@ import { Artist } from "../../shared/types/Artist";
 import { Post } from "../../shared/types/Post";
 import { MigrationRunner } from "./MigrationRunner";
 
-const DB_NAME = "BetterSU_DB";
+const DB_NAME = "BetterCK_DB";
+const LEGACY_DB_NAME = "BetterSU_DB";
 
 const runner = new MigrationRunner();
 const DB_VERSION = runner.latestVersion; // always equals the highest migration version
@@ -290,6 +291,48 @@ export class IndexedDbManager {
       this.db = null;
     }
     this.initPromise = null;
+  }
+
+  /**
+   * Opens BetterSU_DB (the legacy database name) and exports all data from it.
+   * Returns null if the legacy database does not exist.
+   * Does NOT touch the current BetterCK_DB or this.db.
+   */
+  public async exportFromLegacyDb(): Promise<{ artists: Artist[]; posts: Post[] } | null> {
+    return new Promise((resolve) => {
+      const request = indexedDB.open(LEGACY_DB_NAME);
+      request.onerror = () => resolve(null);
+      request.onupgradeneeded = (event) => {
+        // DB doesn't exist — abort to avoid creating it, then resolve with null.
+        (event.target as IDBOpenDBRequest).transaction?.abort();
+        resolve(null);
+      };
+      request.onsuccess = () => {
+        const legacyDb = request.result;
+        if (!legacyDb.objectStoreNames.contains('artists') || !legacyDb.objectStoreNames.contains('posts')) {
+          legacyDb.close();
+          resolve(null);
+          return;
+        }
+        const tx = legacyDb.transaction(['artists', 'posts'], 'readonly');
+        const artistReq = tx.objectStore('artists').getAll();
+        const postReq   = tx.objectStore('posts').getAll();
+        tx.oncomplete = () => {
+          legacyDb.close();
+          resolve({ artists: artistReq.result as Artist[], posts: postReq.result as Post[] });
+        };
+        tx.onerror = () => { legacyDb.close(); resolve(null); };
+      };
+    });
+  }
+
+  /** Deletes BetterSU_DB (the legacy database name). */
+  public async deleteLegacyDb(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.deleteDatabase(LEGACY_DB_NAME);
+      request.onsuccess = () => resolve();
+      request.onerror = () => reject(request.error);
+    });
   }
 
   /** Deletes the entire database and reinitializes it with the current schema. */

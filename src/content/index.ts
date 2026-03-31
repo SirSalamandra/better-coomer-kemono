@@ -15,7 +15,7 @@ try {
   (document.head || document.documentElement).appendChild(script);
   script.onload = () => script.remove();
 } catch (e) {
-  console.error('Failed to inject Better SU interception script:', e);
+  console.error('Failed to inject Better Coomer/Kemono interception script:', e);
 }
 
 /**
@@ -34,7 +34,7 @@ function isContextValid(): boolean {
 window.addEventListener("message", (event) => {
   if (event.source !== window) return;
 
-  if (event.data && event.data.type === "BETTER_SU_API_RESPONSE") {
+  if (event.data && event.data.type === "BETTER_CK_API_RESPONSE") {
     if (!isContextValid()) return;
 
     browser.runtime.sendMessage({
