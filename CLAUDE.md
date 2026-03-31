@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Better SU** is a browser extension (Chrome/Firefox) that enhances kemono.cr and coomer.st by tracking visited posts ("Viewed" tags), enabling "Mark as Unread", and adding audio players to posts with audio attachments.
+**Better Coomer/Kemono** is a browser extension (Chrome/Firefox) that enhances kemono.cr and coomer.st by tracking visited posts ("Viewed" tags), enabling "Mark as Unread", and adding audio players to posts with audio attachments.
 
 ## Commands
 

@@ -1,4 +1,4 @@
-# Better SU Architecture Refactoring Proposal
+# Better Coomer/Kemono Architecture Refactoring Proposal
 
 ## Current Pain Points
 
