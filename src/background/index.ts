@@ -8,7 +8,8 @@ import { Artist } from "../shared/types/Artist";
 import { Post } from "../shared/types/Post";
 import { setupMessageHandler } from "./messageHandler";
 import { transformArtistProfile, transformPostProfile } from "../core/utils/enrichment";
-import { PostResponseDTO } from "../shared/types/PostDTO";
+import { fetchArtistProfile, fetchPostDetails } from "../core/services/apiClient";
+import { tryParseUrl } from "../shared/utils/url";
 
 const db = IndexedDbManager.getInstance();
 
@@ -111,15 +112,16 @@ browser.runtime.onInstalled.addListener(async (details) => {
 });
 
 browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  await db.init(); // lazy guard for service-worker restarts that bypass onInstalled
+  if (changeInfo.status !== 'complete') return;
 
-  const url = new URL(tab.url);
+  const url = tryParseUrl(tab.url);
+  if (!url) return;
+
+  await db.init(); // lazy guard for service-worker restarts that bypass onInstalled
 
   // only proceed for hosts we care about – the helper handles
   // wildcard/TLD‑changes so we don't need to keep the list up to date.
-  if (
-    !Configurations.isHostAllowed(url.host) ||
-    changeInfo.status !== 'complete') {
+  if (!Configurations.isHostAllowed(url.host)) {
     return;
   }
 
@@ -146,10 +148,8 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 
     if (shouldEnrich) {
       try {
-        const apiUrl = `https://${url.host}/api/v1/${urlData.content_origin}/user/${urlData.artist_id}/profile`;
-        const res = await fetch(apiUrl, { headers: { 'Accept': 'text/css' } });
-        if (res.ok) {
-          const data = await res.json();
+        const data = await fetchArtistProfile(url.host, urlData.content_origin, urlData.artist_id);
+        if (data) {
           const enrichedArtist = transformArtistProfile(storedArtist, data, url.host);
           await db.updateArtist(enrichedArtist);
         }
@@ -166,11 +166,6 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
         artist_id: urlData.artist_id,
         posts: posts
       }
-    }).catch(() => {});
-
-    browser.tabs.sendMessage(tabId, {
-      type: EventTypes.ExtractArtistInfo,
-      data: {}
     }).catch(() => {});
 
     return;
@@ -194,10 +189,8 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 
     if (shouldEnrich) {
       try {
-        const apiUrl = `https://${url.host}/api/v1/${urlData.content_origin}/user/${urlData.artist_id}/post/${urlData.post_id}`;
-        const res = await fetch(apiUrl, { headers: { 'Accept': 'text/css' } });
-        if (res.ok) {
-          const data: PostResponseDTO = await res.json();
+        const data = await fetchPostDetails(url.host, urlData.content_origin, urlData.artist_id, urlData.post_id);
+        if (data) {
           const enrichedPost = transformPostProfile(post, data.post, data.attachments, url.host);
           await db.updatePost(enrichedPost);
         }
@@ -208,11 +201,6 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 
     browser.tabs.sendMessage(tabId, {
       type: EventTypes.AddPlayerElement,
-      data: {}
-    }).catch(() => {});
-
-    browser.tabs.sendMessage(tabId, {
-      type: EventTypes.ExtractPostInfo,
       data: {}
     }).catch(() => {});
 

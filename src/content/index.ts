@@ -85,16 +85,6 @@ browser.runtime.onMessage.addListener((message: ContentMessage, sender) => {
       AddAudioElementsForAudioLinks(document);
       break;
 
-    case EventTypes.ExtractArtistInfo:
-      // Handle ExtractArtistInfo event if needed
-      console.log("ExtractArtistInfo event received");
-      break;
-
-    case EventTypes.ExtractPostInfo:
-      // Handle ExtractPostInfo event if needed
-      console.log("ExtractPostInfo event received");
-      break;
-
     case EventTypes.RemoveViewTagFromUI:
       const postIdToRemove = message.data.postId;
       const postCard = document.querySelector(`[data-id="${postIdToRemove}"]`);

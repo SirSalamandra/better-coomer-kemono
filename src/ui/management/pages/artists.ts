@@ -2,7 +2,6 @@ import { Artist } from "../../../shared/types/Artist";
 import { Post } from "../../../shared/types/Post";
 import { buildAvatar } from "../utils/avatar";
 import { emptyState, escapeHtml, formatDate, lastViewedFromPosts } from "../utils/format";
-import { enrichArtists } from "../utils/enrich";
 
 let artistsPage = 1;
 const ARTISTS_PER_PAGE = 12;
@@ -11,12 +10,19 @@ export function resetArtistsPage(): void {
   artistsPage = 1;
 }
 
+/** Returns the slice of artists currently visible on the artists page. */
+export function getPageArtists(artists: Artist[]): Artist[] {
+  const totalPages = Math.ceil(artists.length / ARTISTS_PER_PAGE);
+  const page = Math.max(1, Math.min(artistsPage, totalPages));
+  const start = (page - 1) * ARTISTS_PER_PAGE;
+  return artists.slice(start, start + ARTISTS_PER_PAGE);
+}
+
 export function renderArtists(
   artists: Artist[],
   posts: Post[],
   navigate: (page: string, id?: string) => void,
   render: () => void,
-  loadData: () => Promise<void>,
   deleteArtist: (id: string, name: string) => void,
 ): HTMLElement {
   const wrap = document.createElement('div');
@@ -72,8 +78,6 @@ export function renderArtists(
     pager.appendChild(nextBtn);
     wrap.appendChild(pager);
   }
-
-  enrichArtists(pageArtists, loadData, render).catch(console.error);
 
   return wrap;
 }

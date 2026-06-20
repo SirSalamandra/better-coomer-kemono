@@ -3,9 +3,10 @@ import { Artist } from "../../shared/types/Artist";
 import { Post } from "../../shared/types/Post";
 import { renderHome } from "./pages/home";
 import { renderSettings } from "./pages/settings";
-import { renderArtists, resetArtistsPage } from "./pages/artists";
+import { renderArtists, resetArtistsPage, getPageArtists } from "./pages/artists";
 import { renderPosts } from "./pages/posts";
 import { renderArtistDetail } from "./pages/artistDetail";
+import { enrichArtistSubset, enrichPosts } from "../../core/services/enrichmentService";
 
 // Re-export for backwards compatibility with tests
 export { formatDate, lastViewedFromPosts } from "./utils/format";
@@ -54,6 +55,39 @@ function navigate(page: string, id?: string): void {
   window.location.hash = page;
 }
 
+// ── Enrichment orchestration ──────────────────────────────────────────────────
+
+/**
+ * Enriches the data visible on the current page.
+ * If the DB was updated, reloads data and re-renders once (no infinite loop).
+ */
+async function maybeEnrichCurrentPage(): Promise<void> {
+  const page = currentPage();
+  let updated = false;
+
+  if (page === 'artists') {
+    const pageArtists = getPageArtists(artists);
+    updated = await enrichArtistSubset(db, pageArtists);
+  } else if (page === 'posts') {
+    const visiblePosts = filterArtistId
+      ? posts.filter(p => p.artist_id === filterArtistId)
+      : posts;
+    updated = await enrichPosts(db, visiblePosts, artists);
+  } else if (page === 'artist') {
+    const artistPosts = selectedArtistId
+      ? posts.filter(p => p.artist_id === selectedArtistId)
+      : [];
+    updated = await enrichPosts(db, artistPosts, artists);
+  }
+
+  if (updated) {
+    await loadData();
+    render();
+  }
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+
 function render(): void {
   const page = currentPage();
   const navPage = page === 'artist' ? 'artists' : page;
@@ -67,9 +101,12 @@ function render(): void {
 
   if (page === 'home')     content.innerHTML = '', content.appendChild(renderHome(artists, posts));
   if (page === 'settings') content.innerHTML = '', content.appendChild(renderSettings(db, loadData, render));
-  if (page === 'artists') content.innerHTML = '', content.appendChild(renderArtists(artists, posts, navigate, render, loadData, deleteArtist));
-  if (page === 'posts')   content.innerHTML = '', content.appendChild(renderPosts(artists, posts, filterArtistId, navigate, loadData, render, deletePost));
-  if (page === 'artist')  content.innerHTML = '', content.appendChild(renderArtistDetail(selectedArtistId, artists, posts, navigate, loadData, render, deleteArtist, deletePost));
+  if (page === 'artists')  content.innerHTML = '', content.appendChild(renderArtists(artists, posts, navigate, render, deleteArtist));
+  if (page === 'posts')    content.innerHTML = '', content.appendChild(renderPosts(artists, posts, filterArtistId, navigate, deletePost));
+  if (page === 'artist')   content.innerHTML = '', content.appendChild(renderArtistDetail(selectedArtistId, artists, posts, navigate, deleteArtist, deletePost));
+
+  // Kick off enrichment after DOM is built — no await, updates reload+rerender on their own
+  maybeEnrichCurrentPage().catch(console.error);
 }
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────────

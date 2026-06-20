@@ -2,7 +2,7 @@ import { Artist } from "../../../shared/types/Artist";
 import { Post } from "../../../shared/types/Post";
 import { buildAvatar } from "../utils/avatar";
 import { emptyState, escapeHtml, formatDate, lastViewedFromPosts } from "../utils/format";
-import { hostForArtist, enrichPostsForArtists } from "../utils/enrich";
+import { hostForArtist } from "../utils/enrich";
 import { renderPostCard } from "../components/postCard";
 import { createMasonry } from "../utils/masonry";
 
@@ -11,8 +11,6 @@ export function renderArtistDetail(
   artists: Artist[],
   posts: Post[],
   navigate: (page: string, id?: string) => void,
-  loadData: () => Promise<void>,
-  render: () => void,
   deleteArtist: (id: string, name: string) => void,
   deletePost: (id: string, title: string) => void,
 ): HTMLElement {
@@ -139,7 +137,6 @@ export function renderArtistDetail(
       cards.push(renderPostCard(post, artist, deletePost, false));
     }
     postsSection.appendChild(createMasonry(cards));
-    enrichPostsForArtists(sorted, artists, loadData, render).catch(console.error);
   }
 
   wrap.appendChild(postsSection);

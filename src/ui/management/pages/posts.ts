@@ -1,7 +1,6 @@
 import { Artist } from "../../../shared/types/Artist";
 import { Post } from "../../../shared/types/Post";
 import { emptyState, escapeHtml } from "../utils/format";
-import { enrichPostsForArtists } from "../utils/enrich";
 import { renderPostCard } from "../components/postCard";
 import { createMasonry } from "../utils/masonry";
 
@@ -10,8 +9,6 @@ export function renderPosts(
   posts: Post[],
   filterArtistId: string | null,
   navigate: (page: string, id?: string) => void,
-  loadData: () => Promise<void>,
-  render: () => void,
   deletePost: (id: string, title: string) => void,
 ): HTMLElement {
   const wrap = document.createElement('div');
@@ -64,8 +61,6 @@ export function renderPosts(
   }
 
   wrap.appendChild(createMasonry(cards));
-
-  enrichPostsForArtists(sorted, artists, loadData, render).catch(console.error);
 
   return wrap;
 }

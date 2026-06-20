@@ -1,0 +1,327 @@
+{
+  "D:\\coding\\salamandra\\better-coomer-kemono\\.claude\\settings.local.json": {
+    "mtime": 1774938196.3147926,
+    "ast_hash": "6984e951fe1938e1dfa0305f57a95e08",
+    "semantic_hash": "6984e951fe1938e1dfa0305f57a95e08"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\jest.config.js": {
+    "mtime": 1774761717.20626,
+    "ast_hash": "652f638ffed0dfcac1632cf0ac41a6f9",
+    "semantic_hash": "652f638ffed0dfcac1632cf0ac41a6f9"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\manifests\\chrome.manifest.json": {
+    "mtime": 1774939304.3519826,
+    "ast_hash": "f9843e52a50c827131afa51f0e733a11",
+    "semantic_hash": "f9843e52a50c827131afa51f0e733a11"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\manifests\\firefox.manifest.json": {
+    "mtime": 1774939301.6394284,
+    "ast_hash": "9232484be65cbf2f5d4ff4a502cdc539",
+    "semantic_hash": "9232484be65cbf2f5d4ff4a502cdc539"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\manifests\\firefox.manifest.v3.json": {
+    "mtime": 1774821171.6328669,
+    "ast_hash": "de2deae170db2933aab8155b6ee7d355",
+    "semantic_hash": "de2deae170db2933aab8155b6ee7d355"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\package.json": {
+    "mtime": 1774821171.633865,
+    "ast_hash": "35a4348c9f0be8b0ae41d6988447606c",
+    "semantic_hash": "35a4348c9f0be8b0ae41d6988447606c"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\scripts\\build.js": {
+    "mtime": 1774848212.3519192,
+    "ast_hash": "8f9bc62045ede2a40873c4be8ed52b3d",
+    "semantic_hash": "8f9bc62045ede2a40873c4be8ed52b3d"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\__tests__\\configurations.test.ts": {
+    "mtime": 1774848212.3529193,
+    "ast_hash": "84ab41e91fbd60317c7d7d76e441eefd",
+    "semantic_hash": "84ab41e91fbd60317c7d7d76e441eefd"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\__tests__\\enrichPostsForArtists.test.ts": {
+    "mtime": 1774938186.6249254,
+    "ast_hash": "110a7e7cf5e9305bcbff943edcdc32e7",
+    "semantic_hash": "110a7e7cf5e9305bcbff943edcdc32e7"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\__tests__\\enrichment.test.ts": {
+    "mtime": 1774848212.369195,
+    "ast_hash": "324cefe739a5453d41877fd583f0e9ab",
+    "semantic_hash": "324cefe739a5453d41877fd583f0e9ab"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\__tests__\\helpers.test.ts": {
+    "mtime": 1774848212.3741953,
+    "ast_hash": "80736f4bb3eede8c7c1b0e8f54f8678e",
+    "semantic_hash": "80736f4bb3eede8c7c1b0e8f54f8678e"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\__tests__\\indexedDbManager.test.ts": {
+    "mtime": 1774848212.3751972,
+    "ast_hash": "c0405ac11146064473a0b970d93117eb",
+    "semantic_hash": "c0405ac11146064473a0b970d93117eb"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\__tests__\\management.test.ts": {
+    "mtime": 1774848212.3761964,
+    "ast_hash": "9843a900131df013c6ae430bf23743f9",
+    "semantic_hash": "9843a900131df013c6ae430bf23743f9"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\__tests__\\migrationRunner.test.ts": {
+    "mtime": 1774848212.3771973,
+    "ast_hash": "0e92387a84510592f37150e3e0cd1a69",
+    "semantic_hash": "0e92387a84510592f37150e3e0cd1a69"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\background\\index.ts": {
+    "mtime": 1774934714.2027402,
+    "ast_hash": "ca26fa1d49bb3832014cf3e5607c5b56",
+    "semantic_hash": "ca26fa1d49bb3832014cf3e5607c5b56"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\background\\messageHandler.ts": {
+    "mtime": 1774848212.379197,
+    "ast_hash": "2d8b03629c753e2172c92e596a2f9541",
+    "semantic_hash": "2d8b03629c753e2172c92e596a2f9541"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\content\\index.ts": {
+    "mtime": 1774934388.7295482,
+    "ast_hash": "0239e9cdc075e2b89604198719252d02",
+    "semantic_hash": "0239e9cdc075e2b89604198719252d02"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\content\\inject.ts": {
+    "mtime": 1774934389.6760278,
+    "ast_hash": "b2a5cc08b4848dbb2143b942328c5b40",
+    "semantic_hash": "b2a5cc08b4848dbb2143b942328c5b40"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\core\\config.ts": {
+    "mtime": 1774848212.3811967,
+    "ast_hash": "1c7c0a631cc56ede26252630dac96adc",
+    "semantic_hash": "1c7c0a631cc56ede26252630dac96adc"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\core\\database\\MigrationRunner.ts": {
+    "mtime": 1774848212.3821988,
+    "ast_hash": "0a1bcfa086392bf41b7b6bbc92037cb2",
+    "semantic_hash": "0a1bcfa086392bf41b7b6bbc92037cb2"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\core\\database\\indexedDbManager.ts": {
+    "mtime": 1774934705.603688,
+    "ast_hash": "c3f20b228ef85a1bfcd71075a582c83b",
+    "semantic_hash": "c3f20b228ef85a1bfcd71075a582c83b"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\core\\database\\migrations\\1_InitialCreate.ts": {
+    "mtime": 1774848212.385201,
+    "ast_hash": "dbee0ed7ec6905494fc70619d54723a7",
+    "semantic_hash": "dbee0ed7ec6905494fc70619d54723a7"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\core\\database\\migrations\\2_ForceEnrichmentRefresh.ts": {
+    "mtime": 1774848212.385201,
+    "ast_hash": "d89f0ac800da5646fba842698764d6c6",
+    "semantic_hash": "d89f0ac800da5646fba842698764d6c6"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\core\\database\\migrations\\3_AddPostThumbnailUrl.ts": {
+    "mtime": 1774848212.3861997,
+    "ast_hash": "c48df896dd405b21aa8d696b39bcbebe",
+    "semantic_hash": "c48df896dd405b21aa8d696b39bcbebe"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\core\\database\\migrations\\IMigration.ts": {
+    "mtime": 1774848212.3861997,
+    "ast_hash": "9769f17c1a6dfad0d789005b89fff017",
+    "semantic_hash": "9769f17c1a6dfad0d789005b89fff017"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\core\\utils\\enrichment.ts": {
+    "mtime": 1774848212.387198,
+    "ast_hash": "4678afc005d5e8a107485ef78a121f6e",
+    "semantic_hash": "4678afc005d5e8a107485ef78a121f6e"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\features\\audioPlayer\\dom.ts": {
+    "mtime": 1774848212.3881996,
+    "ast_hash": "f9eb2705c9a14fd4bb0bd605de75941d",
+    "semantic_hash": "f9eb2705c9a14fd4bb0bd605de75941d"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\features\\urlParser\\parser.ts": {
+    "mtime": 1774848212.3891995,
+    "ast_hash": "e5b6a17ca9fe2f9a5bfa0602ff6add53",
+    "semantic_hash": "e5b6a17ca9fe2f9a5bfa0602ff6add53"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\features\\viewTracking\\dom.ts": {
+    "mtime": 1774848212.3891995,
+    "ast_hash": "f9ef17ee105f5a9146a0d462e0b61638",
+    "semantic_hash": "f9ef17ee105f5a9146a0d462e0b61638"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\shared\\constants\\eventTypes.ts": {
+    "mtime": 1774848212.3901985,
+    "ast_hash": "f9e3aca0cc5c41e4ebee597c2e1ba297",
+    "semantic_hash": "f9e3aca0cc5c41e4ebee597c2e1ba297"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\shared\\constants\\pages.ts": {
+    "mtime": 1774848212.391197,
+    "ast_hash": "f239c7cf53a60f2c30df5abbbbd7b5db",
+    "semantic_hash": "f239c7cf53a60f2c30df5abbbbd7b5db"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\shared\\types\\Artist.ts": {
+    "mtime": 1774848212.391197,
+    "ast_hash": "428be607a39307d9e0d3991445d80642",
+    "semantic_hash": "428be607a39307d9e0d3991445d80642"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\shared\\types\\ArtistProfileDTO.ts": {
+    "mtime": 1774848212.3921988,
+    "ast_hash": "124e722672656d75efaa949c04405756",
+    "semantic_hash": "124e722672656d75efaa949c04405756"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\shared\\types\\ContentMessage.ts": {
+    "mtime": 1774848212.3921988,
+    "ast_hash": "aaadaf71a5c1ceb1f8f7a1ad979bf6f5",
+    "semantic_hash": "aaadaf71a5c1ceb1f8f7a1ad979bf6f5"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\shared\\types\\Post.ts": {
+    "mtime": 1774848212.3931966,
+    "ast_hash": "23171b9aa3fcaa875be0cf8dde61a7af",
+    "semantic_hash": "23171b9aa3fcaa875be0cf8dde61a7af"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\shared\\types\\PostDTO.ts": {
+    "mtime": 1774848212.3931966,
+    "ast_hash": "bcbe2f5b9e30fc30ad27e991db2a63a5",
+    "semantic_hash": "bcbe2f5b9e30fc30ad27e991db2a63a5"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\shared\\types\\URLDataType.ts": {
+    "mtime": 1774848212.3931966,
+    "ast_hash": "03c40beb6b5ae27e0e0c357fde37bb96",
+    "semantic_hash": "03c40beb6b5ae27e0e0c357fde37bb96"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\shared\\utils\\date.ts": {
+    "mtime": 1774848212.3942,
+    "ast_hash": "a9d96c020af634f67935840180ec2e08",
+    "semantic_hash": "a9d96c020af634f67935840180ec2e08"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\ui\\management\\components\\postCard.ts": {
+    "mtime": 1774938076.9691796,
+    "ast_hash": "d556d5a971c24e7fd817609ebf767892",
+    "semantic_hash": "d556d5a971c24e7fd817609ebf767892"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\ui\\management\\management.ts": {
+    "mtime": 1774934180.6159794,
+    "ast_hash": "d3cb574c6f9bcdefb41f349ecdf57bc3",
+    "semantic_hash": "d3cb574c6f9bcdefb41f349ecdf57bc3"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\ui\\management\\pages\\artistDetail.ts": {
+    "mtime": 1775460784.7842283,
+    "ast_hash": "0624db9fa6795ec3ea96dcf6a88fb71f",
+    "semantic_hash": "0624db9fa6795ec3ea96dcf6a88fb71f"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\ui\\management\\pages\\artists.ts": {
+    "mtime": 1774848212.3972,
+    "ast_hash": "9a13062b5781223acab2a51f7ba392b3",
+    "semantic_hash": "9a13062b5781223acab2a51f7ba392b3"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\ui\\management\\pages\\home.ts": {
+    "mtime": 1774934195.1748133,
+    "ast_hash": "5451ead7e48fdc05ea801c152526fadd",
+    "semantic_hash": "5451ead7e48fdc05ea801c152526fadd"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\ui\\management\\pages\\posts.ts": {
+    "mtime": 1775460784.7852547,
+    "ast_hash": "afbf15f1ce0c2fe5c1c37cc7fa3a0596",
+    "semantic_hash": "afbf15f1ce0c2fe5c1c37cc7fa3a0596"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\ui\\management\\pages\\settings.ts": {
+    "mtime": 1774934131.545659,
+    "ast_hash": "76025728cfc7e6cb3e9a2ca8269f1545",
+    "semantic_hash": "76025728cfc7e6cb3e9a2ca8269f1545"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\ui\\management\\utils\\avatar.ts": {
+    "mtime": 1774848212.3992007,
+    "ast_hash": "b5192c466fe6685ad3aed3625da23e6a",
+    "semantic_hash": "b5192c466fe6685ad3aed3625da23e6a"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\ui\\management\\utils\\enrich.ts": {
+    "mtime": 1774937958.4910367,
+    "ast_hash": "181d31a658557f0793009472ee306df2",
+    "semantic_hash": "181d31a658557f0793009472ee306df2"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\ui\\management\\utils\\format.ts": {
+    "mtime": 1774848212.4001987,
+    "ast_hash": "b2e682d240e631647e04d0a2da16b0d5",
+    "semantic_hash": "b2e682d240e631647e04d0a2da16b0d5"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\ui\\management\\utils\\masonry.ts": {
+    "mtime": 1774933509.1632044,
+    "ast_hash": "b2a19934be70c32f600986a08b6053e1",
+    "semantic_hash": "b2a19934be70c32f600986a08b6053e1"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\ui\\popup\\popup.ts": {
+    "mtime": 1774848212.4021986,
+    "ast_hash": "e7f2405274dac60634b2a5c0378f47e1",
+    "semantic_hash": "e7f2405274dac60634b2a5c0378f47e1"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\tsconfig.json": {
+    "mtime": 1748736456.8776126,
+    "ast_hash": "632726d5e784ff7500eadacad810168c",
+    "semantic_hash": "632726d5e784ff7500eadacad810168c"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\webpack.config.js": {
+    "mtime": 1774848212.4031994,
+    "ast_hash": "2baed5692c19ffc73bb0ba7a6021a5fc",
+    "semantic_hash": "2baed5692c19ffc73bb0ba7a6021a5fc"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\AGENTS.md": {
+    "mtime": 1781904552.9139855,
+    "ast_hash": "91bb263620117ef18461855686a75fe5",
+    "semantic_hash": "91bb263620117ef18461855686a75fe5"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\CHANGELOG.md": {
+    "mtime": 1774938531.870826,
+    "ast_hash": "66df6f5a64f3249c22cdecb0ef6639ba",
+    "semantic_hash": "66df6f5a64f3249c22cdecb0ef6639ba"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\CLAUDE.md": {
+    "mtime": 1774934376.8562312,
+    "ast_hash": "aee15f61e51b789e179b341c9f2138b0",
+    "semantic_hash": "aee15f61e51b789e179b341c9f2138b0"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\GEMINI.md": {
+    "mtime": 1774934378.0367823,
+    "ast_hash": "546cbf80dfc8c702571fc17426b5a128",
+    "semantic_hash": "546cbf80dfc8c702571fc17426b5a128"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\README.md": {
+    "mtime": 1774935440.7365603,
+    "ast_hash": "d8c315cacc296ad074c5a877f78f1d02",
+    "semantic_hash": "d8c315cacc296ad074c5a877f78f1d02"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\documentation\\ideas.md": {
+    "mtime": 1763716314.040151,
+    "ast_hash": "9f55bb0913e9aba35e9e36cfb380d2ef",
+    "semantic_hash": "9f55bb0913e9aba35e9e36cfb380d2ef"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\documentation\\refacture-archturecture.md": {
+    "mtime": 1774934379.2427628,
+    "ast_hash": "8b4a5289ae9e8a36dcbdf16d7916651d",
+    "semantic_hash": "8b4a5289ae9e8a36dcbdf16d7916651d"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\ui\\management\\management.html": {
+    "mtime": 1774934386.2424917,
+    "ast_hash": "fee0dbcac91622cbb421e55c389d0f8c",
+    "semantic_hash": "fee0dbcac91622cbb421e55c389d0f8c"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\ui\\popup\\popup.html": {
+    "mtime": 1774934385.0922387,
+    "ast_hash": "a125c443af7a259d0d4b3a43fa741e2c",
+    "semantic_hash": "a125c443af7a259d0d4b3a43fa741e2c"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\icons\\logo-128.png": {
+    "mtime": 1763716314.0587716,
+    "ast_hash": "0d2c801573780525866552ba56fe59b1",
+    "semantic_hash": "0d2c801573780525866552ba56fe59b1"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\icons\\logo-32.png": {
+    "mtime": 1763716314.068919,
+    "ast_hash": "17fb8c9c20d90c207b2a4839e5d76461",
+    "semantic_hash": "17fb8c9c20d90c207b2a4839e5d76461"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\icons\\logo-64.png": {
+    "mtime": 1763716314.0709584,
+    "ast_hash": "aa8d4edde94e796d8fb74fa5a19e0210",
+    "semantic_hash": "aa8d4edde94e796d8fb74fa5a19e0210"
+  },
+  "D:\\coding\\salamandra\\better-coomer-kemono\\src\\icons\\logo.svg": {
+    "mtime": 1763716314.0709584,
+    "ast_hash": "a0c26eceaeea44c2760e28d4cbfc372b",
+    "semantic_hash": "a0c26eceaeea44c2760e28d4cbfc372b"
+  }
+}
