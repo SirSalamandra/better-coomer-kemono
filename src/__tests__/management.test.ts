@@ -1,31 +1,18 @@
 /**
- * Tests for the pure helper functions exported from management.ts.
+ * Tests for the pure helper functions re-exported from management.ts,
+ * and for the createManagementApp composition root.
  *
- * management.ts calls init() at the module level, so we mock IndexedDbManager
- * to prevent real DB access and DOM-related side-effects.
+ * We import the helpers directly from their source modules so that
+ * management.ts's module-level entrypoint call is never executed,
+ * removing the need for jest.mock('../core/database/indexedDbManager').
  */
 
 import { Artist } from '../shared/types/Artist';
 import { Post }   from '../shared/types/Post';
 
-jest.mock('../core/database/indexedDbManager', () => ({
-  IndexedDbManager: {
-    getInstance: () => ({
-      init:          jest.fn().mockResolvedValue(undefined),
-      getAllArtists: jest.fn().mockResolvedValue([]),
-      getAllPosts:   jest.fn().mockResolvedValue([]),
-    }),
-  },
-}));
-
-// Provide a minimal DOM so the module-level init() call doesn't throw when
-// render() tries to update #content and .nav-link elements.
-beforeAll(() => {
-  document.body.innerHTML = '<div id="content"></div>';
-});
-
-// Import AFTER the mock is in place
-import { formatDate, lastViewedFromPosts, hostForArtist } from '../ui/management/management';
+// Import pure helpers directly — no DB side-effects
+import { formatDate, lastViewedFromPosts } from '../ui/management/utils/format';
+import { hostForArtist } from '../ui/management/utils/enrich';
 
 // ---------------------------------------------------------------------------
 // formatDate

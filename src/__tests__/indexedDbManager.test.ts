@@ -13,10 +13,9 @@ let db: IndexedDbManager;
 beforeEach(async () => {
   // Each test gets a completely fresh in-memory database.
   (global as any).indexedDB = new IDBFactory();
-  // Reset the singleton so getInstance() creates a new instance.
-  (IndexedDbManager as any).instance = undefined;
 
-  db = IndexedDbManager.getInstance();
+  // Use createInstance() so tests don't need to reset private singleton state.
+  db = IndexedDbManager.createInstance();
   await db.init();
 });
 
@@ -184,8 +183,7 @@ describe('getArtistWithPosts', () => {
 
 describe('Error handling', () => {
   test('throws when any operation is attempted before init()', async () => {
-    (IndexedDbManager as any).instance = undefined;
-    const uninitializedDb = IndexedDbManager.getInstance();
+    const uninitializedDb = IndexedDbManager.createInstance();
     // Do NOT call init() — getDb() should throw immediately
     await expect(uninitializedDb.getArtist('test')).rejects.toThrow(
       'Database not initialized'
@@ -213,8 +211,7 @@ describe('getStoredVersion', () => {
   test('returns 0 when the database does not exist', async () => {
     // Use a fresh IDBFactory so the DB has never been created
     (global as any).indexedDB = new IDBFactory();
-    (IndexedDbManager as any).instance = undefined;
-    const fresh = IndexedDbManager.getInstance();
+    const fresh = IndexedDbManager.createInstance();
     // Do NOT call init()
     const version = await fresh.getStoredVersion();
     expect(version).toBe(0);

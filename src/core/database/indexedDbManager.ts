@@ -47,6 +47,16 @@ export class IndexedDbManager {
     return IndexedDbManager.instance;
   }
 
+  /**
+   * Creates a fresh, independent instance without touching the singleton.
+   * Intended for use in:
+   *   - composition roots that want explicit wiring
+   *   - tests that need an isolated DB without resetting the singleton
+   */
+  public static createInstance(): IndexedDbManager {
+    return new IndexedDbManager();
+  }
+
   // -------------------------------------------------------------------------
   // Connection lifecycle
   // -------------------------------------------------------------------------
