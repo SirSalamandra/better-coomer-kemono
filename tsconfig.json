@@ -5,7 +5,8 @@
     "module": "commonjs",
     "strict": false,
     "outDir": "./public/dist",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   },
   "include": ["./src/**/*.ts", "scripts/build.js"],
   "exclude": ["node_modules", "dist"]

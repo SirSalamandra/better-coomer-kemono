@@ -1,20 +1,23 @@
+import { SUPPORTED_HOSTS } from '../shared/constants/supportedHosts';
+
+/**
+ * Runtime host guard based on the Host Support Policy.
+ *
+ * Uses exact, normalised hostname matching against the canonical allowlist in
+ * supportedHosts.ts.  Port stripping and lowercasing are applied before
+ * comparison; no heuristic or TLD-flexible matching is performed.
+ *
+ * Hosts outside the allowlist must be treated as a safe no-op by all callers.
+ */
 export const Configurations = {
   /**
-   * Only the *base* names need to be configured here.  For example, the
-   * domains `coomer.cr`, `coomer.st`, `coomer.xyz` will all be accepted if
-   * the list contains "coomer".  This avoids having to update the config
-   * every time the site switches TLDs.
-   */
-  hostBaseNames: ["kemono", "coomer"],
-
-  /**
-   * Check a full hostname to see if it matches one of the configured bases.
-   * The comparison ignores ports and is case‑insensitive.
+   * Check a full hostname (optionally with port) against the Host Support
+   * Policy allowlist.  Returns true only when the normalised hostname exactly
+   * matches one of the Supported Hosts.
    */
   isHostAllowed(host: string): boolean {
+    if (!host) return false;
     const hostname = host.split(':')[0].toLowerCase();
-    return this.hostBaseNames.some(base =>
-      hostname === base || hostname.startsWith(base + '.')
-    );
+    return SUPPORTED_HOSTS.includes(hostname);
   }
-}
+};
