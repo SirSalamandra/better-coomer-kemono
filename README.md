@@ -24,6 +24,16 @@ A browser extension that enhances the user experience on the Coomer and Kemono w
 
 ---
 
+### Supported Sites
+
+The extension activates on an **explicit allowlist** of hostnames.  Adding
+support for a new host requires a code change and rebuild.
+
+- `coomer.st`
+- `kemono.cr`
+
+---
+
 ### Supported Browsers
 
 - Google Chrome (Manifest V3)
