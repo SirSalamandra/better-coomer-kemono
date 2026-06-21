@@ -2,17 +2,17 @@
   "manifests/chrome.manifest.json": {
     "mtime": 1782029407.7535546,
     "ast_hash": "9c002778d4b8211a37a13c931f3bd980",
-    "semantic_hash": ""
+    "semantic_hash": "9c002778d4b8211a37a13c931f3bd980"
   },
   "manifests/chrome.template.json": {
     "mtime": 1782029402.321555,
     "ast_hash": "786e8064c46e52ed0b2326d462cfe089",
-    "semantic_hash": ""
+    "semantic_hash": "786e8064c46e52ed0b2326d462cfe089"
   },
   "manifests/firefox.manifest.json": {
     "mtime": 1782029418.9455526,
     "ast_hash": "6c58fcab075d9621b81604da16b830f5",
-    "semantic_hash": ""
+    "semantic_hash": "6c58fcab075d9621b81604da16b830f5"
   },
   "manifests/firefox.manifest.v3.json": {
     "mtime": 1781994852.8418279,
@@ -22,12 +22,12 @@
   "manifests/firefox.template.json": {
     "mtime": 1782029413.7015538,
     "ast_hash": "abf726671b9a268364277790a8521ac9",
-    "semantic_hash": ""
+    "semantic_hash": "abf726671b9a268364277790a8521ac9"
   },
   "scripts/build.js": {
     "mtime": 1782029207.8456006,
     "ast_hash": "63e1bf20226d6b749413adaf3cd8591e",
-    "semantic_hash": ""
+    "semantic_hash": "63e1bf20226d6b749413adaf3cd8591e"
   },
   "src/__tests__/apiClient.test.ts": {
     "mtime": 1781994852.845828,
@@ -40,9 +40,9 @@
     "semantic_hash": "f4656ce789f63bb6ec9cf5caffd1e975"
   },
   "src/__tests__/enrichPostsForArtists.test.ts": {
-    "mtime": 1782033617.1365461,
-    "ast_hash": "fa89aa9910e3d02cc87c46a0797c74c6",
-    "semantic_hash": ""
+    "mtime": 1782038270.2114296,
+    "ast_hash": "01f3508ce049d28e25b8eeb8847a3707",
+    "semantic_hash": "01f3508ce049d28e25b8eeb8847a3707"
   },
   "src/__tests__/enrichment.test.ts": {
     "mtime": 1781994852.845828,
@@ -50,9 +50,9 @@
     "semantic_hash": "c17402283713a02f7afcd2d80ad1aff8"
   },
   "src/__tests__/enrichmentService.test.ts": {
-    "mtime": 1782033590.432552,
-    "ast_hash": "93843cdc200fdca9bdfbef2f117a120c",
-    "semantic_hash": ""
+    "mtime": 1782038270.2114296,
+    "ast_hash": "d80f78740364dfbcb436d8fd0b0190a7",
+    "semantic_hash": "d80f78740364dfbcb436d8fd0b0190a7"
   },
   "src/__tests__/helpers.test.ts": {
     "mtime": 1781994852.845828,
@@ -65,14 +65,14 @@
     "semantic_hash": "326b72763725915e4ac23aafeeee5c4a"
   },
   "src/__tests__/management.test.ts": {
-    "mtime": 1781994852.845828,
-    "ast_hash": "b547a2373f5bf9d1c6b7fea09daaa13f",
-    "semantic_hash": "b547a2373f5bf9d1c6b7fea09daaa13f"
+    "mtime": 1782038613.3433473,
+    "ast_hash": "dbc3f6c11cd8d8a82facfda2bcd40369",
+    "semantic_hash": "dbc3f6c11cd8d8a82facfda2bcd40369"
   },
   "src/__tests__/manifestGeneration.test.ts": {
     "mtime": 1782029426.2695508,
     "ast_hash": "0642b839549d70b0832269a49599b6ee",
-    "semantic_hash": ""
+    "semantic_hash": "0642b839549d70b0832269a49599b6ee"
   },
   "src/__tests__/migrationRunner.test.ts": {
     "mtime": 1781994852.845828,
@@ -87,7 +87,7 @@
   "src/background/index.ts": {
     "mtime": 1782033589.6605523,
     "ast_hash": "6446f843861a8e407972ab6482012617",
-    "semantic_hash": ""
+    "semantic_hash": "6446f843861a8e407972ab6482012617"
   },
   "src/background/messageHandler.ts": {
     "mtime": 1781994852.845828,
@@ -105,9 +105,9 @@
     "semantic_hash": "d39ba9f3b10c0967dcfd7b072e71fe0c"
   },
   "src/core/config.ts": {
-    "mtime": 1781994852.845828,
-    "ast_hash": "7c635e442b6cbc4f76b9e97deee2583f",
-    "semantic_hash": "7c635e442b6cbc4f76b9e97deee2583f"
+    "mtime": 1782038611.071348,
+    "ast_hash": "fd148624ed716f1335373dd22dd8acd1",
+    "semantic_hash": "fd148624ed716f1335373dd22dd8acd1"
   },
   "src/core/database/ArtistRepository.ts": {
     "mtime": 1781994852.845828,
@@ -147,7 +147,7 @@
   "src/core/database/indexedDbManager.ts": {
     "mtime": 1782033590.684552,
     "ast_hash": "0ebed0633437bfec199fdd6d82481a82",
-    "semantic_hash": ""
+    "semantic_hash": "0ebed0633437bfec199fdd6d82481a82"
   },
   "src/core/database/migrations/1_InitialCreate.ts": {
     "mtime": 1781994852.849828,
@@ -175,9 +175,9 @@
     "semantic_hash": "e4674859406a1a379460cdbcb799671e"
   },
   "src/core/services/enrichmentService.ts": {
-    "mtime": 1781994852.849828,
-    "ast_hash": "855eb22642a3f572b3502e1db6ee2804",
-    "semantic_hash": "855eb22642a3f572b3502e1db6ee2804"
+    "mtime": 1782038270.2114296,
+    "ast_hash": "8ca5b3eeac5ce037b211a5d98ba0efd6",
+    "semantic_hash": "8ca5b3eeac5ce037b211a5d98ba0efd6"
   },
   "src/core/utils/enrichment.ts": {
     "mtime": 1781994852.849828,
@@ -260,19 +260,19 @@
     "semantic_hash": "2cc34981d15c436bdc724e82cf183501"
   },
   "src/ui/management/components/postCard.ts": {
-    "mtime": 1781994852.861828,
-    "ast_hash": "90393b8c4a0828f2ef84cddfad6b1d0d",
-    "semantic_hash": "90393b8c4a0828f2ef84cddfad6b1d0d"
+    "mtime": 1782038611.8953476,
+    "ast_hash": "e977b65666635b3e80bbf823de4af442",
+    "semantic_hash": "e977b65666635b3e80bbf823de4af442"
   },
   "src/ui/management/management.ts": {
-    "mtime": 1782033589.9165523,
-    "ast_hash": "c6034dace5ea8100c7fd89c96ea98162",
-    "semantic_hash": ""
+    "mtime": 1782038662.759336,
+    "ast_hash": "83e3bdcf74b3284f81459dc1601ce432",
+    "semantic_hash": "83e3bdcf74b3284f81459dc1601ce432"
   },
   "src/ui/management/pages/artistDetail.ts": {
-    "mtime": 1781994852.861828,
-    "ast_hash": "c51aaf31126ecd47ccc8fb1cfa536e54",
-    "semantic_hash": "c51aaf31126ecd47ccc8fb1cfa536e54"
+    "mtime": 1782038612.1673477,
+    "ast_hash": "9a6d5c59332fdd1fa78ae3bec33793f6",
+    "semantic_hash": "9a6d5c59332fdd1fa78ae3bec33793f6"
   },
   "src/ui/management/pages/artists.ts": {
     "mtime": 1781994852.861828,
@@ -300,9 +300,9 @@
     "semantic_hash": "046b730ed0e0c827534cb7dac569a2bc"
   },
   "src/ui/management/utils/enrich.ts": {
-    "mtime": 1782033589.4085524,
-    "ast_hash": "ae315298bcbe76f0e45d9d72d2090180",
-    "semantic_hash": ""
+    "mtime": 1782038612.4313476,
+    "ast_hash": "8721c29494c7483f031398ca19c6cd80",
+    "semantic_hash": "8721c29494c7483f031398ca19c6cd80"
   },
   "src/ui/management/utils/format.ts": {
     "mtime": 1781994852.861828,
@@ -317,11 +317,31 @@
   "src/ui/popup/popup.ts": {
     "mtime": 1782033616.900546,
     "ast_hash": "c5714573eefdb6b137ab883e9ebff3b1",
-    "semantic_hash": ""
+    "semantic_hash": "c5714573eefdb6b137ab883e9ebff3b1"
   },
   ".gemini/settings.json": {
     "mtime": 1782031207.5731215,
     "ast_hash": "f080aabf772e803c9e24b9ad0acbf2b6",
-    "semantic_hash": ""
+    "semantic_hash": "f080aabf772e803c9e24b9ad0acbf2b6"
+  },
+  "src/__tests__/enrichArtists.test.ts": {
+    "mtime": 1782038270.2114296,
+    "ast_hash": "a640c045a9aad10266f474e1d7b78ace",
+    "semantic_hash": "a640c045a9aad10266f474e1d7b78ace"
+  },
+  "src/__tests__/hostResolver.test.ts": {
+    "mtime": 1782038613.0633473,
+    "ast_hash": "f30884cf140bdd21be9172b0a876ff6c",
+    "semantic_hash": "f30884cf140bdd21be9172b0a876ff6c"
+  },
+  "src/core/hosts/HostResolver.ts": {
+    "mtime": 1782038610.807348,
+    "ast_hash": "a66ed1b6a009d0649c8f70eaae5b1aad",
+    "semantic_hash": "a66ed1b6a009d0649c8f70eaae5b1aad"
+  },
+  "src/core/services/enrichmentPipeline.ts": {
+    "mtime": 1782038611.3433478,
+    "ast_hash": "e75c6459142e27b01016f38bc772fdde",
+    "semantic_hash": "e75c6459142e27b01016f38bc772fdde"
   }
 }

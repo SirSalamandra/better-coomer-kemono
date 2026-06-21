@@ -10,7 +10,7 @@ import { enrichArtistSubset, enrichPosts } from "../../core/services/enrichmentS
 
 // Re-export for backwards compatibility with tests
 export { formatDate, lastViewedFromPosts } from "./utils/format";
-export { hostForArtist } from "../../shared/utils/host";
+export { hostForArtist } from "../../core/hosts/HostResolver";
 
 // ── Composition root ──────────────────────────────────────────────────────────
 

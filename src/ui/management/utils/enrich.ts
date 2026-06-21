@@ -2,7 +2,6 @@ import { IndexedDbManager } from "../../../core/database/indexedDbManager";
 import { EnrichmentPipeline } from "../../../core/services/enrichmentPipeline";
 import { Artist } from "../../../shared/types/Artist";
 import { Post } from "../../../shared/types/Post";
-export { hostForArtist } from "../../../shared/utils/host";
 
 export async function enrichPostsForArtists(
   db: IndexedDbManager,
