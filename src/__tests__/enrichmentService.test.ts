@@ -10,7 +10,7 @@ import { Post } from "../shared/types/Post";
 
 jest.mock("../core/database/indexedDbManager", () => ({
   IndexedDbManager: {
-    getInstance: () => ({
+    createInstance: () => ({
       init: jest.fn().mockResolvedValue(undefined),
       getAllArtists: jest.fn().mockResolvedValue([]),
       getAllPosts: jest.fn().mockResolvedValue([]),
@@ -34,7 +34,7 @@ jest.mock("../ui/management/utils/enrich", () => ({
 import { fetchArtistProfile, fetchPostDetails } from "../core/services/apiClient";
 import { IndexedDbManager } from "../core/database/indexedDbManager";
 
-const db = IndexedDbManager.getInstance();
+const db = IndexedDbManager.createInstance();
 
 const freshArtist: Artist = {
   id: "a1",

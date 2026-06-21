@@ -223,7 +223,4 @@ export function createBackgroundApp(db: IndexedDbManager): { dispose: () => void
 }
 
 // ── Entrypoint ────────────────────────────────────────────────────────────────
-// Singleton usage is now confined to this single line — all downstream code
-// receives an explicitly-passed db reference via createBackgroundApp().
-
-createBackgroundApp(IndexedDbManager.getInstance());
+createBackgroundApp(IndexedDbManager.createInstance());

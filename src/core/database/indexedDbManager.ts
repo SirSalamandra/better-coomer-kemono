@@ -10,9 +10,6 @@ import { LegacyMigrationService } from "./LegacyMigrationService";
 /**
  * Public façade for all database operations.
  *
- * Preserves the existing singleton API so all callers (background, popup,
- * management, settings, enrichmentService) remain untouched in this phase.
- *
  * Internally delegates to focused internal components:
  *   - DatabaseConnection  — connection lifecycle & version helpers
  *   - ArtistRepository   — artist CRUD
@@ -22,8 +19,6 @@ import { LegacyMigrationService } from "./LegacyMigrationService";
  *   - LegacyMigrationService — BetterSU_DB interop
  */
 export class IndexedDbManager {
-  private static instance: IndexedDbManager;
-
   private readonly connection: DatabaseConnection;
   private readonly artistRepo: ArtistRepository;
   private readonly postRepo: PostRepository;
@@ -31,7 +26,7 @@ export class IndexedDbManager {
   private readonly backup: BackupService;
   private readonly legacyMigration: LegacyMigrationService;
 
-  private constructor() {
+  public constructor() {
     this.connection = new DatabaseConnection();
     this.artistRepo = new ArtistRepository(() => this.connection.getDb());
     this.postRepo = new PostRepository(() => this.connection.getDb());
@@ -40,18 +35,8 @@ export class IndexedDbManager {
     this.legacyMigration = new LegacyMigrationService();
   }
 
-  public static getInstance(): IndexedDbManager {
-    if (!IndexedDbManager.instance) {
-      IndexedDbManager.instance = new IndexedDbManager();
-    }
-    return IndexedDbManager.instance;
-  }
-
   /**
-   * Creates a fresh, independent instance without touching the singleton.
-   * Intended for use in:
-   *   - composition roots that want explicit wiring
-   *   - tests that need an isolated DB without resetting the singleton
+   * Creates an independent instance for composition roots and tests.
    */
   public static createInstance(): IndexedDbManager {
     return new IndexedDbManager();

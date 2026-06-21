@@ -5,8 +5,6 @@ import { ArtistProfileDTO } from "../../../shared/types/ArtistProfileDTO";
 import { transformArtistProfile, transformPostProfile } from "../../../core/utils/enrichment";
 import { PostResponseDTO } from "../../../shared/types/PostDTO";
 
-const db = IndexedDbManager.getInstance();
-
 const COOMER_SERVICES = new Set(['onlyfans', 'fansly', 'candfans', 'ppv.land', 'manyvids']);
 
 export function hostForArtist(artist: Artist): string {
@@ -18,6 +16,7 @@ export function hostForArtist(artist: Artist): string {
 }
 
 export async function enrichPostsForArtists(
+  db: IndexedDbManager,
   visiblePosts: Post[],
   artists: Artist[],
   loadData: () => Promise<void>,
@@ -60,6 +59,7 @@ export async function enrichPostsForArtists(
 }
 
 export async function enrichArtists(
+  db: IndexedDbManager,
   subset: Artist[],
   loadData: () => Promise<void>,
   render: () => void,

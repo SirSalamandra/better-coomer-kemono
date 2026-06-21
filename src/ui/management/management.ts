@@ -141,7 +141,4 @@ export function createManagementApp(db: IndexedDbManager): { init: () => Promise
 }
 
 // ── Entrypoint ────────────────────────────────────────────────────────────────
-// Singleton usage is confined to this one line. All downstream logic receives
-// an explicit db reference through createManagementApp().
-
-createManagementApp(IndexedDbManager.getInstance()).init().catch(console.error);
+createManagementApp(IndexedDbManager.createInstance()).init().catch(console.error);

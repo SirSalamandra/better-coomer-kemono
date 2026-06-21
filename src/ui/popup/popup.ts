@@ -25,4 +25,4 @@ export async function createPopupApp(db: IndexedDbManager): Promise<void> {
 
 // ── Entrypoint ────────────────────────────────────────────────────────────────
 
-createPopupApp(IndexedDbManager.getInstance()).catch(console.error);
+createPopupApp(IndexedDbManager.createInstance()).catch(console.error);
