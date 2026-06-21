@@ -11,7 +11,7 @@ export const ExtractDataFromUrl = (url: URL): URLDataType => {
     post_id: null
   };
 
-  if (pathname === '/posts') {
+  if (pathname.startsWith('/posts')) {
     extractedData.page_type = Pages.PostListPage;
   }
   else if (pathname.startsWith('/artists')) {

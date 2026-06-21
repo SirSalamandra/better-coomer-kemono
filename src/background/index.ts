@@ -143,6 +143,20 @@ export function createBackgroundApp({
 
     const urlData = ExtractDataFromUrl(url);
 
+    if (urlData.page_type === Pages.PostListPage) {
+      const allPosts = await posts.getAll();
+
+      browser.tabs.sendMessage(tabId, {
+        type: EventTypes.AddViewTag,
+        data: {
+          artist_id: null,
+          posts: allPosts,
+        },
+      }).catch(() => {});
+
+      return;
+    }
+
     if (urlData.page_type === Pages.ArtistPage) {
       const artistWithPosts = await tracking.getArtistWithPosts(urlData.artist_id);
 
