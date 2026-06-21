@@ -26,11 +26,6 @@ jest.mock("../core/services/apiClient", () => ({
   fetchPostDetails: jest.fn(),
 }));
 
-// management enrich util mock (hostForArtist)
-jest.mock("../ui/management/utils/enrich", () => ({
-  hostForArtist: jest.fn().mockReturnValue("kemono.cr"),
-}));
-
 import { fetchArtistProfile, fetchPostDetails } from "../core/services/apiClient";
 import { IndexedDbManager } from "../core/database/indexedDbManager";
 

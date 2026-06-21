@@ -2,7 +2,7 @@ import { Artist } from "../../../shared/types/Artist";
 import { Post } from "../../../shared/types/Post";
 import { buildAvatar, initialsAvatar } from "../utils/avatar";
 import { escapeHtml, formatDate } from "../utils/format";
-import { hostForArtist } from "../utils/enrich";
+import { hostForArtist } from "../../../shared/utils/host";
 
 export function renderPostCard(
   post: Post,

@@ -2,7 +2,7 @@ import { Artist } from "../../../shared/types/Artist";
 import { Post } from "../../../shared/types/Post";
 import { buildAvatar } from "../utils/avatar";
 import { emptyState, escapeHtml, formatDate, lastViewedFromPosts } from "../utils/format";
-import { hostForArtist } from "../utils/enrich";
+import { hostForArtist } from "../../../shared/utils/host";
 import { renderPostCard } from "../components/postCard";
 import { createMasonry } from "../utils/masonry";
 

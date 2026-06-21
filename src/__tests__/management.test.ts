@@ -12,7 +12,7 @@ import { Post }   from '../shared/types/Post';
 
 // Import pure helpers directly — no DB side-effects
 import { formatDate, lastViewedFromPosts } from '../ui/management/utils/format';
-import { hostForArtist } from '../ui/management/utils/enrich';
+import { hostForArtist } from '../shared/utils/host';
 
 // ---------------------------------------------------------------------------
 // formatDate
