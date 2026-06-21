@@ -1,1 +1,24 @@
-{"0": "Management UI Logic", "1": "Background Runtime", "2": "IndexedDB Storage", "3": "Management Page Rendering", "4": "Project Docs And Tests", "5": "Migration Pipeline", "6": "Chrome Manifest", "7": "Package Dependencies", "8": "Firefox Manifest", "9": "Content And Events", "10": "Firefox MV3 Manifest", "11": "TypeScript Config", "12": "Build Script", "13": "Local Tool Permissions", "14": "Brand Icon 128", "15": "Brand Icon 32", "16": "Brand Icon 64", "17": "Brand SVG Logo", "18": "Webpack Config", "19": "Injection Entry", "20": "Jest Entry"}
+{
+  "0": "Management UI Logic",
+  "1": "Background Runtime",
+  "2": "IndexedDB Storage",
+  "3": "Management Page Rendering",
+  "4": "Project Docs And Tests",
+  "5": "Migration Pipeline",
+  "6": "Chrome Manifest",
+  "7": "Package Dependencies",
+  "8": "Firefox Manifest",
+  "9": "Content And Events",
+  "11": "TypeScript Config",
+  "12": "Build Script",
+  "13": "Local Tool Permissions",
+  "15": "Brand Icon 32",
+  "16": "Brand Icon 64",
+  "17": "Brand SVG Logo",
+  "18": "Webpack Config",
+  "21": "Community 21",
+  "22": "Community 22",
+  "23": "Community 23",
+  "25": "Community 25",
+  "26": "Community 26"
+}

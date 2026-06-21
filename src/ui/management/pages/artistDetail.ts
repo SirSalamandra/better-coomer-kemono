@@ -1,8 +1,8 @@
 import { Artist } from "../../../shared/types/Artist";
 import { Post } from "../../../shared/types/Post";
+import { hostForArtist } from "../../../core/hosts/HostResolver";
 import { buildAvatar } from "../utils/avatar";
 import { emptyState, escapeHtml, formatDate, lastViewedFromPosts } from "../utils/format";
-import { hostForArtist } from "../utils/enrich";
 import { renderPostCard } from "../components/postCard";
 import { createMasonry } from "../utils/masonry";
 

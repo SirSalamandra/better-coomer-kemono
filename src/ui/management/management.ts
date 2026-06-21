@@ -1,4 +1,5 @@
-import { IndexedDbManager } from "../../core/database/indexedDbManager";
+import { DatabaseLifecycle, ArtistStore, PostStore, TrackingStore, BackupStore } from "../../core/database/contracts";
+import { createDatabaseServices } from "../../core/database/createDatabaseServices";
 import { Artist } from "../../shared/types/Artist";
 import { Post } from "../../shared/types/Post";
 import { renderHome } from "./pages/home";
@@ -10,7 +11,7 @@ import { enrichArtistSubset, enrichPosts } from "../../core/services/enrichmentS
 
 // Re-export for backwards compatibility with tests
 export { formatDate, lastViewedFromPosts } from "./utils/format";
-export { hostForArtist } from "./utils/enrich";
+export { hostForArtist } from "../../core/hosts/HostResolver";
 
 // ── Composition root ──────────────────────────────────────────────────────────
 
@@ -19,7 +20,26 @@ export { hostForArtist } from "./utils/enrich";
  * All state and callbacks are local to this call, so the page can be
  * instantiated in isolation (e.g., in tests) without touching the singleton.
  */
-export function createManagementApp(db: IndexedDbManager): { init: () => Promise<void> } {
+type ManagementServices = {
+  lifecycle: DatabaseLifecycle;
+  artists: Pick<ArtistStore, "getAll" | "update">;
+  posts: Pick<PostStore, "getAll" | "delete"> & Pick<PostStore, "update">;
+  tracking: Pick<TrackingStore, "deleteArtistCascade">;
+  backup: BackupStore;
+};
+
+export function createManagementApp({
+  lifecycle,
+  artists: artistStore,
+  posts: postStore,
+  tracking,
+  backup,
+}: ManagementServices): { init: () => Promise<void> } {
+  const enrichmentStore = {
+    updateArtist: (artist: Artist) => artistStore.update(artist),
+    updatePost: (post: Post) => postStore.update(post),
+  };
+
   // ── State ───────────────────────────────────────────────────────────────────
 
   let artists: Artist[] = [];
@@ -28,21 +48,21 @@ export function createManagementApp(db: IndexedDbManager): { init: () => Promise
   let selectedArtistId: string | null = null;
 
   async function loadData(): Promise<void> {
-    [artists, posts] = await Promise.all([db.getAllArtists(), db.getAllPosts()]);
+    [artists, posts] = await Promise.all([artistStore.getAll(), postStore.getAll()]);
   }
 
   // ── Delete ──────────────────────────────────────────────────────────────────
 
   async function deleteArtist(id: string, name: string): Promise<void> {
     if (!confirm(`Delete "${name}" and all their tracked posts?`)) return;
-    await db.deleteArtist(id);
+    await tracking.deleteArtistCascade(id);
     await loadData();
     render();
   }
 
   async function deletePost(id: string, title: string): Promise<void> {
     if (!confirm(`Remove "${title}" from your history?`)) return;
-    await db.deletePost(id);
+    await postStore.delete(id);
     await loadData();
     render();
   }
@@ -73,17 +93,17 @@ export function createManagementApp(db: IndexedDbManager): { init: () => Promise
 
     if (page === 'artists') {
       const pageArtists = getPageArtists(artists);
-      updated = await enrichArtistSubset(db, pageArtists);
+      updated = await enrichArtistSubset(enrichmentStore, pageArtists);
     } else if (page === 'posts') {
       const visiblePosts = filterArtistId
         ? posts.filter(p => p.artist_id === filterArtistId)
         : posts;
-      updated = await enrichPosts(db, visiblePosts, artists);
+      updated = await enrichPosts(enrichmentStore, visiblePosts, artists);
     } else if (page === 'artist') {
       const artistPosts = selectedArtistId
         ? posts.filter(p => p.artist_id === selectedArtistId)
         : [];
-      updated = await enrichPosts(db, artistPosts, artists);
+      updated = await enrichPosts(enrichmentStore, artistPosts, artists);
     }
 
     if (updated) {
@@ -106,7 +126,7 @@ export function createManagementApp(db: IndexedDbManager): { init: () => Promise
     if (content == null || content.innerHTML == null) return;
 
     if (page === 'home')     content.innerHTML = '', content.appendChild(renderHome(artists, posts));
-    if (page === 'settings') content.innerHTML = '', content.appendChild(renderSettings(db, loadData, render));
+    if (page === 'settings') content.innerHTML = '', content.appendChild(renderSettings(backup, loadData, render));
     if (page === 'artists')  content.innerHTML = '', content.appendChild(renderArtists(artists, posts, navigate, render, deleteArtist));
     if (page === 'posts')    content.innerHTML = '', content.appendChild(renderPosts(artists, posts, filterArtistId, navigate, deletePost));
     if (page === 'artist')   content.innerHTML = '', content.appendChild(renderArtistDetail(selectedArtistId, artists, posts, navigate, deleteArtist, deletePost));
@@ -118,7 +138,7 @@ export function createManagementApp(db: IndexedDbManager): { init: () => Promise
   // ── Bootstrap ────────────────────────────────────────────────────────────────
 
   async function init(): Promise<void> {
-    await db.init();
+    await lifecycle.init();
     await loadData();
 
     document.querySelectorAll('.nav-link').forEach(a => {
@@ -141,4 +161,4 @@ export function createManagementApp(db: IndexedDbManager): { init: () => Promise
 }
 
 // ── Entrypoint ────────────────────────────────────────────────────────────────
-createManagementApp(IndexedDbManager.createInstance()).init().catch(console.error);
+createManagementApp(createDatabaseServices()).init().catch(console.error);

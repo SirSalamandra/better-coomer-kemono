@@ -3,16 +3,15 @@
  * and for the createManagementApp composition root.
  *
  * We import the helpers directly from their source modules so that
- * management.ts's module-level entrypoint call is never executed,
- * removing the need for jest.mock('../core/database/indexedDbManager').
+ * management.ts's module-level entrypoint call is never executed.
  */
 
 import { Artist } from '../shared/types/Artist';
 import { Post }   from '../shared/types/Post';
+import { hostForArtist } from '../core/hosts/HostResolver';
 
 // Import pure helpers directly — no DB side-effects
 import { formatDate, lastViewedFromPosts } from '../ui/management/utils/format';
-import { hostForArtist } from '../ui/management/utils/enrich';
 
 // ---------------------------------------------------------------------------
 // formatDate

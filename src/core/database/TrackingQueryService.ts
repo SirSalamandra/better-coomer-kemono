@@ -25,4 +25,8 @@ export class TrackingQueryService {
     const posts = await this.posts.getByArtist(artistId);
     return { artist, posts };
   }
+
+  public async deleteArtistCascade(artistId: string): Promise<void> {
+    return this.artists.deleteWithPosts(artistId);
+  }
 }

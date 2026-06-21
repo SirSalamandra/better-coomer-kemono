@@ -1,37 +1,58 @@
 {
   "manifest_version": 3,
   "name": "Better Coomer/Kemono",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Tracks URLs accessed within a website and marks them visually.",
-  "permissions": ["scripting", "tabs", "storage"],
-  "host_permissions": ["https://kemono.cr/*", "https://coomer.st/*"],
+  "permissions": [
+    "scripting",
+    "tabs",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://kemono.cr/*",
+    "https://coomer.st/*"
+  ],
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": ["https://kemono.cr/*", "https://coomer.st/*"],
-      "js": ["content.js"],
-      "css": ["styles.css"]
+      "matches": [
+        "https://kemono.cr/*",
+        "https://coomer.st/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "styles.css"
+      ]
     }
   ],
   "icons": {
-    "16": "icons/logo-32.png",
-    "48": "icons/logo-64.png",
+    "16": "icons/logo-16.png",
+    "32": "icons/logo-32.png",
+    "48": "icons/logo-48.png",
+    "64": "icons/logo-64.png",
     "128": "icons/logo-128.png"
   },
   "action": {
     "default_title": "Abrir Better Coomer/Kemono",
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "icons/logo-32.png",
+      "16": "icons/logo-16.png",
       "32": "icons/logo-32.png"
     }
   },
   "web_accessible_resources": [
     {
-      "resources": ["inject.js"],
-      "matches": ["https://kemono.cr/*", "https://coomer.st/*"]
+      "resources": [
+        "inject.js"
+      ],
+      "matches": [
+        "https://kemono.cr/*",
+        "https://coomer.st/*"
+      ]
     }
   ]
 }
