@@ -30,7 +30,9 @@ module.exports = () => {
       new CopyPlugin({
         patterns: [
           { from: 'src/icons/logo.svg', to: 'icons/logo.svg' },
+          { from: 'src/icons/logo-16.png', to: 'icons/logo-16.png' },
           { from: 'src/icons/logo-32.png', to: 'icons/logo-32.png' },
+          { from: 'src/icons/logo-48.png', to: 'icons/logo-48.png' },
           { from: 'src/icons/logo-64.png', to: 'icons/logo-64.png' },
           { from: 'src/icons/logo-128.png', to: 'icons/logo-128.png' }
         ],

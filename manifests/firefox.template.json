@@ -1,32 +1,51 @@
 {
   "manifest_version": 2,
   "name": "Better Coomer/Kemono",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Tracks URLs accessed within a website and marks them visually.",
-  "permissions": ["tabs", "storage"],
+  "permissions": [
+    "tabs",
+    "storage"
+  ],
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js"
+    ],
     "persistent": false
   },
   "content_scripts": [
     {
       "matches": [],
-      "js": ["content.js"],
-      "css": ["styles.css"],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "styles.css"
+      ],
       "run_at": "document_idle"
     }
   ],
   "icons": {
-    "16": "icons/logo-32.png",
-    "48": "icons/logo-64.png",
+    "16": "icons/logo-16.png",
+    "32": "icons/logo-32.png",
+    "48": "icons/logo-48.png",
+    "64": "icons/logo-64.png",
     "128": "icons/logo-128.png"
   },
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "icons/logo-32.png",
+      "16": "icons/logo-16.png",
       "32": "icons/logo-32.png"
     }
   },
-  "web_accessible_resources": ["inject.js"]
+  "web_accessible_resources": [
+    "inject.js"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{7e5e11c3-21a8-4edd-9fce-a28267f9303c}",
+      "strict_min_version": "109.0"
+    }
+  }
 }
