@@ -197,6 +197,14 @@ export function createBackgroundApp({
         };
         await posts.add(newPost);
         post = newPost;
+
+        const artist = await artists.get(urlData.artist_id);
+        if (!artist) {
+          await artists.add({
+            id: urlData.artist_id,
+            content_origin: urlData.content_origin,
+          });
+        }
       }
 
       const shouldEnrich = !post.last_enriched_at;
