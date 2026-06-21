@@ -103,6 +103,28 @@ describe('injectChrome', () => {
     expect(manifest.content_scripts[0].matches).toEqual(EXPECTED_PATTERNS);
   });
 
+  it('references shared content stylesheet that exists in source tree', () => {
+    expect(manifest.content_scripts[0].css).toEqual(['styles.css']);
+    const sharedStylesPath = path.resolve(__dirname, '../../src/ui/styles.css');
+    expect(fs.existsSync(sharedStylesPath)).toBe(true);
+  });
+
+  it('uses PNG icon assets that exist in source tree', () => {
+    expect(manifest.icons).toEqual({
+      '16': 'icons/logo-32.png',
+      '48': 'icons/logo-64.png',
+      '128': 'icons/logo-128.png',
+    });
+    expect(manifest.action.default_icon).toEqual({
+      '16': 'icons/logo-32.png',
+      '32': 'icons/logo-32.png',
+    });
+    ['logo-32.png', 'logo-64.png', 'logo-128.png'].forEach((file) => {
+      const iconPath = path.resolve(__dirname, `../../src/icons/${file}`);
+      expect(fs.existsSync(iconPath)).toBe(true);
+    });
+  });
+
   it('sets web_accessible_resources[0].matches from supported hosts', () => {
     injectChrome(manifest, EXPECTED_PATTERNS);
     expect(manifest.web_accessible_resources[0].matches).toEqual(EXPECTED_PATTERNS);

@@ -1,16 +1,15 @@
-# Graph Report - better-coomer-kemono  (2026-06-21)
+# Graph Report - /home/salamandra/code/better-coomer-kemono  (2026-06-20)
 
 ## Corpus Check
-- 65 files · ~15,563 words
-- Verdict: corpus is large enough that graph structure adds value.
+- cluster-only mode — file stats not available
 
 ## Summary
-- 296 nodes · 629 edges · 22 communities (16 shown, 6 thin omitted)
-- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 10 edges (avg confidence: 0.87)
+- 340 nodes · 666 edges · 27 communities (18 shown, 9 thin omitted)
+- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 12 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `27157957`
+- Built from commit: `74932677`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -25,13 +24,17 @@
 - [[_COMMUNITY_Package Dependencies|Package Dependencies]]
 - [[_COMMUNITY_Firefox Manifest|Firefox Manifest]]
 - [[_COMMUNITY_Content And Events|Content And Events]]
+- [[_COMMUNITY_Firefox MV3 Manifest|Firefox MV3 Manifest]]
 - [[_COMMUNITY_TypeScript Config|TypeScript Config]]
 - [[_COMMUNITY_Build Script|Build Script]]
 - [[_COMMUNITY_Local Tool Permissions|Local Tool Permissions]]
+- [[_COMMUNITY_Brand Icon 128|Brand Icon 128]]
 - [[_COMMUNITY_Brand Icon 32|Brand Icon 32]]
 - [[_COMMUNITY_Brand Icon 64|Brand Icon 64]]
 - [[_COMMUNITY_Brand SVG Logo|Brand SVG Logo]]
 - [[_COMMUNITY_Webpack Config|Webpack Config]]
+- [[_COMMUNITY_Injection Entry|Injection Entry]]
+- [[_COMMUNITY_Jest Entry|Jest Entry]]
 - [[_COMMUNITY_Community 21|Community 21]]
 - [[_COMMUNITY_Community 25|Community 25]]
 - [[_COMMUNITY_Community 26|Community 26]]
@@ -53,25 +56,25 @@
   CLAUDE.md → README.md
 - `Gemini Project Overview` --semantically_similar_to--> `README Project Overview`  [INFERRED] [semantically similar]
   GEMINI.md → README.md
+- `Repository Guidelines` --references--> `Jest Config`  [EXTRACTED]
+  AGENTS.md → jest.config.js
+- `Repository Guidelines` --references--> `Package Build And Test Scripts`  [EXTRACTED]
+  AGENTS.md → package.json
 - `Repository Guidelines` --references--> `Chrome Extension Manifest`  [EXTRACTED]
   AGENTS.md → manifests/chrome.manifest.json
-- `Repository Guidelines` --references--> `Firefox Extension Manifest`  [EXTRACTED]
-  AGENTS.md → manifests/firefox.manifest.json
-- `Claude Project Overview` --semantically_similar_to--> `Gemini Project Overview`  [EXTRACTED] [semantically similar]
-  CLAUDE.md → GEMINI.md
 
 ## Import Cycles
 - 1-file cycle: `src/shared/constants/supportedHosts.ts -> src/shared/constants/supportedHosts.ts`
 
-## Communities (22 total, 6 thin omitted)
+## Communities (27 total, 9 thin omitted)
 
 ### Community 0 - "Management UI Logic"
 Cohesion: 0.06
 Nodes (10): ArtistRepository, BackupService, DatabaseConnection, runner, IndexedDbManager, LegacyMigrationService, PostRepository, TrackingQueryService (+2 more)
 
 ### Community 1 - "Background Runtime"
-Cohesion: 0.15
-Nodes (16): AddAudioElementsForAudioLinks(), createBackgroundApp(), setupMessageHandler(), EventTypes, Pages, ContentMessage, PostAttachmentDTO, PostDTO (+8 more)
+Cohesion: 0.10
+Nodes (23): AddAudioElementsForAudioLinks(), createBackgroundApp(), setupMessageHandler(), EventTypes, Pages, artist, enrichedPost, unenrichedPost (+15 more)
 
 ### Community 2 - "IndexedDB Storage"
 Cohesion: 0.21
@@ -82,16 +85,16 @@ Cohesion: 0.16
 Nodes (5): MigrationRunner, InitialCreate, ForceEnrichmentRefresh, AddPostThumbnailUrl, IMigration
 
 ### Community 4 - "Project Docs And Tests"
-Cohesion: 0.24
-Nodes (6): artist, enrichedPost, unenrichedPost, ArtistProfileDTO, COOMER_SERVICES, enrichPostsForArtists()
+Cohesion: 0.10
+Nodes (20): devDependencies, baseline-browser-mapping, copy-webpack-plugin, fake-indexeddb, jest, jest-environment-jsdom, jest-util, ts-jest (+12 more)
 
 ### Community 5 - "Migration Pipeline"
 Cohesion: 0.11
 Nodes (19): action, default_icon, default_popup, default_title, background, service_worker, content_scripts, 32 (+11 more)
 
 ### Community 6 - "Chrome Manifest"
-Cohesion: 0.11
-Nodes (14): SUPPORTED_HOSTS, Configurations, dest, fs, manifest, matchPatterns, mgmt_css, mgmt_ui (+6 more)
+Cohesion: 0.12
+Nodes (13): SUPPORTED_HOSTS, Configurations, dest, fs, manifest, matchPatterns, mgmt_css, mgmt_ui (+5 more)
 
 ### Community 7 - "Package Dependencies"
 Cohesion: 0.11
@@ -105,13 +108,17 @@ Nodes (15): buildArtistProfileUrl(), buildPostUrl(), FETCH_HEADERS, fetchArtistP
 Cohesion: 0.15
 Nodes (12): action, default_popup, background, service_worker, type, content_scripts, description, host_permissions (+4 more)
 
+### Community 10 - "Firefox MV3 Manifest"
+Cohesion: 0.20
+Nodes (9): compilerOptions, esModuleInterop, lib, module, outDir, strict, target, exclude (+1 more)
+
 ### Community 11 - "TypeScript Config"
 Cohesion: 0.22
 Nodes (4): CHROME_TEMPLATE_PATH, EXPECTED_PATTERNS, FIREFOX_TEMPLATE_PATH, SUPPORTED_HOSTS
 
 ### Community 12 - "Build Script"
-Cohesion: 0.67
-Nodes (4): Repository Guidelines, Chrome Extension Manifest, Firefox Extension Manifest, Firefox Manifest V3 Variant
+Cohesion: 0.38
+Nodes (7): Repository Guidelines, Jest Config, Package Build And Test Scripts, Local Tool Permissions, Chrome Extension Manifest, Firefox Extension Manifest, Firefox Manifest V3 Variant
 
 ### Community 13 - "Local Tool Permissions"
 Cohesion: 0.50
@@ -122,24 +129,24 @@ Cohesion: 0.67
 Nodes (3): logo-32 image asset, stylized fox head logo, orange and black color palette
 
 ## Knowledge Gaps
-- **73 isolated node(s):** `fs`, `path`, `SUPPORTED_HOSTS`, `dest`, `matchPatterns` (+68 more)
+- **105 isolated node(s):** `allow`, `manifest_version`, `name`, `version`, `description` (+100 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `IndexedDbManager` connect `Management UI Logic` to `Firefox Manifest`, `Background Runtime`, `IndexedDB Storage`, `Project Docs And Tests`?**
-  _High betweenness centrality (0.104) - this node is a cross-community bridge._
-- **Why does `Post` connect `Management UI Logic` to `Firefox Manifest`, `Background Runtime`, `IndexedDB Storage`, `Project Docs And Tests`?**
-  _High betweenness centrality (0.072) - this node is a cross-community bridge._
-- **Why does `Artist` connect `Management UI Logic` to `Firefox Manifest`, `Background Runtime`, `IndexedDB Storage`, `Project Docs And Tests`?**
-  _High betweenness centrality (0.058) - this node is a cross-community bridge._
-- **What connects `fs`, `path`, `SUPPORTED_HOSTS` to the rest of the system?**
-  _75 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `IndexedDbManager` connect `Management UI Logic` to `Firefox Manifest`, `Background Runtime`, `IndexedDB Storage`?**
+  _High betweenness centrality (0.081) - this node is a cross-community bridge._
+- **Why does `Post` connect `Management UI Logic` to `Firefox Manifest`, `Background Runtime`, `IndexedDB Storage`?**
+  _High betweenness centrality (0.056) - this node is a cross-community bridge._
+- **Why does `Artist` connect `Management UI Logic` to `Firefox Manifest`, `Background Runtime`, `IndexedDB Storage`?**
+  _High betweenness centrality (0.045) - this node is a cross-community bridge._
+- **What connects `allow`, `manifest_version`, `name` to the rest of the system?**
+  _107 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Management UI Logic` be split into smaller, more focused modules?**
-  _Cohesion score 0.05548654244306418 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05516431924882629 - nodes in this community are weakly interconnected._
 - **Should `Background Runtime` be split into smaller, more focused modules?**
-  _Cohesion score 0.14616755793226383 - nodes in this community are weakly interconnected._
-- **Should `Migration Pipeline` be split into smaller, more focused modules?**
-  _Cohesion score 0.10526315789473684 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.10202020202020202 - nodes in this community are weakly interconnected._
+- **Should `Project Docs And Tests` be split into smaller, more focused modules?**
+  _Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected._

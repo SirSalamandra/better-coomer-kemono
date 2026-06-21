@@ -62,12 +62,14 @@ try {
 
 const pop_ui   = path.join(__dirname, '../src/ui/popup/popup.html');
 const mgmt_ui  = path.join(__dirname, '../src/ui/management/management.html');
+const shared_css = path.join(__dirname, '../src/ui/styles.css');
 const mgmt_css = path.join(__dirname, '../src/ui/management/management.css');
 const pop_css  = path.join(__dirname, '../src/ui/popup/popup.css');
 
 fs.writeFileSync(path.join(dest, 'manifest.json'), JSON.stringify(manifest, null, 2));
 fs.copyFileSync(pop_ui,   dest + 'popup.html');
 fs.copyFileSync(mgmt_ui,  dest + 'management.html');
+fs.copyFileSync(shared_css, dest + 'styles.css');
 fs.copyFileSync(mgmt_css, dest + 'management.css');
 fs.copyFileSync(pop_css,  dest + 'popup.css');
 

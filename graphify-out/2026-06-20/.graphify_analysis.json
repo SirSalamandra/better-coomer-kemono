@@ -1,0 +1,540 @@
+{
+  "communities": {
+    "0": [
+      "database_artistrepository",
+      "database_artistrepository_artistrepository",
+      "database_artistrepository_artistrepository_add",
+      "database_artistrepository_artistrepository_constructor",
+      "database_artistrepository_artistrepository_deletewithposts",
+      "database_artistrepository_artistrepository_get",
+      "database_artistrepository_artistrepository_getall",
+      "database_artistrepository_artistrepository_update",
+      "database_backupservice",
+      "database_backupservice_backupservice",
+      "database_backupservice_backupservice_constructor",
+      "database_backupservice_backupservice_exportalldata",
+      "database_backupservice_backupservice_importdata",
+      "database_backupservice_backupservice_reset",
+      "database_databaseconnection",
+      "database_databaseconnection_databaseconnection",
+      "database_databaseconnection_databaseconnection_close",
+      "database_databaseconnection_databaseconnection_deletedatabase",
+      "database_databaseconnection_databaseconnection_getdb",
+      "database_databaseconnection_databaseconnection_getstoredversion",
+      "database_databaseconnection_databaseconnection_init",
+      "database_databaseconnection_databaseconnection_targetversion",
+      "database_databaseconnection_runner",
+      "database_indexeddbmanager",
+      "database_indexeddbmanager_indexeddbmanager",
+      "database_indexeddbmanager_indexeddbmanager_addartist",
+      "database_indexeddbmanager_indexeddbmanager_addpost",
+      "database_indexeddbmanager_indexeddbmanager_close",
+      "database_indexeddbmanager_indexeddbmanager_constructor",
+      "database_indexeddbmanager_indexeddbmanager_createinstance",
+      "database_indexeddbmanager_indexeddbmanager_deleteartist",
+      "database_indexeddbmanager_indexeddbmanager_deletelegacydb",
+      "database_indexeddbmanager_indexeddbmanager_deletepost",
+      "database_indexeddbmanager_indexeddbmanager_exportalldata",
+      "database_indexeddbmanager_indexeddbmanager_exportfromlegacydb",
+      "database_indexeddbmanager_indexeddbmanager_getallartists",
+      "database_indexeddbmanager_indexeddbmanager_getallposts",
+      "database_indexeddbmanager_indexeddbmanager_getartist",
+      "database_indexeddbmanager_indexeddbmanager_getartistwithposts",
+      "database_indexeddbmanager_indexeddbmanager_getinstance",
+      "database_indexeddbmanager_indexeddbmanager_getpost",
+      "database_indexeddbmanager_indexeddbmanager_getpostsbyartist",
+      "database_indexeddbmanager_indexeddbmanager_getstoredversion",
+      "database_indexeddbmanager_indexeddbmanager_gettargetversion",
+      "database_indexeddbmanager_indexeddbmanager_importdata",
+      "database_indexeddbmanager_indexeddbmanager_init",
+      "database_indexeddbmanager_indexeddbmanager_reset",
+      "database_indexeddbmanager_indexeddbmanager_updateartist",
+      "database_indexeddbmanager_indexeddbmanager_updatepost",
+      "database_legacymigrationservice",
+      "database_legacymigrationservice_legacymigrationservice",
+      "database_legacymigrationservice_legacymigrationservice_deletelegacydb",
+      "database_legacymigrationservice_legacymigrationservice_exportfromlegacydb",
+      "database_postrepository",
+      "database_postrepository_postrepository",
+      "database_postrepository_postrepository_add",
+      "database_postrepository_postrepository_constructor",
+      "database_postrepository_postrepository_delete",
+      "database_postrepository_postrepository_get",
+      "database_postrepository_postrepository_getall",
+      "database_postrepository_postrepository_getbyartist",
+      "database_postrepository_postrepository_update",
+      "database_trackingqueryservice",
+      "database_trackingqueryservice_trackingqueryservice",
+      "database_trackingqueryservice_trackingqueryservice_constructor",
+      "database_trackingqueryservice_trackingqueryservice_getartistwithposts",
+      "popup_popup",
+      "popup_popup_createpopupapp",
+      "tests_indexeddbmanager_test",
+      "types_artist",
+      "types_artist_artist",
+      "types_post_post"
+    ],
+    "1": [
+      "audioplayer_dom",
+      "audioplayer_dom_addaudioelementsforaudiolinks",
+      "background_index",
+      "background_index_createbackgroundapp",
+      "background_messagehandler",
+      "background_messagehandler_setupmessagehandler",
+      "constants_eventtypes",
+      "constants_eventtypes_eventtypes",
+      "constants_pages",
+      "constants_pages_pages",
+      "content_index",
+      "content_index_iscontextvalid",
+      "tests_enrichment_test",
+      "tests_enrichpostsforartists_test",
+      "tests_enrichpostsforartists_test_artist",
+      "tests_enrichpostsforartists_test_enrichedpost",
+      "tests_enrichpostsforartists_test_unenrichedpost",
+      "tests_helpers_test",
+      "tests_url_test",
+      "types_artistprofiledto",
+      "types_artistprofiledto_artistprofiledto",
+      "types_contentmessage",
+      "types_contentmessage_contentmessage",
+      "types_postdto",
+      "types_postdto_postattachmentdto",
+      "types_postdto_postdto",
+      "types_postdto_postresponsedto",
+      "types_urldatatype",
+      "types_urldatatype_urldatatype",
+      "urlparser_parser",
+      "urlparser_parser_extractdatafromurl",
+      "utils_date",
+      "utils_date_getdate",
+      "utils_enrich",
+      "utils_enrich_coomer_services",
+      "utils_enrich_db",
+      "utils_enrich_enrichartists",
+      "utils_enrich_enrichpostsforartists",
+      "utils_enrichment",
+      "utils_enrichment_transformartistprofile",
+      "utils_enrichment_transformpostprofile",
+      "utils_url",
+      "utils_url_tryparseurl",
+      "viewtracking_dom",
+      "viewtracking_dom_addviewedtagsonallposts"
+    ],
+    "2": [
+      "components_postcard",
+      "components_postcard_renderpostcard",
+      "management_management",
+      "management_management_createmanagementapp",
+      "pages_artistdetail",
+      "pages_artistdetail_renderartistdetail",
+      "pages_artists",
+      "pages_artists_getpageartists",
+      "pages_artists_renderartistcard",
+      "pages_artists_renderartists",
+      "pages_artists_resetartistspage",
+      "pages_home",
+      "pages_home_renderhome",
+      "pages_posts",
+      "pages_posts_renderposts",
+      "pages_settings",
+      "pages_settings_rendersettings",
+      "tests_management_test",
+      "types_post",
+      "utils_avatar",
+      "utils_avatar_avatar_colors",
+      "utils_avatar_avatarcolor",
+      "utils_avatar_avatarimg",
+      "utils_avatar_buildavatar",
+      "utils_avatar_initialsavatar",
+      "utils_enrich_hostforartist",
+      "utils_format",
+      "utils_format_emptystate",
+      "utils_format_escapehtml",
+      "utils_format_formatdate",
+      "utils_format_lastviewedfromposts",
+      "utils_masonry",
+      "utils_masonry_createmasonry"
+    ],
+    "3": [
+      "database_migrationrunner",
+      "database_migrationrunner_migrationrunner",
+      "database_migrationrunner_migrationrunner_latestversion",
+      "database_migrationrunner_migrationrunner_run",
+      "migrations_1_initialcreate",
+      "migrations_1_initialcreate_initialcreate",
+      "migrations_1_initialcreate_initialcreate_down",
+      "migrations_1_initialcreate_initialcreate_up",
+      "migrations_2_forceenrichmentrefresh",
+      "migrations_2_forceenrichmentrefresh_forceenrichmentrefresh",
+      "migrations_2_forceenrichmentrefresh_forceenrichmentrefresh_down",
+      "migrations_2_forceenrichmentrefresh_forceenrichmentrefresh_up",
+      "migrations_3_addpostthumbnailurl",
+      "migrations_3_addpostthumbnailurl_addpostthumbnailurl",
+      "migrations_3_addpostthumbnailurl_addpostthumbnailurl_down",
+      "migrations_3_addpostthumbnailurl_addpostthumbnailurl_up",
+      "migrations_imigration",
+      "migrations_imigration_imigration",
+      "tests_migrationrunner_test",
+      "tests_migrationrunner_test_fakedb",
+      "tests_migrationrunner_test_faketx",
+      "tests_migrationrunner_test_makemigration"
+    ],
+    "4": [
+      "package",
+      "package_devdependencies",
+      "package_devdependencies_baseline_browser_mapping",
+      "package_devdependencies_copy_webpack_plugin",
+      "package_devdependencies_fake_indexeddb",
+      "package_devdependencies_jest",
+      "package_devdependencies_jest_environment_jsdom",
+      "package_devdependencies_jest_util",
+      "package_devdependencies_ts_jest",
+      "package_devdependencies_ts_loader",
+      "package_devdependencies_types_chrome",
+      "package_devdependencies_types_firefox",
+      "package_devdependencies_types_firefox_webext_browser",
+      "package_devdependencies_types_jest",
+      "package_devdependencies_typescript",
+      "package_devdependencies_webpack",
+      "package_devdependencies_webpack_cli",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_test",
+      "package_scripts_test_watch"
+    ],
+    "5": [
+      "manifests_chrome_manifest",
+      "manifests_chrome_manifest_action",
+      "manifests_chrome_manifest_action_default_icon",
+      "manifests_chrome_manifest_action_default_popup",
+      "manifests_chrome_manifest_action_default_title",
+      "manifests_chrome_manifest_background",
+      "manifests_chrome_manifest_background_service_worker",
+      "manifests_chrome_manifest_content_scripts",
+      "manifests_chrome_manifest_default_icon_32",
+      "manifests_chrome_manifest_description",
+      "manifests_chrome_manifest_host_permissions",
+      "manifests_chrome_manifest_icons",
+      "manifests_chrome_manifest_icons_128",
+      "manifests_chrome_manifest_icons_16",
+      "manifests_chrome_manifest_icons_48",
+      "manifests_chrome_manifest_manifest_version",
+      "manifests_chrome_manifest_name",
+      "manifests_chrome_manifest_permissions",
+      "manifests_chrome_manifest_version",
+      "manifests_chrome_manifest_web_accessible_resources"
+    ],
+    "6": [
+      "constants_supportedhosts",
+      "constants_supportedhosts_supported_hosts",
+      "core_config",
+      "core_config_configurations",
+      "scripts_build",
+      "scripts_build_dest",
+      "scripts_build_fs",
+      "scripts_build_injectchrome",
+      "scripts_build_injectfirefox",
+      "scripts_build_manifest",
+      "scripts_build_matchpatterns",
+      "scripts_build_mgmt_css",
+      "scripts_build_mgmt_ui",
+      "scripts_build_path",
+      "scripts_build_pop_css",
+      "scripts_build_pop_ui",
+      "scripts_build_supported_hosts",
+      "scripts_build_templatepath",
+      "tests_configurations_test"
+    ],
+    "7": [
+      "manifests_firefox_manifest",
+      "manifests_firefox_manifest_background",
+      "manifests_firefox_manifest_background_persistent",
+      "manifests_firefox_manifest_background_scripts",
+      "manifests_firefox_manifest_browser_action",
+      "manifests_firefox_manifest_browser_action_default_icon",
+      "manifests_firefox_manifest_browser_action_default_popup",
+      "manifests_firefox_manifest_content_scripts",
+      "manifests_firefox_manifest_default_icon_16",
+      "manifests_firefox_manifest_default_icon_32",
+      "manifests_firefox_manifest_description",
+      "manifests_firefox_manifest_icons",
+      "manifests_firefox_manifest_icons_128",
+      "manifests_firefox_manifest_icons_48",
+      "manifests_firefox_manifest_manifest_version",
+      "manifests_firefox_manifest_name",
+      "manifests_firefox_manifest_permissions",
+      "manifests_firefox_manifest_version",
+      "manifests_firefox_manifest_web_accessible_resources"
+    ],
+    "8": [
+      "services_apiclient",
+      "services_apiclient_buildartistprofileurl",
+      "services_apiclient_buildposturl",
+      "services_apiclient_fetch_headers",
+      "services_apiclient_fetchartistprofile",
+      "services_apiclient_fetchpostdetails",
+      "services_enrichmentservice",
+      "services_enrichmentservice_enrichartistifneeded",
+      "services_enrichmentservice_enrichartistsubset",
+      "services_enrichmentservice_enrichpostifneeded",
+      "services_enrichmentservice_enrichposts",
+      "tests_apiclient_test",
+      "tests_enrichmentservice_test",
+      "tests_enrichmentservice_test_db",
+      "tests_enrichmentservice_test_enrichedpost",
+      "tests_enrichmentservice_test_freshartist",
+      "tests_enrichmentservice_test_recentartist",
+      "tests_enrichmentservice_test_staleartist",
+      "tests_enrichmentservice_test_unenrichedpost"
+    ],
+    "9": [
+      "manifests_firefox_manifest_v3",
+      "manifests_firefox_manifest_v3_action",
+      "manifests_firefox_manifest_v3_action_default_popup",
+      "manifests_firefox_manifest_v3_background",
+      "manifests_firefox_manifest_v3_background_service_worker",
+      "manifests_firefox_manifest_v3_background_type",
+      "manifests_firefox_manifest_v3_content_scripts",
+      "manifests_firefox_manifest_v3_description",
+      "manifests_firefox_manifest_v3_host_permissions",
+      "manifests_firefox_manifest_v3_manifest_version",
+      "manifests_firefox_manifest_v3_name",
+      "manifests_firefox_manifest_v3_permissions",
+      "manifests_firefox_manifest_v3_version"
+    ],
+    "10": [
+      "tsconfig",
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_esmoduleinterop",
+      "tsconfig_compileroptions_lib",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_outdir",
+      "tsconfig_compileroptions_strict",
+      "tsconfig_compileroptions_target",
+      "tsconfig_exclude",
+      "tsconfig_include"
+    ],
+    "11": [
+      "tests_manifestgeneration_test",
+      "tests_manifestgeneration_test_chrome_template_path",
+      "tests_manifestgeneration_test_expected_patterns",
+      "tests_manifestgeneration_test_firefox_template_path",
+      "tests_manifestgeneration_test_injectchrome",
+      "tests_manifestgeneration_test_injectfirefox",
+      "tests_manifestgeneration_test_loadtemplate",
+      "tests_manifestgeneration_test_supported_hosts",
+      "tests_manifestgeneration_test_tomatchpatterns"
+    ],
+    "12": [
+      "better_coomer_kemono_agents_repository_guidelines",
+      "better_coomer_kemono_jest_jest_config",
+      "better_coomer_kemono_package_build_and_test_scripts",
+      "claude_settings_local_tool_permissions",
+      "manifests_chrome_extension_manifest",
+      "manifests_firefox_extension_manifest",
+      "manifests_firefox_manifest_v3_manifest_variant"
+    ],
+    "13": [
+      "better_coomer_kemono_claude_project_overview",
+      "better_coomer_kemono_gemini_project_overview",
+      "better_coomer_kemono_readme_project_overview",
+      "documentation_ideas_feature_roadmap",
+      "documentation_refacture_archturecture_refactor_proposal"
+    ],
+    "14": [
+      "claude_settings_local",
+      "claude_settings_local_permissions",
+      "claude_settings_local_permissions_allow"
+    ],
+    "15": [
+      "icons_logo_128_brand_icon",
+      "icons_logo_128_fox_logo",
+      "icons_logo_128_image"
+    ],
+    "16": [
+      "icons_logo_32_asset",
+      "icons_logo_32_fox_head_logo",
+      "icons_logo_32_orange_black_palette"
+    ],
+    "17": [
+      "icons_logo_64_fox_head_logo",
+      "icons_logo_64_image",
+      "icons_logo_64_orange_black_palette"
+    ],
+    "18": [
+      "icons_logo_file",
+      "icons_logo_fox_head",
+      "icons_logo_orange_black_palette"
+    ],
+    "19": [
+      "webpack_config",
+      "webpack_config_copyplugin",
+      "webpack_config_path"
+    ],
+    "20": [
+      "root_tsconfig_typescript_config",
+      "root_webpack_bundle_config"
+    ],
+    "21": [
+      "better_coomer_kemono_changelog_release_history"
+    ],
+    "22": [
+      "content_inject"
+    ],
+    "23": [
+      "content_inject_xmlhttprequest_open"
+    ],
+    "24": [
+      "jest_config"
+    ],
+    "25": [
+      "management_management_shell"
+    ],
+    "26": [
+      "popup_popup_shell"
+    ]
+  },
+  "cohesion": {
+    "0": 0.05516431924882629,
+    "1": 0.10202020202020202,
+    "2": 0.21212121212121213,
+    "3": 0.1645021645021645,
+    "4": 0.09523809523809523,
+    "5": 0.10526315789473684,
+    "6": 0.11695906432748537,
+    "7": 0.1111111111111111,
+    "8": 0.2046783625730994,
+    "9": 0.15384615384615385,
+    "10": 0.2,
+    "11": 0.2222222222222222,
+    "12": 0.38095238095238093,
+    "13": 0.5,
+    "14": 0.6666666666666666,
+    "15": 1.0,
+    "16": 0.6666666666666666,
+    "17": 1.0,
+    "18": 1.0,
+    "19": 0.6666666666666666,
+    "20": 1.0,
+    "21": 1.0,
+    "22": 1.0,
+    "23": 1.0,
+    "24": 1.0,
+    "25": 1.0,
+    "26": 1.0
+  },
+  "gods": [
+    {
+      "id": "types_post_post",
+      "label": "Post",
+      "degree": 41
+    },
+    {
+      "id": "database_indexeddbmanager_indexeddbmanager",
+      "label": "IndexedDbManager",
+      "degree": 40
+    },
+    {
+      "id": "types_artist_artist",
+      "label": "Artist",
+      "degree": 37
+    },
+    {
+      "id": "database_postrepository_postrepository",
+      "label": "PostRepository",
+      "degree": 12
+    },
+    {
+      "id": "utils_format_escapehtml",
+      "label": "escapeHtml()",
+      "degree": 12
+    },
+    {
+      "id": "database_artistrepository_artistrepository",
+      "label": "ArtistRepository",
+      "degree": 11
+    },
+    {
+      "id": "database_databaseconnection_databaseconnection",
+      "label": "DatabaseConnection",
+      "degree": 11
+    },
+    {
+      "id": "migrations_imigration_imigration",
+      "label": "IMigration",
+      "degree": 10
+    },
+    {
+      "id": "components_postcard_renderpostcard",
+      "label": "renderPostCard()",
+      "degree": 10
+    },
+    {
+      "id": "pages_artistdetail_renderartistdetail",
+      "label": "renderArtistDetail()",
+      "degree": 10
+    }
+  ],
+  "surprises": [
+    {
+      "source": "Claude Project Overview",
+      "target": "README Project Overview",
+      "source_files": [
+        "CLAUDE.md",
+        "README.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "Gemini Project Overview",
+      "target": "README Project Overview",
+      "source_files": [
+        "GEMINI.md",
+        "README.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "Repository Guidelines",
+      "target": "Jest Config",
+      "source_files": [
+        "AGENTS.md",
+        "jest.config.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "crosses file types (doc \u2194 code); connects across different repos/directories"
+    },
+    {
+      "source": "Repository Guidelines",
+      "target": "Package Build And Test Scripts",
+      "source_files": [
+        "AGENTS.md",
+        "package.json"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "crosses file types (doc \u2194 code); connects across different repos/directories"
+    },
+    {
+      "source": "Repository Guidelines",
+      "target": "Chrome Extension Manifest",
+      "source_files": [
+        "AGENTS.md",
+        "manifests/chrome.manifest.json"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "crosses file types (doc \u2194 code); connects across different repos/directories"
+    }
+  ],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}

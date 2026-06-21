@@ -28,3 +28,17 @@ Recent history follows Conventional Commit style, for example `feat(management):
 
 ## Browser Extension Notes
 Keep manifest-specific changes isolated to `manifests/`. When adding assets, confirm they are copied or referenced by the webpack/build pipeline so `dist/` remains loadable without manual steps.
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked in GitHub Issues. External PRs are not treated as a triage surface. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Using default canonical triage labels. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout. See `docs/agents/domain.md`.
