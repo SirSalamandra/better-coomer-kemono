@@ -1,4 +1,5 @@
-import { IndexedDbManager } from "../../core/database/indexedDbManager";
+import { DatabaseLifecycle, ArtistStore, PostStore } from "../../core/database/contracts";
+import { createDatabaseServices } from "../../core/database/createDatabaseServices";
 
 if (typeof browser === "undefined") {
   //@ts-ignore
@@ -11,11 +12,17 @@ if (typeof browser === "undefined") {
  * Wires and bootstraps the popup page.
  * Accepts `db` explicitly so the page is testable without touching the singleton.
  */
-export async function createPopupApp(db: IndexedDbManager): Promise<void> {
-  await db.init();
-  const [artists, posts] = await Promise.all([db.getAllArtists(), db.getAllPosts()]);
-  document.getElementById('artist-count')!.textContent = String(artists.length);
-  document.getElementById('post-count')!.textContent = String(posts.length);
+type PopupServices = {
+  lifecycle: DatabaseLifecycle;
+  artists: Pick<ArtistStore, "getAll">;
+  posts: Pick<PostStore, "getAll">;
+};
+
+export async function createPopupApp({ lifecycle, artists, posts }: PopupServices): Promise<void> {
+  await lifecycle.init();
+  const [allArtists, allPosts] = await Promise.all([artists.getAll(), posts.getAll()]);
+  document.getElementById('artist-count')!.textContent = String(allArtists.length);
+  document.getElementById('post-count')!.textContent = String(allPosts.length);
 
   document.getElementById('open-management')?.addEventListener('click', () => {
     browser.tabs.create({ url: browser.runtime.getURL('management.html') });
@@ -25,4 +32,4 @@ export async function createPopupApp(db: IndexedDbManager): Promise<void> {
 
 // ── Entrypoint ────────────────────────────────────────────────────────────────
 
-createPopupApp(IndexedDbManager.createInstance()).catch(console.error);
+createPopupApp(createDatabaseServices()).catch(console.error);

@@ -1,5 +1,6 @@
 import { Configurations } from "../core/config";
-import { IndexedDbManager } from "../core/database/indexedDbManager";
+import { DatabaseServices } from "../core/database/contracts";
+import { createDatabaseServices } from "../core/database/createDatabaseServices";
 import { EventTypes } from "../shared/constants/eventTypes";
 import { Pages } from "../shared/constants/pages";
 import { ExtractDataFromUrl } from "../features/urlParser/parser";
@@ -25,21 +26,29 @@ if (typeof browser === "undefined") {
  * Keeping wiring explicit here means the singleton is only touched in this one
  * place instead of being scattered across every callback.
  */
-export function createBackgroundApp(db: IndexedDbManager): { dispose: () => void } {
-  setupMessageHandler(db);
+export function createBackgroundApp({
+  lifecycle,
+  version,
+  artists,
+  posts,
+  tracking,
+  backup,
+  legacy,
+}: DatabaseServices): { dispose: () => void } {
+  setupMessageHandler({ lifecycle, artists, posts });
 
   // ── onInstalled ─────────────────────────────────────────────────────────────
 
   async function migrateLegacyDbIfNeeded(): Promise<void> {
-    const legacyData = await db.exportFromLegacyDb();
+    const legacyData = await legacy.exportFromLegacyDb();
     if (!legacyData) return;
 
     console.log(`Found legacy BetterSU_DB with ${legacyData.artists.length} artists and ${legacyData.posts.length} posts. Migrating to BetterCK_DB...`);
 
     try {
-      await db.init();
-      await db.importData(legacyData);
-      await db.deleteLegacyDb();
+      await lifecycle.init();
+      await backup.importData(legacyData);
+      await legacy.deleteLegacyDb();
       console.log('Legacy DB migration complete. BetterSU_DB deleted.');
     } catch (err) {
       console.error('Legacy DB migration failed. BetterSU_DB preserved.', err);
@@ -51,46 +60,46 @@ export function createBackgroundApp(db: IndexedDbManager): { dispose: () => void
 
     if (details.reason === 'install') {
       console.log("Extension installed. Initializing database...");
-      await db.init();
+      await lifecycle.init();
       return;
     }
 
     if (details.reason === 'update') {
-      const storedVersion = await db.getStoredVersion();
-      const targetVersion = db.getTargetVersion();
+      const storedVersion = await version.getStoredVersion();
+      const targetVersion = version.getTargetVersion();
 
       if (storedVersion >= targetVersion) {
         console.log(`DB already at version ${storedVersion}, no migration needed.`);
-        await db.init();
+        await lifecycle.init();
         return;
       }
 
       console.log(`Migrating DB from version ${storedVersion} to ${targetVersion}...`);
 
       // 1. Export all data at the old schema before any migration runs
-      let backup: { artists: Artist[]; posts: Post[] };
+      let backupData: { artists: Artist[]; posts: Post[] };
       try {
-        backup = await db.exportAllData();
-        console.log(`Exported ${backup.artists.length} artists and ${backup.posts.length} posts.`);
+        backupData = await backup.exportAllData();
+        console.log(`Exported ${backupData.artists.length} artists and ${backupData.posts.length} posts.`);
       } catch (err) {
         console.error("Export failed — aborting migration flow.", err);
-        await db.init();
+        await lifecycle.init();
         return;
       }
 
       // 2. Persist backup to storage.local as a safety net
       try {
-        await browser.storage.local.set({ db_migration_backup: backup });
+        await browser.storage.local.set({ db_migration_backup: backupData });
         console.log("Backup written to storage.local.");
       } catch (err) {
         console.error("Backup write failed — aborting migration flow.", err);
-        await db.init();
+        await lifecycle.init();
         return;
       }
 
       // 3. Open DB at the new version — triggers onupgradeneeded → MigrationRunner
       try {
-        await db.init();
+        await lifecycle.init();
         console.log(`DB migrated to version ${targetVersion}.`);
       } catch (err) {
         console.error("Migration failed. Backup preserved in storage.local.", err);
@@ -99,7 +108,7 @@ export function createBackgroundApp(db: IndexedDbManager): { dispose: () => void
 
       // 4. Restore all data into the new schema
       try {
-        await db.importData(backup!);
+        await backup.importData(backupData!);
         console.log("Data restored from backup.");
       } catch (err) {
         console.error("Restore failed. Backup preserved in storage.local.", err);
@@ -128,14 +137,14 @@ export function createBackgroundApp(db: IndexedDbManager): { dispose: () => void
     const url = tryParseUrl(tab.url);
     if (!url) return;
 
-    await db.init(); // lazy guard for service-worker restarts that bypass onInstalled
+    await lifecycle.init(); // lazy guard for service-worker restarts that bypass onInstalled
 
     if (!Configurations.isHostAllowed(url.host)) return;
 
     const urlData = ExtractDataFromUrl(url);
 
     if (urlData.page_type === Pages.ArtistPage) {
-      const artistWithPosts = await db.getArtistWithPosts(urlData.artist_id);
+      const artistWithPosts = await tracking.getArtistWithPosts(urlData.artist_id);
 
       let storedArtist: Artist;
       if (!artistWithPosts) {
@@ -143,7 +152,7 @@ export function createBackgroundApp(db: IndexedDbManager): { dispose: () => void
           id: urlData.artist_id,
           content_origin: urlData.content_origin,
         };
-        await db.addArtist(storedArtist);
+        await artists.add(storedArtist);
       } else {
         storedArtist = artistWithPosts.artist;
       }
@@ -157,7 +166,7 @@ export function createBackgroundApp(db: IndexedDbManager): { dispose: () => void
           const data = await fetchArtistProfile(url.host, urlData.content_origin, urlData.artist_id);
           if (data) {
             const enrichedArtist = transformArtistProfile(storedArtist, data, url.host);
-            await db.updateArtist(enrichedArtist);
+            await artists.update(enrichedArtist);
           }
         } catch (err) {
           console.warn('Failed to enrich artist details:', err);
@@ -178,7 +187,7 @@ export function createBackgroundApp(db: IndexedDbManager): { dispose: () => void
     }
 
     if (urlData.page_type === Pages.PostPage) {
-      let post = await db.getPost(urlData.post_id);
+      let post = await posts.get(urlData.post_id);
 
       if (post === undefined) {
         const newPost: Post = {
@@ -186,7 +195,7 @@ export function createBackgroundApp(db: IndexedDbManager): { dispose: () => void
           artist_id: urlData.artist_id,
           viewed_at: GetDate(),
         };
-        await db.addPost(newPost);
+        await posts.add(newPost);
         post = newPost;
       }
 
@@ -197,7 +206,7 @@ export function createBackgroundApp(db: IndexedDbManager): { dispose: () => void
           const data = await fetchPostDetails(url.host, urlData.content_origin, urlData.artist_id, urlData.post_id);
           if (data) {
             const enrichedPost = transformPostProfile(post, data.post, data.attachments, url.host);
-            await db.updatePost(enrichedPost);
+            await posts.update(enrichedPost);
           }
         } catch (err) {
           console.warn('Failed to enrich post details:', err);
@@ -223,4 +232,4 @@ export function createBackgroundApp(db: IndexedDbManager): { dispose: () => void
 }
 
 // ── Entrypoint ────────────────────────────────────────────────────────────────
-createBackgroundApp(IndexedDbManager.createInstance());
+createBackgroundApp(createDatabaseServices());

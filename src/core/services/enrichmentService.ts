@@ -1,4 +1,4 @@
-import { IndexedDbManager } from "../database/indexedDbManager";
+import { EnrichmentStore } from "../database/contracts";
 import { Artist } from "../../shared/types/Artist";
 import { Post } from "../../shared/types/Post";
 import { EnrichmentPipeline } from "./enrichmentPipeline";
@@ -10,7 +10,7 @@ import { EnrichmentPipeline } from "./enrichmentPipeline";
  * Returns true when the DB was updated.
  */
 export async function enrichArtistIfNeeded(
-  db: IndexedDbManager,
+  db: EnrichmentStore,
   artist: Artist,
   host: string,
 ): Promise<boolean> {
@@ -22,7 +22,7 @@ export async function enrichArtistIfNeeded(
  * Returns true when the DB was updated.
  */
 export async function enrichPostIfNeeded(
-  db: IndexedDbManager,
+  db: EnrichmentStore,
   post: Post,
   artist: Artist,
   host: string,
@@ -35,7 +35,7 @@ export async function enrichPostIfNeeded(
  * Returns true when at least one DB write occurred.
  */
 export async function enrichPosts(
-  db: IndexedDbManager,
+  db: EnrichmentStore,
   posts: Post[],
   artists: Artist[],
 ): Promise<boolean> {
@@ -47,7 +47,7 @@ export async function enrichPosts(
  * Returns true when at least one DB write occurred.
  */
 export async function enrichArtistSubset(
-  db: IndexedDbManager,
+  db: EnrichmentStore,
   subset: Artist[],
 ): Promise<boolean> {
   return new EnrichmentPipeline(db).enrichArtists(subset);

@@ -1,18 +1,24 @@
-import { IndexedDbManager } from "../core/database/indexedDbManager";
+import { DatabaseLifecycle, ArtistStore, PostStore } from "../core/database/contracts";
 import { EventTypes } from "../shared/constants/eventTypes";
 import { ContentMessage } from "../shared/types/ContentMessage";
 import { GetDate } from "../shared/utils/date";
 import { transformArtistProfile, transformPostProfile } from "../core/utils/enrichment";
 import { PostResponseDTO } from "../shared/types/PostDTO";
 
-export function setupMessageHandler(db: IndexedDbManager): void {
+type MessageHandlerServices = {
+  lifecycle: DatabaseLifecycle;
+  artists: Pick<ArtistStore, "get" | "update">;
+  posts: Pick<PostStore, "get" | "update" | "delete">;
+};
+
+export function setupMessageHandler({ lifecycle, artists, posts }: MessageHandlerServices): void {
   browser.runtime.onMessage.addListener(async (message: ContentMessage, sender) => {
-    await db.init(); // lazy guard for service-worker restarts that bypass onInstalled
+    await lifecycle.init(); // lazy guard for service-worker restarts that bypass onInstalled
 
     if (message.type === EventTypes.RemoveViewTag) {
       const { postId } = message.data;
       if (postId) {
-        await db.deletePost(postId);
+        await posts.delete(postId);
         if (sender.tab && sender.tab.id) {
           browser.tabs.sendMessage(sender.tab.id, {
             type: EventTypes.RemoveViewTagFromUI,
@@ -34,10 +40,10 @@ export function setupMessageHandler(db: IndexedDbManager): void {
         const artistId = data.id;
         if (!artistId) return;
 
-        const storedArtist = await db.getArtist(artistId);
+        const storedArtist = await artists.get(artistId);
         if (storedArtist) {
           const enrichedArtist = transformArtistProfile(storedArtist, data, urlObj.host);
-          await db.updateArtist(enrichedArtist);
+          await artists.update(enrichedArtist);
           console.log(`Updated artist ${artistId} from intercepted request`);
         }
       }
@@ -48,10 +54,10 @@ export function setupMessageHandler(db: IndexedDbManager): void {
         const p = data.post;
         if (!p || !p.id) return;
 
-        const storedPost = await db.getPost(p.id);
+        const storedPost = await posts.get(p.id);
         if (storedPost) {
           const enrichedPost = transformPostProfile(storedPost, p, data.attachments);
-          await db.updatePost(enrichedPost);
+          await posts.update(enrichedPost);
           console.log(`Updated post ${p.id} from intercepted request`);
         }
       }
