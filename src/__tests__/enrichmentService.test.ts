@@ -3,22 +3,9 @@
  */
 
 import { enrichArtistIfNeeded, enrichPostIfNeeded, enrichPosts, enrichArtistSubset } from "../core/services/enrichmentService";
+import { EnrichmentStore } from "../core/database/contracts";
 import { Artist } from "../shared/types/Artist";
 import { Post } from "../shared/types/Post";
-
-// ── Mocks ─────────────────────────────────────────────────────────────────────
-
-jest.mock("../core/database/indexedDbManager", () => ({
-  IndexedDbManager: {
-    createInstance: () => ({
-      init: jest.fn().mockResolvedValue(undefined),
-      getAllArtists: jest.fn().mockResolvedValue([]),
-      getAllPosts: jest.fn().mockResolvedValue([]),
-      updateArtist: jest.fn().mockResolvedValue(undefined),
-      updatePost: jest.fn().mockResolvedValue(undefined),
-    }),
-  },
-}));
 
 // apiClient mock
 jest.mock("../core/services/apiClient", () => ({
@@ -27,9 +14,11 @@ jest.mock("../core/services/apiClient", () => ({
 }));
 
 import { fetchArtistProfile, fetchPostDetails } from "../core/services/apiClient";
-import { IndexedDbManager } from "../core/database/indexedDbManager";
 
-const db = IndexedDbManager.createInstance();
+const db: jest.Mocked<EnrichmentStore> = {
+  updateArtist: jest.fn().mockResolvedValue(undefined),
+  updatePost: jest.fn().mockResolvedValue(undefined),
+};
 
 const freshArtist: Artist = {
   id: "a1",

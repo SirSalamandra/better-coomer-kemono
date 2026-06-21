@@ -1,6 +1,6 @@
 import { enrichArtists } from "../ui/management/utils/enrich";
+import { EnrichmentStore } from "../core/database/contracts";
 import { EnrichmentPipeline } from "../core/services/enrichmentPipeline";
-import { IndexedDbManager } from "../core/database/indexedDbManager";
 import { Artist } from "../shared/types/Artist";
 
 jest.mock("../core/services/enrichmentPipeline");
@@ -8,14 +8,15 @@ jest.mock("../core/services/enrichmentPipeline");
 const incompleteArtist: Artist = { id: "a1", content_origin: "patreon" };
 
 describe("enrichArtists", () => {
-  let db: IndexedDbManager;
+  let db: EnrichmentStore;
   let loadData: jest.Mock;
   let render: jest.Mock;
 
   beforeEach(() => {
     db = {
       updateArtist: jest.fn().mockResolvedValue(undefined),
-    } as unknown as IndexedDbManager;
+      updatePost: jest.fn().mockResolvedValue(undefined),
+    };
     loadData = jest.fn().mockResolvedValue(undefined);
     render = jest.fn();
     jest.clearAllMocks();

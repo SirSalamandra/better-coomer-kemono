@@ -1,7 +1,7 @@
-import { IndexedDbManager } from "../../../core/database/indexedDbManager";
+import { BackupStore } from "../../../core/database/contracts";
 
 export function renderSettings(
-  db: IndexedDbManager,
+  backup: BackupStore,
   loadData: () => Promise<void>,
   render: () => void,
 ): HTMLElement {
@@ -21,7 +21,7 @@ export function renderSettings(
   resetBtn.textContent = 'Reset Database';
   resetBtn.addEventListener('click', async () => {
     if (!confirm('This will permanently delete all tracked artists and posts. Continue?')) return;
-    await db.reset();
+    await backup.reset();
     await loadData();
     render();
   });

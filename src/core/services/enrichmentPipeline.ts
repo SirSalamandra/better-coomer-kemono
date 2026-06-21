@@ -1,4 +1,4 @@
-import { IndexedDbManager } from "../database/indexedDbManager";
+import { EnrichmentStore } from "../database/contracts";
 import { Artist } from "../../shared/types/Artist";
 import { Post } from "../../shared/types/Post";
 import { hostForArtist } from "../hosts/HostResolver";
@@ -6,7 +6,7 @@ import { transformArtistProfile, transformPostProfile } from "../utils/enrichmen
 import { fetchArtistProfile, fetchPostDetails } from "./apiClient";
 
 export class EnrichmentPipeline {
-  constructor(private readonly db: IndexedDbManager) {}
+  constructor(private readonly db: EnrichmentStore) {}
 
   async enrichArtistIfNeeded(artist: Artist, host = hostForArtist(artist)): Promise<boolean> {
     const now = new Date();

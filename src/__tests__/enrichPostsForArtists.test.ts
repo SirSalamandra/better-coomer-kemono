@@ -1,6 +1,6 @@
 import { enrichPostsForArtists } from "../ui/management/utils/enrich";
+import { EnrichmentStore } from "../core/database/contracts";
 import { EnrichmentPipeline } from "../core/services/enrichmentPipeline";
-import { IndexedDbManager } from "../core/database/indexedDbManager";
 import { Artist } from "../shared/types/Artist";
 import { Post } from "../shared/types/Post";
 
@@ -11,14 +11,15 @@ const unenrichedPost: Post = { id: "p1", artist_id: "a1", viewed_at: "2026-01-01
 const enrichedPost: Post = { ...unenrichedPost, last_enriched_at: "2026-01-01T00:00:00.000Z" };
 
 describe("enrichPostsForArtists", () => {
-  let db: IndexedDbManager;
+  let db: EnrichmentStore;
   let loadData: jest.Mock;
   let render: jest.Mock;
 
   beforeEach(() => {
     db = {
+      updateArtist: jest.fn().mockResolvedValue(undefined),
       updatePost: jest.fn().mockResolvedValue(undefined),
-    } as unknown as IndexedDbManager;
+    };
     loadData = jest.fn().mockResolvedValue(undefined);
     render = jest.fn();
     jest.clearAllMocks();

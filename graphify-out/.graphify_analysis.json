@@ -1,34 +1,28 @@
 {
   "communities": {
     "0": [
-      "database_indexeddbmanager",
-      "database_indexeddbmanager_indexeddbmanager",
-      "database_indexeddbmanager_indexeddbmanager_addartist",
-      "database_indexeddbmanager_indexeddbmanager_addpost",
-      "database_indexeddbmanager_indexeddbmanager_close",
-      "database_indexeddbmanager_indexeddbmanager_constructor",
-      "database_indexeddbmanager_indexeddbmanager_createinstance",
-      "database_indexeddbmanager_indexeddbmanager_deleteartist",
-      "database_indexeddbmanager_indexeddbmanager_deletelegacydb",
-      "database_indexeddbmanager_indexeddbmanager_deletepost",
-      "database_indexeddbmanager_indexeddbmanager_exportalldata",
-      "database_indexeddbmanager_indexeddbmanager_exportfromlegacydb",
-      "database_indexeddbmanager_indexeddbmanager_getallartists",
-      "database_indexeddbmanager_indexeddbmanager_getallposts",
-      "database_indexeddbmanager_indexeddbmanager_getartist",
-      "database_indexeddbmanager_indexeddbmanager_getartistwithposts",
-      "database_indexeddbmanager_indexeddbmanager_getpost",
-      "database_indexeddbmanager_indexeddbmanager_getpostsbyartist",
-      "database_indexeddbmanager_indexeddbmanager_getstoredversion",
-      "database_indexeddbmanager_indexeddbmanager_gettargetversion",
-      "database_indexeddbmanager_indexeddbmanager_importdata",
-      "database_indexeddbmanager_indexeddbmanager_init",
-      "database_indexeddbmanager_indexeddbmanager_reset",
-      "database_indexeddbmanager_indexeddbmanager_updateartist",
-      "database_indexeddbmanager_indexeddbmanager_updatepost",
+      "database_contracts",
+      "database_contracts_artiststore",
+      "database_contracts_backupstore",
+      "database_contracts_databaselifecycle",
+      "database_contracts_databaseservices",
+      "database_contracts_enrichmentstore",
+      "database_contracts_legacystore",
+      "database_contracts_poststore",
+      "database_contracts_trackingstore",
+      "database_contracts_versionstore",
+      "database_createdatabaseservices",
+      "database_createdatabaseservices_createdatabaseservices",
+      "management_management",
+      "management_management_createmanagementapp",
+      "management_management_managementservices",
+      "pages_artists_getpageartists",
+      "pages_artists_resetartistspage",
       "pages_settings",
+      "pages_settings_rendersettings",
       "popup_popup",
       "popup_popup_createpopupapp",
+      "popup_popup_popupservices",
       "services_enrichmentpipeline",
       "services_enrichmentpipeline_enrichmentpipeline",
       "services_enrichmentpipeline_enrichmentpipeline_constructor",
@@ -36,57 +30,30 @@
       "services_enrichmentpipeline_enrichmentpipeline_enrichartists",
       "services_enrichmentpipeline_enrichmentpipeline_enrichpostifneeded",
       "services_enrichmentpipeline_enrichmentpipeline_enrichposts",
+      "services_enrichmentservice",
+      "services_enrichmentservice_enrichartistifneeded",
+      "services_enrichmentservice_enrichartistsubset",
+      "services_enrichmentservice_enrichpostifneeded",
+      "services_enrichmentservice_enrichposts",
+      "tests_databaseservices_test",
       "tests_enrichartists_test",
       "tests_enrichartists_test_incompleteartist",
+      "tests_enrichmentservice_test",
+      "tests_enrichmentservice_test_db",
+      "tests_enrichmentservice_test_enrichedpost",
+      "tests_enrichmentservice_test_freshartist",
+      "tests_enrichmentservice_test_recentartist",
+      "tests_enrichmentservice_test_staleartist",
+      "tests_enrichmentservice_test_unenrichedpost",
       "tests_enrichpostsforartists_test",
       "tests_enrichpostsforartists_test_artist",
       "tests_enrichpostsforartists_test_enrichedpost",
       "tests_enrichpostsforartists_test_unenrichedpost",
-      "tests_indexeddbmanager_test",
       "utils_enrich",
       "utils_enrich_enrichartists",
       "utils_enrich_enrichpostsforartists"
     ],
     "1": [
-      "audioplayer_dom",
-      "audioplayer_dom_addaudioelementsforaudiolinks",
-      "background_index",
-      "background_index_createbackgroundapp",
-      "background_messagehandler",
-      "background_messagehandler_setupmessagehandler",
-      "constants_eventtypes",
-      "constants_eventtypes_eventtypes",
-      "constants_pages",
-      "constants_pages_pages",
-      "content_index",
-      "content_index_iscontextvalid",
-      "core_config",
-      "core_config_configurations",
-      "tests_configurations_test",
-      "tests_enrichment_test",
-      "tests_helpers_test",
-      "tests_url_test",
-      "types_contentmessage",
-      "types_contentmessage_contentmessage",
-      "types_postdto",
-      "types_postdto_postattachmentdto",
-      "types_postdto_postdto",
-      "types_postdto_postresponsedto",
-      "types_urldatatype",
-      "types_urldatatype_urldatatype",
-      "urlparser_parser",
-      "urlparser_parser_extractdatafromurl",
-      "utils_date",
-      "utils_date_getdate",
-      "utils_enrichment",
-      "utils_enrichment_transformartistprofile",
-      "utils_enrichment_transformpostprofile",
-      "utils_url",
-      "utils_url_tryparseurl",
-      "viewtracking_dom",
-      "viewtracking_dom_addviewedtagsonallposts"
-    ],
-    "2": [
       "database_artistrepository",
       "database_artistrepository_artistrepository",
       "database_artistrepository_artistrepository_add",
@@ -115,36 +82,53 @@
       "database_postrepository_postrepository_getbyartist",
       "database_postrepository_postrepository_update",
       "database_trackingqueryservice",
-      "database_trackingqueryservice_trackingqueryservice",
-      "database_trackingqueryservice_trackingqueryservice_constructor",
-      "database_trackingqueryservice_trackingqueryservice_getartistwithposts",
-      "pages_home",
       "types_artist",
       "types_artist_artist",
       "types_post",
       "types_post_post"
     ],
+    "2": [
+      "background_index",
+      "background_index_createbackgroundapp",
+      "background_messagehandler",
+      "background_messagehandler_messagehandlerservices",
+      "background_messagehandler_setupmessagehandler",
+      "services_apiclient",
+      "services_apiclient_buildartistprofileurl",
+      "services_apiclient_buildposturl",
+      "services_apiclient_fetch_headers",
+      "services_apiclient_fetchartistprofile",
+      "services_apiclient_fetchpostdetails",
+      "tests_apiclient_test",
+      "tests_enrichment_test",
+      "tests_url_test",
+      "types_artistprofiledto",
+      "types_artistprofiledto_artistprofiledto",
+      "types_postdto",
+      "types_postdto_postattachmentdto",
+      "types_postdto_postdto",
+      "types_postdto_postresponsedto",
+      "utils_date",
+      "utils_date_getdate",
+      "utils_enrichment",
+      "utils_enrichment_transformartistprofile",
+      "utils_enrichment_transformpostprofile",
+      "utils_url",
+      "utils_url_tryparseurl"
+    ],
     "3": [
       "components_postcard",
       "components_postcard_renderpostcard",
-      "constants_supportedhosts_supported_hosts",
-      "hosts_hostresolver",
-      "hosts_hostresolver_coomer_services",
       "hosts_hostresolver_hostforartist",
-      "management_management",
-      "management_management_createmanagementapp",
       "pages_artistdetail",
       "pages_artistdetail_renderartistdetail",
       "pages_artists",
-      "pages_artists_getpageartists",
       "pages_artists_renderartistcard",
       "pages_artists_renderartists",
-      "pages_artists_resetartistspage",
+      "pages_home",
       "pages_home_renderhome",
       "pages_posts",
       "pages_posts_renderposts",
-      "pages_settings_rendersettings",
-      "tests_hostresolver_test",
       "tests_management_test",
       "utils_avatar",
       "utils_avatar_avatar_colors",
@@ -187,29 +171,6 @@
       "tests_migrationrunner_test_makemigration"
     ],
     "5": [
-      "services_apiclient",
-      "services_apiclient_buildartistprofileurl",
-      "services_apiclient_buildposturl",
-      "services_apiclient_fetch_headers",
-      "services_apiclient_fetchartistprofile",
-      "services_apiclient_fetchpostdetails",
-      "services_enrichmentservice",
-      "services_enrichmentservice_enrichartistifneeded",
-      "services_enrichmentservice_enrichartistsubset",
-      "services_enrichmentservice_enrichpostifneeded",
-      "services_enrichmentservice_enrichposts",
-      "tests_apiclient_test",
-      "tests_enrichmentservice_test",
-      "tests_enrichmentservice_test_db",
-      "tests_enrichmentservice_test_enrichedpost",
-      "tests_enrichmentservice_test_freshartist",
-      "tests_enrichmentservice_test_recentartist",
-      "tests_enrichmentservice_test_staleartist",
-      "tests_enrichmentservice_test_unenrichedpost",
-      "types_artistprofiledto",
-      "types_artistprofiledto_artistprofiledto"
-    ],
-    "6": [
       "manifests_chrome_manifest",
       "manifests_chrome_manifest_action",
       "manifests_chrome_manifest_action_default_icon",
@@ -231,7 +192,7 @@
       "manifests_chrome_manifest_version",
       "manifests_chrome_manifest_web_accessible_resources"
     ],
-    "7": [
+    "6": [
       "manifests_firefox_manifest",
       "manifests_firefox_manifest_background",
       "manifests_firefox_manifest_background_persistent",
@@ -251,6 +212,25 @@
       "manifests_firefox_manifest_permissions",
       "manifests_firefox_manifest_version",
       "manifests_firefox_manifest_web_accessible_resources"
+    ],
+    "7": [
+      "audioplayer_dom",
+      "audioplayer_dom_addaudioelementsforaudiolinks",
+      "constants_eventtypes",
+      "constants_eventtypes_eventtypes",
+      "constants_pages",
+      "constants_pages_pages",
+      "content_index",
+      "content_index_iscontextvalid",
+      "tests_helpers_test",
+      "types_contentmessage",
+      "types_contentmessage_contentmessage",
+      "types_urldatatype",
+      "types_urldatatype_urldatatype",
+      "urlparser_parser",
+      "urlparser_parser_extractdatafromurl",
+      "viewtracking_dom",
+      "viewtracking_dom_addviewedtagsonallposts"
     ],
     "8": [
       "scripts_build",
@@ -285,6 +265,20 @@
       "manifests_firefox_manifest_v3_version"
     ],
     "10": [
+      "constants_supportedhosts_supported_hosts",
+      "core_config",
+      "core_config_configurations",
+      "hosts_hostresolver",
+      "hosts_hostresolver_coomer_services",
+      "hosts_hostresolver_hostresolver",
+      "hosts_hostresolver_hostresolver_canonicalhostforhostname",
+      "hosts_hostresolver_hostresolver_issupportedhost",
+      "hosts_hostresolver_hostresolver_normalizehostname",
+      "hosts_hostresolver_hostresolver_resolveartisthost",
+      "tests_configurations_test",
+      "tests_hostresolver_test"
+    ],
+    "11": [
       "tests_manifestgeneration_test",
       "tests_manifestgeneration_test_chrome_template_path",
       "tests_manifestgeneration_test_expected_patterns",
@@ -295,7 +289,7 @@
       "tests_manifestgeneration_test_supported_hosts",
       "tests_manifestgeneration_test_tomatchpatterns"
     ],
-    "11": [
+    "12": [
       "database_databaseconnection_databaseconnection",
       "database_databaseconnection_databaseconnection_close",
       "database_databaseconnection_databaseconnection_deletedatabase",
@@ -304,19 +298,12 @@
       "database_databaseconnection_databaseconnection_init",
       "database_databaseconnection_databaseconnection_targetversion"
     ],
-    "12": [
+    "13": [
       "better_coomer_kemono_claude_project_overview",
       "better_coomer_kemono_gemini_project_overview",
       "better_coomer_kemono_readme_project_overview",
       "documentation_ideas_feature_roadmap",
       "documentation_refacture_archturecture_refactor_proposal"
-    ],
-    "13": [
-      "hosts_hostresolver_hostresolver",
-      "hosts_hostresolver_hostresolver_canonicalhostforhostname",
-      "hosts_hostresolver_hostresolver_issupportedhost",
-      "hosts_hostresolver_hostresolver_normalizehostname",
-      "hosts_hostresolver_hostresolver_resolveartisthost"
     ],
     "14": [
       "better_coomer_kemono_agents_repository_guidelines",
@@ -325,100 +312,97 @@
       "manifests_firefox_manifest_v3_manifest_variant"
     ],
     "15": [
+      "database_trackingqueryservice_trackingqueryservice",
+      "database_trackingqueryservice_trackingqueryservice_constructor",
+      "database_trackingqueryservice_trackingqueryservice_deleteartistcascade",
+      "database_trackingqueryservice_trackingqueryservice_getartistwithposts"
+    ],
+    "16": [
       "icons_logo_128_brand_icon",
       "icons_logo_128_fox_logo",
       "icons_logo_128_image"
     ],
-    "16": [
+    "17": [
       "icons_logo_32_asset",
       "icons_logo_32_fox_head_logo",
       "icons_logo_32_orange_black_palette"
     ],
-    "17": [
+    "18": [
       "icons_logo_64_fox_head_logo",
       "icons_logo_64_image",
       "icons_logo_64_orange_black_palette"
     ],
-    "18": [
+    "19": [
       "icons_logo_file",
       "icons_logo_fox_head",
       "icons_logo_orange_black_palette"
     ],
-    "19": [
+    "20": [
       "better_coomer_kemono_changelog_release_history"
     ],
-    "20": [
+    "21": [
       "constants_supportedhosts"
     ],
-    "21": [
+    "22": [
       "content_inject"
     ],
-    "22": [
+    "23": [
       "content_inject_xmlhttprequest_open"
     ],
-    "23": [
+    "24": [
       "management_management_shell"
     ],
-    "24": [
+    "25": [
       "popup_popup_shell"
     ]
   },
   "cohesion": {
-    "0": 0.06262626262626263,
-    "1": 0.11861861861861862,
-    "2": 0.1126984126984127,
-    "3": 0.1568627450980392,
+    "0": 0.07529411764705882,
+    "1": 0.11290322580645161,
+    "2": 0.15384615384615385,
+    "3": 0.20923076923076922,
     "4": 0.14855072463768115,
-    "5": 0.1523809523809524,
-    "6": 0.10526315789473684,
-    "7": 0.1111111111111111,
+    "5": 0.10526315789473684,
+    "6": 0.1111111111111111,
+    "7": 0.23529411764705882,
     "8": 0.13333333333333333,
     "9": 0.15384615384615385,
-    "10": 0.2222222222222222,
-    "11": 0.2857142857142857,
-    "12": 0.5,
-    "13": 0.8,
+    "10": 0.2727272727272727,
+    "11": 0.2222222222222222,
+    "12": 0.2857142857142857,
+    "13": 0.5,
     "14": 0.6666666666666666,
-    "15": 1.0,
-    "16": 0.6666666666666666,
-    "17": 1.0,
+    "15": 0.5,
+    "16": 1.0,
+    "17": 0.6666666666666666,
     "18": 1.0,
     "19": 1.0,
     "20": 1.0,
     "21": 1.0,
     "22": 1.0,
     "23": 1.0,
-    "24": 1.0
+    "24": 1.0,
+    "25": 1.0
   },
   "gods": [
     {
-      "id": "database_indexeddbmanager_indexeddbmanager",
-      "label": "IndexedDbManager",
-      "degree": 37
-    },
-    {
       "id": "types_artist_artist",
       "label": "Artist",
-      "degree": 33
+      "degree": 32
     },
     {
       "id": "types_post_post",
       "label": "Post",
-      "degree": 33
-    },
-    {
-      "id": "database_postrepository_postrepository",
-      "label": "PostRepository",
-      "degree": 11
-    },
-    {
-      "id": "database_artistrepository_artistrepository",
-      "label": "ArtistRepository",
-      "degree": 10
+      "degree": 32
     },
     {
       "id": "database_databaseconnection_databaseconnection",
       "label": "DatabaseConnection",
+      "degree": 10
+    },
+    {
+      "id": "database_postrepository_postrepository",
+      "label": "PostRepository",
       "degree": 10
     },
     {
@@ -440,6 +424,16 @@
       "id": "services_enrichmentpipeline_enrichmentpipeline",
       "label": "EnrichmentPipeline",
       "degree": 10
+    },
+    {
+      "id": "database_artistrepository_artistrepository",
+      "label": "ArtistRepository",
+      "degree": 9
+    },
+    {
+      "id": "utils_format_formatdate",
+      "label": "formatDate()",
+      "degree": 8
     }
   ],
   "surprises": [

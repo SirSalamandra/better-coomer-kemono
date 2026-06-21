@@ -1,10 +1,10 @@
-import { IndexedDbManager } from "../../../core/database/indexedDbManager";
+import { EnrichmentStore } from "../../../core/database/contracts";
 import { EnrichmentPipeline } from "../../../core/services/enrichmentPipeline";
 import { Artist } from "../../../shared/types/Artist";
 import { Post } from "../../../shared/types/Post";
 
 export async function enrichPostsForArtists(
-  db: IndexedDbManager,
+  db: EnrichmentStore,
   visiblePosts: Post[],
   artists: Artist[],
   loadData: () => Promise<void>,
@@ -19,7 +19,7 @@ export async function enrichPostsForArtists(
 }
 
 export async function enrichArtists(
-  db: IndexedDbManager,
+  db: EnrichmentStore,
   subset: Artist[],
   loadData: () => Promise<void>,
   render: () => void,
