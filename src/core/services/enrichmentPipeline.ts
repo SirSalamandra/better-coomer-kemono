@@ -1,7 +1,7 @@
 import { IndexedDbManager } from "../database/indexedDbManager";
 import { Artist } from "../../shared/types/Artist";
 import { Post } from "../../shared/types/Post";
-import { hostForArtist } from "../../shared/utils/host";
+import { hostForArtist } from "../hosts/HostResolver";
 import { transformArtistProfile, transformPostProfile } from "../utils/enrichment";
 import { fetchArtistProfile, fetchPostDetails } from "./apiClient";
 

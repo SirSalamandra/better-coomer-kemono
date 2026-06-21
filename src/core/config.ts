@@ -1,4 +1,4 @@
-import { SUPPORTED_HOSTS } from '../shared/constants/supportedHosts';
+import { HostResolver } from "./hosts/HostResolver";
 
 /**
  * Runtime host guard based on the Host Support Policy.
@@ -16,8 +16,6 @@ export const Configurations = {
    * matches one of the Supported Hosts.
    */
   isHostAllowed(host: string): boolean {
-    if (!host) return false;
-    const hostname = host.split(':')[0].toLowerCase();
-    return SUPPORTED_HOSTS.includes(hostname);
+    return HostResolver.isSupportedHost(host);
   }
 };

@@ -9,10 +9,10 @@
 
 import { Artist } from '../shared/types/Artist';
 import { Post }   from '../shared/types/Post';
+import { hostForArtist } from '../core/hosts/HostResolver';
 
 // Import pure helpers directly — no DB side-effects
 import { formatDate, lastViewedFromPosts } from '../ui/management/utils/format';
-import { hostForArtist } from '../shared/utils/host';
 
 // ---------------------------------------------------------------------------
 // formatDate
